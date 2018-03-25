@@ -1,0 +1,171 @@
+/*!
+ * Start Bootstrap - Blog Home (https://startbootstrap.com/template-overviews/blog-home)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-home/blob/master/LICENSE)
+*/
+
+
+/* Global Settings */
+
+@font-face {
+  font-family: 'BebasNeue Regular';
+  src: url('../fonts/BebasNeue Regular.woff');
+}
+  
+body 
+{
+  padding-top: 54px;
+  background-color:#5f6770;
+}
+
+.img-center {margin:0 auto;}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+h1, h2, legend
+{
+  font-family: 'BebasNeue Regular';
+  color:white;
+}
+
+h1
+{
+  font-size: 1.8em;
+  color: white;
+  text-shadow: 1px 1px 1px black; 
+  width:100%;
+}
+
+#border-bottom
+{
+  border-bottom: 1px solid black;
+}
+
+p
+{
+	font-family: 'Roboto';
+}
+
+a, p, form, #content_block
+{
+  color: white;
+}
+
+legend
+{
+  line-height: 30px;
+}
+
+nav
+{
+  background-color:#22262b;
+  color: grey;
+}
+
+#ico_blue
+{
+  padding-bottom:5px;
+  padding-right: 10px;
+}
+
+a h2:hover
+{
+  color: #0055AE;
+}
+
+.card-body a
+{
+  text-decoration: none;
+}
+
+[class*="card m"], footer, #content_block
+{
+  background-color: #22262b;
+}
+
+[class*="card-footer"]
+{
+  background-color:#193b5e; 
+  color:#8297ad;
+}
+
+#aside, #contact, #content_block
+{
+  border-radius:10px;
+  box-shadow: 1px 1px 1px black;
+}
+
+#profil_picture
+{
+  border: 1px solid grey;
+  margin-top:30px;
+  width: 200px;
+  height: 200px;
+}
+
+[class*="fa fa"]
+{
+  font-size:35px;
+  text-shadow: 2px 1px 1px black;
+}
+
+#github
+{
+  color:#5A2B76;
+}
+
+#twitter
+{
+  color: #049EEE;
+}
+
+#linkedin
+{
+  color:white;
+}
+
+#cv
+{
+  color: #F3523B;
+}
+
+#contact h2
+{
+  border-bottom: 1px solid grey;
+  font-size: 1.5em;
+}
+
+#comment_form
+{
+  background-color:#b2b2b2;
+}
+
+#comment_form h2
+{
+  font-size: 1.4em;
+  color: #272A2F;
+}
+
+#author_comment
+{
+  font-family: 'BebasNeue Regular';
+  font-size: 1.5em;
+  color:#5DC4F4;
+}
+
+#comment_add_at
+{
+  color: grey;   
+}
+
+#admin_link
+{
+  color: #0067D4;
+}
+
+
+
