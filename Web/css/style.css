@@ -11,6 +11,12 @@
   font-family: 'BebasNeue Regular';
   src: url('../fonts/BebasNeue Regular.woff');
 }
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
   
 body 
 {
@@ -18,24 +24,52 @@ body
   background-color:#5f6770;
 }
 
-.img-center {margin:0 auto;}
-
-@media (min-width: 992px) {
-  body {
-    padding-top: 56px;
-  }
+html, body
+{
+  height:100%;
 }
 
-h1, h2, legend
+#wrap
+{
+  min-height: 100%; 
+}
+
+#main
+{
+  overflow:auto;
+  padding-bottom:72px; /* this needs to be bigger than footer height*/
+}
+
+#footer 
+{
+  position: relative;
+  margin-top: -96px; /* negative value of footer height */
+  height: 96px;
+  clear:both;
+  padding-top:20px;
+  color:#fff;
+} 
+
+.img-center {margin:0 auto;}
+
+h1, h2, legend, #admin_menu, th
 {
   font-family: 'BebasNeue Regular';
-  color:white;
+}
+
+th
+{
+  color: #5DC4F4;
+}
+
+td a:link
+{
+  text-decoration: none;
 }
 
 h1
 {
   font-size: 1.8em;
-  color: white;
   text-shadow: 1px 1px 1px black; 
   width:100%;
 }
@@ -50,14 +84,14 @@ p
 	font-family: 'Roboto';
 }
 
-a, p, form, #content_block
-{
-  color: white;
-}
-
 legend
 {
   line-height: 30px;
+}
+
+#admin_link
+{
+  color: #0067D4;
 }
 
 nav
@@ -82,7 +116,7 @@ a h2:hover
   text-decoration: none;
 }
 
-[class*="card m"], footer, #content_block
+[class*="card "], footer, #content_block
 {
   background-color: #22262b;
 }
@@ -93,12 +127,14 @@ a h2:hover
   color:#8297ad;
 }
 
-#aside, #contact, #content_block
+#aside, #contact, #content_block, #signup, #admin_block, #admin_menu
 {
   border-radius:10px;
   box-shadow: 1px 1px 1px black;
+  background-color:#22262b;
 }
 
+/* Aside */
 #profil_picture
 {
   border: 1px solid grey;
@@ -123,15 +159,12 @@ a h2:hover
   color: #049EEE;
 }
 
-#linkedin
-{
-  color:white;
-}
-
 #cv
 {
   color: #F3523B;
 }
+
+/* Form*/
 
 #contact h2
 {
@@ -150,6 +183,13 @@ a h2:hover
   color: #272A2F;
 }
 
+/* Show News */
+
+#comment_add_at
+{
+  color: grey;   
+}
+
 #author_comment
 {
   font-family: 'BebasNeue Regular';
@@ -157,15 +197,23 @@ a h2:hover
   color:#5DC4F4;
 }
 
-#comment_add_at
+/* Auth page */
+
+#sign_block
 {
-  color: grey;   
+  margin: auto;
 }
 
-#admin_link
+/* News List */
+
+.read_more
 {
-  color: #0067D4;
+  width: 125px;
 }
 
+/* Admin */
 
-
+td:hover
+{
+  background-color: #778493 ;
+}
