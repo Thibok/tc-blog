@@ -183,11 +183,31 @@ a h2:hover
   color: #272A2F;
 }
 
+#img_news
+{
+  background-color: grey;
+}
+
+#chapo
+{
+  height: 80px;
+}
+
+#content
+{
+  height:150px;
+}
+
 /* Show News */
 
 #comment_add_at
 {
   color: grey;   
+}
+
+#date_publish_news
+{
+  color:#5DC4F4;
 }
 
 #author_comment
