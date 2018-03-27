@@ -40,6 +40,14 @@ html, body
   padding-bottom:72px; /* this needs to be bigger than footer height*/
 }
 
+#vertical_alignement
+{
+  min-height: 85%;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+}
+
 #footer 
 {
   position: relative;
@@ -127,7 +135,7 @@ a h2:hover
   color:#8297ad;
 }
 
-#aside, #contact, #content_block, #signup, #admin_block, #admin_menu
+#aside, #contact, #content_block, #sign_block, #admin_block, #admin_menu
 {
   border-radius:10px;
   box-shadow: 1px 1px 1px black;
@@ -205,7 +213,7 @@ a h2:hover
   color: grey;   
 }
 
-#date_publish_news
+#date_publish_news, #author_comment
 {
   color:#5DC4F4;
 }
@@ -214,7 +222,6 @@ a h2:hover
 {
   font-family: 'BebasNeue Regular';
   font-size: 1.5em;
-  color:#5DC4F4;
 }
 
 /* Auth page */
