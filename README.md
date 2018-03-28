@@ -18,18 +18,17 @@ blog in PHP with a user management system.
 <ul>
   <li>Bootstrap</li>
   <li>JQuery</li>
-  <li>Apache</li>
 </ul>
 
 The bootstrap template <a href="https://startbootstrap.com/template-overviews/blog-home/">Blog Home</a>
 
 <h2>Installation</h2>
 
-<h3>Clone the source code</h3>
+<h3>1. Clone the source code</h3>
 
 <pre>git clone https://github.com/Thibok/tc-blog.git</pre>
 
-<h3>Create config</h3>
+<h3>2. Create config</h3>
 
 <p>Create a folder Config with app.xml and routes.xml files.
 
@@ -49,4 +48,4 @@ For app.xml write your config in xml.Example :
 
 <p>Update PDOFactory.php and enter your login database informations or enter this in config file.</p>
 
-<h3 Install dependencies</h3>
+<h3>3. Install dependencies</h3>
