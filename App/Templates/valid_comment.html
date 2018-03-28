@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>News</title>
+        <title>Commentaire 1</title>
 
         <!-- Bootstrap core CSS -->
         <link href="../../Web/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -22,6 +22,7 @@
         </style>
     
     </head>
+
     <body>
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -47,33 +48,29 @@
         </nav>
 
         <div id="wrap">
-            <div id="vertical_alignement">
-                <section id="main" class="container">
-                    <div class="row">
-                        <div id="sign_block" class="col-lg-5 p-4">
-                            <form class="form-horizontal">
-                                <fieldset>
-                                    <h2 class="text-white"><img id="ico_blue" src="../../Web/pictures/ico_blue.png" alt="icon"/>Connexion</h2>
-                                    <div class="form-group col-lg-10">
-                                        <label class="control-label text-white" for="email">Email</label>  
-                                        <input id="email" name="email" type="email" placeholder="Email" class="form-control" required="">
-                                    </div>
-                                    <div class="form-group col-lg-10">
-                                        <label class="control-label text-white" for="password">Mot de passe</label>  
-                                        <input id="password" name="password" type="password" placeholder="Mot de passe" class="form-control" required="">
-                                    </div>
-                                    <div class="form-group d-inline-flex align-items-end pl-3">
-                                        <button name="signin" type="submit" class="btn btn-primary mt-2">Se connecter</button>
-                                        <a href="#" role="button" class="ml-3 text-primary">Pas encore inscrit ?</a>
-                                    </div>
-                                </fieldset>
-                            </form>
+            <div id="main" class="container pt-4">
+                <div class="row">
+                    <nav id="admin_menu"class="col-lg-3 mx-4 my-5">
+                        <div class="list-group my-3">
+                            <a href="#" role="button" class="bg-dark list-group-item text-white text-center">Tableau de bord</a>
+                            <a href="#" role="button" class="bg-dark list-group-item text-white text-center">Ajouter une news</a>
+                            <a href="#" role="button" class="bg-dark list-group-item text-white text-center">Membres à valider</a>
+                            <a href="#" role="button" class="bg-dark list-group-item text-white text-center">Commentaires à valider</a>
+                        </div>
+                    </nav>
+                    <div class="col-lg-8 my-5" id="admin_block">
+                        <h1 class="pt-3 pl-1 text-white"><img id="ico_blue" src="../../Web/pictures/ico_blue.png" alt="icon"/>Commentaire 1</h1>
+                        <p id="date_publish" class="pl-2">Commentaire posté le <span class="font-italic">20/08/2018 à 16h40</span> par <span class="font-weight-bold">Thibault</span></p>
+                        <p class="p-2 text-white">Integer accumsan tristique rutrum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse rutrum malesuada lectus, ac lacinia diam molestie vel. Sed lobortis augue sit amet faucibus commodo. Nullam bibendum pulvinar diam a tincidunt. Nunc et rutrum elit, vitae sagittis ante. Quisque vel lacus iaculis, porttitor nisl vel, gravida lacus. Vestibulum accumsan purus at ipsum luctus, ut gravida libero hendrerit. Curabitur quis consequat neque. Aliquam erat volutpat. Quisque at facilisis dui.</p>
+                        <div class="text-center my-5">
+                            <button type="button" class="btn btn-success mr-2"><img class="mr-1 mb-1"src="../../Web/pictures/valid.png" alt="valid icon"/>Valider</button>
+                            <button type="button" class="btn btn-danger ml-2"><img class="mr-1" src="../../Web/pictures/delete.png" alt="delete icon"/>Supprimer</button>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
         </div>
-        
+
         <footer id="footer" class="py-4">
             <div class="container">
                 <p class="m-0 text-center text-white">Copyright &copy; Tc-blog 2018</p>
@@ -85,4 +82,4 @@
         <script src="../../Web/jquery/jquery.min.js"></script>
         <script src="../../Web/bootstrap/js/bootstrap.bundle.min.js"></script>
     </body>
-</html>  
+</html>

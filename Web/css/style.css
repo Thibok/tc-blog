@@ -7,11 +7,6 @@
 
 /* Global Settings */
 
-@font-face {
-  font-family: 'BebasNeue Regular';
-  src: url('../fonts/BebasNeue Regular.woff');
-}
-
 @media (min-width: 992px) {
   body {
     padding-top: 56px;
@@ -60,9 +55,9 @@ html, body
 
 .img-center {margin:0 auto;}
 
-h1, h2, legend, #admin_menu, th
+h1, h2, legend, #admin_menu, th, #author_comment
 {
-  font-family: 'BebasNeue Regular';
+  font-family: "bebas-neue-by-fontfabric";
 }
 
 th
@@ -213,14 +208,14 @@ a h2:hover
   color: grey;   
 }
 
-#date_publish_news, #author_comment
+#date_publish, #author_comment
 {
   color:#5DC4F4;
 }
 
 #author_comment
 {
-  font-family: 'BebasNeue Regular';
+  
   font-size: 1.5em;
 }
 
@@ -238,9 +233,5 @@ a h2:hover
   width: 125px;
 }
 
-/* Admin */
 
-td:hover
-{
-  background-color: #778493 ;
-}
+
