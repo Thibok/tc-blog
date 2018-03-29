@@ -12,6 +12,8 @@ blog in PHP with a user management system.
   <li>Mysql</li>
   <li>Apache</li>
 </ul>
+<br/>
+<strong>This project use PSR-4 autoloading</strong>
 
 <h2>Add-ons</h2>
 
@@ -30,7 +32,7 @@ The bootstrap template <a href="https://startbootstrap.com/template-overviews/bl
 
 <h3>2. Create config</h3>
 
-<p>Create a folder Config with app.xml and routes.xml files.
+<p>Create a folder Config in /App with app.xml and routes.xml files.
 
 For app.xml write your config in xml.Example :
 
@@ -49,3 +51,19 @@ For app.xml write your config in xml.Example :
 <p>Update PDOFactory.php and enter your login database informations or enter this in config file.</p>
 
 <h3>3. Install dependencies</h3>
+
+<p>Install Twig :
+
+<pre>
+  composer require twig/twig:~2.0
+</pre>
+
+Install SwiftMailer :
+<pre>
+  composer require "swiftmailer/swiftmailer:^6.0"
+</pre>
+</p>
+
+<h2>Run ! </h2>
+
+
