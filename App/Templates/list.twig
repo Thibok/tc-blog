@@ -1,0 +1,43 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+
+        <div id="wrap">
+            <div id="main" class="container mb-5">
+                <h1 id="border-bottom" class="mb-4 mt-5 text-white"><img id="ico_blue" alt="icon" src="pictures/ico_blue.png"/>Toutes les news</h1>
+                <section class="row">
+
+                    {% for news in listNews %}
+
+                    <div class="col-lg-6 portfolio-item mb-5">
+                        <article class="card h-100">
+                            <a href="#"><img class="card-img-top" alt="news picture" src="pictures/news.jpg"/></a>
+                            <div class="card-body">
+                                <h2 class="card-title text-white"><a href="#">{{ news.getTitle }}</a></h2>
+                                <p class="card-text text-white">{{ news.getChapo }}</p>
+                            </div>
+                            <div class="read_more">
+                                <a href="#"class="btn btn-primary mb-4 ml-3">Lire la suite &rarr;</a>
+                            </div>
+                            <div class="card-footer">
+                                {{ news.addAt != news.updateAt ? 'Modifié' : 'Publié' }} le <span class="font-italic">{{ news.addAt != news.updateAt ? news.updateAt|date("d/m/Y à H\\hi") : news.addAt|date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.user }}</span>
+                            </div>
+                        </article>
+                    </div>
+
+                    {% endfor %}
+
+                </section>
+                <!-- Pagination -->
+                <ul class="pagination justify-content-center mb-4">
+                    <li class="page-item">
+                        <a class="page-link" href="#">&larr; Précédent</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Suivant &rarr;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+{% endblock %}
