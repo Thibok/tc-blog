@@ -1,3 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <definitions>
+    <define var="total_news_main_page" value="3" />
 </definitions>

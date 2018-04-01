@@ -28,7 +28,7 @@ class News extends Entity
 	{
 		if (is_string($user) && !empty($user))
 		{
-			$this->user = htmspecialchars($user);
+			$this->user = htmlspecialchars($user);
 		}
 	}
 
