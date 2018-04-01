@@ -14,6 +14,8 @@ abstract class Entity
 		
 	}
 
+	abstract public function isValid();
+
 	public function hydrate(array $data)
 	{
 		foreach ($data as $key => $value) 
