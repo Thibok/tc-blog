@@ -63,9 +63,9 @@ class Comment extends Entity
 		return $this->content;
 	}
 
-	public function getDateAdd()
+	public function getAddAt()
 	{
-		return $this->dateAdd;
+		return $this->addAt;
 	}
 
 	public function getNewsId()

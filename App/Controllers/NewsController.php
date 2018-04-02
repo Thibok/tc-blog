@@ -7,6 +7,7 @@ use \Components\Request;
 use \Model\NewsManager;
 use \Model\CommentManager;
 use \Entity\News;
+use \Components\Pagination;
 
 class NewsController extends Controller
 {
@@ -42,10 +43,29 @@ class NewsController extends Controller
 		{
 			$this->response->render('404.twig', ['title' => '404 Not Found']);
 		}
+		
+		$totalCommentPerPage = $this->config->get('total_comments_show_page');
+		$totalComment = $commentManager->countValidCommentsOfNews($news->getId());
+		$pagination = new Pagination($totalComment, $totalCommentPerPage);
 
-		$totalComment = $this->config->get('total_comments_show_page');
-		$listComment = $commentManager->getListOfNews(0, $totalComment, $news->getId());
+		if ($request->getExists('page'))
+		{
+			$pagination->setActualPage($request->getData('page'));
+			$startReq = $pagination->makePagination();
+			$listComments = $commentManager->getListOfNews($startReq, $totalCommentPerPage, $news->getId());
 
-		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComment' => $listComment]);
+			if (empty($listComments))
+			{
+				$this->response->render('404.twig', ['title' => '404 Not Found']);
+			}
+		}
+
+		else
+		{
+			$startReq = $pagination->makePagination();
+			$listComments = $commentManager->getListOfNews($startReq, $totalCommentPerPage, $news->getId());
+		}
+
+		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination]);
 	}
 }

@@ -33,13 +33,13 @@
                     </div>
                     <!-- Single Comment -->
                         
-                    {% for comment in listComment %}
+                    {% for comment in listComments %}
 
                     <div class="media mb-4">
                         <img class="d-flex mr-3 rounded-circle" src="pictures/user.png" alt="user picture"/>
                         <div class="media-body col-md-12">
-                            <span id="author_comment">{{ comment.user }}</span><small id="comment_add_at" class="ml-2">Ajouté le {{ comment.addAt|date("d/m/Y à H\\hi\\m\\i\\ns\\s")}}</small>
-                            <p class="mt-2 text-white">{{ comment.content }}</p>
+                            <span id="author_comment">{{ comment.getUser }}</span><small id="comment_add_at" class="ml-2">Ajouté le {{ comment.getAddAt|date("d/m/Y à H\\hi\\m\\i\\n s\\s")}}</small>
+                            <p class="mt-2 text-white">{{ comment.getContent }}</p>
                         </div>
                     </div>
                         
@@ -47,12 +47,24 @@
                         
                     <!-- Pagination -->
                     <ul class="pagination justify-content-center mb-4">
+                        {% if pagination.canPrevious %}
                         <li class="page-item">
-                            <a class="page-link" href="#">&larr; Précédent</a>
+                            <a class="page-link" href="/news-{{ news.id }}.html?page={{ pagination.getPreviousPage }}">&larr; Précédent</a>
                         </li>
+                        {% else %}
                         <li class="page-item disabled">
-                            <a class="page-link" href="#">Suivant &rarr;</a>
+                            <a class="page-link" href="/news-{{ news.id }}.html?page={{ pagination.getPreviousPage }}">&larr; Précédent</a>
                         </li>
+                        {% endif %}
+                        {% if pagination.canNext %}
+                        <li class="page-item">
+                            <a class="page-link" href="/news-{{ news.id }}.html?page={{ pagination.getNextPage }}">Suivant &rarr;</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/news-{{ news.id }}.html?page={{ pagination.getNextPage }}">Suivant &rarr;</a>
+                        </li>
+                        {% endif %}
                     </ul>  
                 </div>
                 

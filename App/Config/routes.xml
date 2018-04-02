@@ -2,5 +2,6 @@
 <routes>
     <route url="/" module="News" action="index" />
     <route url="/news" module="News" action="list" />
-    <route url="/news-([0-9]+)\.html" module="News" action="show" vars="id"/>
+    <route url="/news-([1-9]+)\.html" module="News" action="show" vars="id"/>
+    <route url="/news-([1-9]+)\.html\?page=([1-9]+)" module="News" action="show" vars="id,page"/>
 </routes>
