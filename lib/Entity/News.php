@@ -50,7 +50,7 @@ class News extends Entity
 
 	public function setContent($content)
 	{
-		if (!is_string($content) && empty($content))
+		if (is_string($content) && !empty($content))
 		{
 			$this->content = htmlspecialchars($content);
 		}

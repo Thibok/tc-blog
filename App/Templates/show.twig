@@ -5,29 +5,57 @@
     <div id="wrap">
         <div id="main" class="container mb-5">
             <section class="row">
-                <div class="col-md-8">
-                    <h1 id="border-bottom" class="my-4 mt-5 text-white"><img id="ico_blue" alt="icon" src="pictures/ico_blue.png"/>News</h1>
-                    <!-- Blog Post -->
-                    {% for news in listNews %}
-
-                    <article class="card mb-4">
-                        <a href="/news-{{ news.id }}.html"><img class="card-img-top" src="pictures/news.jpg" alt="news picture"/></a>
+                <div id="content_block" class="col-md-8 my-5 px-3 pt-2">
+                    <a class="no_text_decoration" href="/news">Retour à la liste des news</a>
+                    <h1 class="mt-3 mb-3 text-white"><img id="ico_blue" src="pictures/ico_blue.png" alt="icon"/>{{ news.getTitle }}</h1>
+                       
+                       
+                        <p id="date_publish" ><span class="font-italic">{{ news.getAddAt != news.getUpdateAt ? 'Modifié' : 'Publié' }} le {{ news.getAddAt != news.getUpdateAt ? news.getUpdateAt|date("d/m/Y à H\\hi") : news.getAddAt|date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.getUser }}</span></p>
+                    
+                    <hr/>
+                    <img class="img-fluid rounded" src="pictures/news.jpg" alt="news picture"/>
+                    <hr/>
+                        <p class="lead text-white">{{ news.getChapo}}</p>
+                    <hr/>
+                        <p class="text-white">{{ news.getContent|nl2br }}</p>
+                    <hr/>
+                    <!-- Comment Form -->
+                    <div id="comment_form"class="card my-4">
+                        <h2 class="card-header">Laissez un commentaire</h2>
                         <div class="card-body">
-                            <a href="/news-{{ news.id }}.html"><h2 class="card-title">{{ news.getTitle }}</h2></a>
-                            <p class="card-text text-white">{{ news.getChapo }}</p>
-                            <a role="button" href="/news-{{ news.id }}.html" class="btn btn-primary">Lire la suite &rarr;</a>
+                            <form>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Envoyer</button>
+                            </form>
                         </div>
-                        <div class="card-footer">
-                            {{ news.getAddAt != news.getUpdateAt ? 'Modifié' : 'Publié' }} le <span class="font-italic">{{ news.getAddAt != news.getUpdateAt ? news.getUpdateAt|date("d/m/Y à H\\hi") : news.getAddeAt|date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.getUser }}</span>
-                        </div>
-                    </article>
-
-                    {% endfor %}
-
-                    <div class="text-center mb-4 pr-4">
-                        <a role="button" href="/news" class="btn btn-primary">Toutes les news</a>
                     </div>
+                    <!-- Single Comment -->
+                        
+                    {% for comment in listComment %}
+
+                    <div class="media mb-4">
+                        <img class="d-flex mr-3 rounded-circle" src="pictures/user.png" alt="user picture"/>
+                        <div class="media-body col-md-12">
+                            <span id="author_comment">{{ comment.user }}</span><small id="comment_add_at" class="ml-2">Ajouté le {{ comment.addAt|date("d/m/Y à H\\hi\\mins\\s")}}</small>
+                            <p class="mt-2 text-white">{{ comment.content }}</p>
+                        </div>
+                    </div>
+                        
+                    {% endfor %}
+                        
+                    <!-- Pagination -->
+                    <ul class="pagination justify-content-center mb-4">
+                        <li class="page-item">
+                            <a class="page-link" href="#">&larr; Précédent</a>
+                        </li>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Suivant &rarr;</a>
+                        </li>
+                    </ul>  
                 </div>
+                
                 <!-- Sidebar Column -->
                 <div class="col-md-4 mt-2">
                     <aside class="card my-4" id="aside">
@@ -38,7 +66,7 @@
                                 <a class="p-2" href="https://github.com/Thibok" target="_blank"><i id="github" class="fa fa-github"></i></a>
                                 <a class="p-2" href="https://twitter.com/TCavailles" target="_blank"><i id="twitter" class="fa fa-twitter"></i></a>
                                 <a class="p-2" href="https://www.linkedin.com/in/thibault-cavailles-b40061146/" target="_blank"><i class="fa fa-linkedin text-white"></i></a>
-                                <a class="p-2" href="../../Web/C.V.pdf" target="_blank"><i id="cv"class="fa fa-user"></i></a>
+                                <a class="p-2" href="C.V.pdf" target="_blank"><i id="cv"class="fa fa-user"></i></a>
                             </div>
                         </div>
                     </aside>
@@ -70,5 +98,5 @@
             </section>
         </div>
     </div>
-
 {% endblock %}
+
