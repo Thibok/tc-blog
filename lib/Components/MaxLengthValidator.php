@@ -3,7 +3,7 @@ namespace Components;
 
 class MaxLengthValidator extends Validator
 {
-	private $maxLength;
+    private $maxLength;
 
 	public function __construct($errorMessage, $maxLength)
 	{
