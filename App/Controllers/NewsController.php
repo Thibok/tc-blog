@@ -24,12 +24,30 @@ class NewsController extends Controller
 	
 	public function executeList(Request $request)
 	{
-		$totalNews = $this->config->get('total_news_list_page');
+		$totalNewsPerPage = $this->config->get('total_news_list_page');
 		$manager = new NewsManager;
+		$totalNews = $manager->count();
+		$pagination = new Pagination($totalNews, $totalNewsPerPage);
+
+		if ($request->getExists('page'))
+		{
+			$pagination->setActualPage($request->getData('page'));
+			$startReq = $pagination->makePagination();
+			$listNews = $manager->getList($startReq, $totalNewsPerPage);
+
+			if (empty($listNews))
+			{
+				$this->response->render('404.twig', ['title' => '404 Not Found']);
+			}
+		}
+
+		else
+		{
+			$startReq = $pagination->makePagination();
+			$listNews = $manager->getList($startReq, $totalNewsPerPage);
+		}
 		
-		$listNews = $manager->getList(0, $totalNews);
-		
-		$this->response->render('list.twig', ['title' => 'Toutes les news', 'listNews' => $listNews]);
+		$this->response->render('list.twig', ['title' => 'Toutes les news', 'listNews' => $listNews, 'pagination' => $pagination]);
 	}
 
 	public function executeShow(Request $request)
