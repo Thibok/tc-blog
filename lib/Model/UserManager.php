@@ -41,6 +41,10 @@ class UserManager extends Manager
 
         $request->execute();
 
+        $userId = $this->db->lastInsertId();
+
         $request->closeCursor();
+
+        return $userId;
     }
 }

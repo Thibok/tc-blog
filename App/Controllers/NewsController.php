@@ -8,22 +8,43 @@ use \Model\NewsManager;
 use \Model\CommentManager;
 use \Entity\News;
 use \Components\Pagination;
+use \Entity\User;
 
 class NewsController extends Controller
 {
 	public function executeIndex(Request $request)
 	{
-        $manager = new NewsManager;
+		if ($request->sessionExists('user'))
+		{
+			$user = $_SESSION['user'];
+		}
+
+		else
+		{
+			$user = new User;
+		}
+		
+		$manager = new NewsManager;
         
         $totalNews = $this->config->get('total_news_main_page');
 
 		$listNews = $manager->getList(0, $totalNews);
 
-		$this->response->render('index.twig', ['title' => 'Tc-blog', 'listNews' => $listNews]);
+		$this->response->render('index.twig', ['title' => 'Tc-blog', 'listNews' => $listNews, 'user' => $user]);
 	}
 	
 	public function executeList(Request $request)
 	{
+		if ($request->sessionExists('user'))
+		{
+			$user = $_SESSION['user'];
+		}
+
+		else
+		{
+			$user = new User;
+		}
+		
 		$totalNewsPerPage = $this->config->get('total_news_list_page');
 		$manager = new NewsManager;
 		$totalNews = $manager->count();
@@ -47,11 +68,21 @@ class NewsController extends Controller
 			$listNews = $manager->getList($startReq, $totalNewsPerPage);
 		}
 		
-		$this->response->render('list.twig', ['title' => 'Toutes les news', 'listNews' => $listNews, 'pagination' => $pagination]);
+		$this->response->render('list.twig', ['title' => 'Toutes les news', 'listNews' => $listNews, 'pagination' => $pagination, 'user' => $user]);
 	}
 
 	public function executeShow(Request $request)
 	{
+		if ($request->sessionExists('user'))
+		{
+			$user = $_SESSION['user'];
+		}
+
+		else
+		{
+			$user = new User;
+		}
+
 		$commentManager = new CommentManager;
 		$newsManager = new NewsManager;
 
@@ -84,6 +115,6 @@ class NewsController extends Controller
 			$listComments = $commentManager->getListOfNews($startReq, $totalCommentPerPage, $news->getId());
 		}
 
-		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination]);
+		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination, 'user' => $user]);
 	}
 }

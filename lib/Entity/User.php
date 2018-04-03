@@ -1,6 +1,8 @@
 <?php
 namespace Entity;
 
+session_start();
+
 use \Components\Entity;
 
 class User extends Entity
@@ -24,6 +26,14 @@ class User extends Entity
 		unset($_SESSION['flash']);
 
 		return $flash;
+	}
+
+	public function setFlash($flash)
+	{
+		if (is_string($flash) && !empty($flash))
+		{
+			$_SESSION['flash'] = $flash;
+		}
 	}
 
 	public function __sleep()

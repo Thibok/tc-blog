@@ -35,12 +35,24 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/">Accueil</a>
                         </li>
+                        
+                        {% if user.isAuthenticated%}
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Déconnexion</a>
+                        </li>
+
+                        {% else %}
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">Connexion</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/inscription.html">Inscription</a>
                         </li>
+
+                        {% endif %}
+
                     </ul>
                 </div>
             </div>
@@ -51,7 +63,12 @@
         <footer id="footer" class="py-4">
             <div class="container">
                 <p class="m-0 text-center text-white">Copyright &copy; Tc-blog 2018</p>
+                
+                {% if user.isAuthenticated and user.isAdmin %}
+
                 <p class="m-0 text-center"><a id="admin_link" class="text-center" href="/admin">Accèdez à l'administration</a></p>
+
+                {% endif %}
             </div>
         </footer>
     
