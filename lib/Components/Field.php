@@ -25,7 +25,7 @@ abstract class Field
         {
             if (!$validator->isValid($this->value))
             {
-                $this->errorMessage = $validator->errorMessage();
+                $this->errorMessage = $validator->getErrorMessage();
                 return false;
             }
         }

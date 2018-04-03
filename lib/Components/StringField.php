@@ -9,7 +9,7 @@ class StringField extends Field
 
 	public function buildField()
 	{
-		$label = '<label class="control-label" for="'.$this->name.'">'.$this->label.'</label>';
+		$label = '<label class="control-label text-white" for="'.$this->name.'">'.$this->label.'</label>';
 
 		$field = '<input type="'.$this->type.'" class="form-control" id="'.$this->name.'" name="'.$this->name.'"';
 

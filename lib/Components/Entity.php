@@ -5,7 +5,7 @@ abstract class Entity
 {
 	protected $id;
 
-	public function __construct(array $data)
+	public function __construct(array $data = [])
 	{
 		if (!empty($data))
 		{
