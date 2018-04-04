@@ -6,7 +6,7 @@ use \Entity\User;
 
 class UserManager extends Manager
 {
-    public function getInfosByEmail($user)
+    public function getInfosByEmail(User $user)
     {
         $request = $this->db->prepare('SELECT id, role FROM user WHERE email = :email');
         $request->bindValue(':email', $user->getEmail());
