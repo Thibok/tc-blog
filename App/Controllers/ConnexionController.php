@@ -8,7 +8,7 @@ use \Model\UserManager;
 use \FormBuilder\SignupFormBuilder;
 
 class ConnexionController extends Controller
-{
+{   
     public function executeSignup(Request $request)
     {
 

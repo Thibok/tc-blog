@@ -5,7 +5,7 @@ use \Components\FormBuilder;
 use \Components\MaxLengthValidator;
 use \Components\MinLengthValidator;
 use \Components\PseudoValidator;
-use \Components\UserExistsValidator;
+use \Components\UserNoExistsValidator;
 use \Components\StringField;
 use \Components\StructureValidator;
 
@@ -32,7 +32,7 @@ class SignupFormBuilder extends FormBuilder
                 new MinLengthValidator('Longueur minimum : '.$pseudoMinCharacter.' caractères', $pseudoMinCharacter),
                 new MaxLengthValidator('Longueur maximum : '.$pseudoMaxCharacter.' caractères', $pseudoMaxCharacter),
                 new StructureValidator('a-z, A-Z, -, 0-9', '#[a-zA-z0-9-]#'),
-                new UserExistsValidator('Ce pseudo est déjà pris', 'pseudo'),
+                new UserNoExistsValidator('Ce pseudo est déjà pris', 'pseudo'),
                 ]
             ]));
         
@@ -47,7 +47,7 @@ class SignupFormBuilder extends FormBuilder
             'validators' => [
                 new MinLengthValidator('Longueur minimum : '.$emailMinCharacter.' caractères minimum', $emailMinCharacter),
                 new MaxLengthValidator('Longueur maximum : '.$emailMaxCharacter.' caractères', $emailMaxCharacter),
-                new UserExistsValidator('Cette email est déjà pris', 'email'),
+                new UserNoExistsValidator('Cette email est déjà pris', 'email'),
                 new StructureValidator('Votre adresse email doit être valide', '#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#'),
                 ]
             ]));

@@ -3,7 +3,7 @@ namespace Components;
 
 use \Model\UserManager;
 
-class UserExistsValidator extends Validator
+class UserNoExistsValidator extends Validator
 {
     private $fieldName;
 
