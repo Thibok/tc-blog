@@ -6,6 +6,32 @@ use \Entity\User;
 
 class UserManager extends Manager
 {
+    public function getInfosByEmail($user)
+    {
+        $request = $this->db->prepare('SELECT id, role FROM user WHERE email = :email');
+        $request->bindValue(':email', $user->getEmail());
+        $request->execute();
+
+        $data = $request->fetch(\PDO::FETCH_ASSOC);
+
+        $user->hydrate($data);
+
+        $request->closeCursor();
+
+        return $user;
+    }
+
+    public function getPasswordOf($email)
+    {
+        $request = $this->db->prepare('SELECT password FROM user WHERE email = :email');
+        $request->bindValue(':email', $email);
+        $request->execute();
+
+        $pass = $request->fetchColumn();
+
+        return $pass;
+    }
+
     public function countWherePseudo($pseudo)
     {
         $request = $this->db->prepare('SELECT COUNT(*) FROM user WHERE pseudo = :pseudo');

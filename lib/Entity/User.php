@@ -1,8 +1,6 @@
 <?php
 namespace Entity;
 
-session_start();
-
 use \Components\Entity;
 
 class User extends Entity
