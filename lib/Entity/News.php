@@ -109,7 +109,7 @@ class News extends Entity
 		return $this->content;
 	}
 
-	public function getaddAt()
+	public function getAddAt()
 	{
 		return $this->addAt;
 	}

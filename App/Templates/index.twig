@@ -18,7 +18,7 @@
                             <a role="button" href="#" class="btn btn-primary">Lire la suite &rarr;</a>
                         </div>
                         <div class="card-footer">
-                            {{ news.getAddAt != news.getUpdateAt ? 'Modifié' : 'Publié' }} le <span class="font-italic">{{ news.addAt != news.updateAt ? news.updateAt|date("d/m/Y à H\\hi") : news.addAt|date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.getUser }}</span>
+                            {{ news.getAddAt != news.getUpdateAt ? 'Modifié' : 'Publié' }} le <span class="font-italic">{{ news.getAddAt != news.getUpdateAt ? news.getUpdateAt|date("d/m/Y à H\\hi") : news.getAddAt|date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.getUser }}</span>
                         </div>
                     </article>
 
