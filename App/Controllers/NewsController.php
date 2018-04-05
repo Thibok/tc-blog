@@ -32,6 +32,11 @@ class NewsController extends Controller
 		if ($request->getExists('page'))
 		{
 			$pagination->setActualPage($request->getData('page'));
+
+			if ($pagination->getActualPage() == 0)
+			{
+				$this->response->render('404.twig', ['title' => '404 Not Found']);
+			}
 			$startReq = $pagination->makePagination();
 			$listNews = $manager->getList($startReq, $totalNewsPerPage);
 
@@ -57,7 +62,7 @@ class NewsController extends Controller
 
 		$news = $newsManager->getUnique($request->getData('id'));
 
-		if (empty($news))
+		if (empty($news->getId()))
 		{
 			$this->response->render('404.twig', ['title' => '404 Not Found']);
 		}
@@ -69,6 +74,11 @@ class NewsController extends Controller
 		if ($request->getExists('page'))
 		{
 			$pagination->setActualPage($request->getData('page'));
+
+			if ($pagination->getActualPage() == 0)
+			{
+				$this->response->render('404.twig', ['title' => '404 Not Found']);
+			}
 			$startReq = $pagination->makePagination();
 			$listComments = $commentManager->getListOfNews($startReq, $totalCommentPerPage, $news->getId());
 

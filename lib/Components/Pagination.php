@@ -69,4 +69,9 @@ class Pagination
 	{
 		return $this->previousPage;
 	}	
+
+	public function getActualPage()
+	{
+		return $this->actualPage;
+	}
 }
