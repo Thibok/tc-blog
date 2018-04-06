@@ -6,10 +6,21 @@ use \Components\Router;
 use \Components\Route;
 use \Components\Request;
 use \Components\Response;
+use \Entity\User;
 
   $response = new Response;
   $request = new Request;
   $router = new Router;
+
+  if ($request->sessionExists('user'))
+  {
+    $user = $request->sessionData('user');
+  }
+
+  else
+  {
+    $user = new User;
+  }
  
   $xml = new \DOMDocument;
   $xml->load(__DIR__.'/../App/Config/routes.xml');
@@ -37,7 +48,8 @@ use \Components\Response;
   {
     if ($e->getCode() == Router::NO_ROUTE)
     {
-      $response->render('404.twig', ['title' => '404 Not Found']);
+      session_start();
+      $response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
 	  }
   }
 
@@ -55,6 +67,8 @@ use \Components\Response;
   {
    	throw new \RuntimeException('La méthode '.$method.'n\'est pas définis sur ce controlleur');
   }
+
+  session_start();
 
   $controller->$method($request);
 

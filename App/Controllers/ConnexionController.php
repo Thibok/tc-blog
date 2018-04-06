@@ -1,8 +1,6 @@
 <?php
 namespace Controllers;
 
-session_start();
-
 use \Components\Controller;
 use \Components\Request;
 use \Entity\User;
