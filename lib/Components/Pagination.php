@@ -74,4 +74,9 @@ class Pagination
 	{
 		return $this->actualPage;
 	}
+
+	public function getTotal()
+	{
+		return $this->total;
+	}
 }

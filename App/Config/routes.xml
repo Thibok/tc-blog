@@ -8,4 +8,6 @@
     <route url="/inscription.html" module="Connexion" action="signup" />
     <route url="/connexion.html" module="Connexion" action="signin" />
     <route url="/deconnexion" module="Connexion" action="disconect" />
+    <route url="/admin" module="Admin" action="admin" />
+    <route url="/admin\?page=([0-9])" module="Admin" action="admin" vars="page" />
 </routes>
