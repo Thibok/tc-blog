@@ -140,7 +140,7 @@ class NewsController extends Controller
 			}
 
 			$startReq = $pagination->makePagination();
-			$listComments = $commentManager->getListOfNews($startReq, $totalCommentPerPage, $news->getId());
+			$listComments = $commentManager->getList($startReq, $totalCommentPerPage, true, $news->getId());
 
 			if (empty($listComments))
 			{
@@ -151,7 +151,7 @@ class NewsController extends Controller
 		else
 		{
 			$startReq = $pagination->makePagination();
-			$listComments = $commentManager->getListOfNews($startReq, $totalCommentPerPage, $news->getId());
+			$listComments = $commentManager->getList($startReq, $totalCommentPerPage, true, $news->getId());
 		}
 
 		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination, 'user' => $user, 'commentForm' => $commentForm->generate()]);
