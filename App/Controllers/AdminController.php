@@ -61,4 +61,52 @@ class AdminController extends Controller
             $this->response->redirect('/connexion.html');
         }
     }
+
+    public function executeListNoValidComments(Request $request)
+    {
+        if ($request->sessionExists('user'))
+        {
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                $totalCommentsPerPage = $this->config->get('total_comments_no_valid_admin');
+                $commentManager = new CommentManager;
+                $totalComments = $commentManager->count(false);
+
+                $pagination = new Pagination($totalComments, $totalCommentsPerPage);
+
+                if ($request->getExists('page'))
+                {
+                    $pagination->setActualPage($request->getData('page'));
+
+                    if ($pagination->getActualPage() == 0)
+                    {
+                        $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                    }
+
+                    $startReq = $pagination->makePagination();
+                    $listComments = $commentManager->getList($startReq, $totalCommentsPerPage, false);
+
+                    if (empty($listComments))
+                    {
+                        $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                    }
+                }
+
+                else
+                {
+                    $startReq = $pagination->makePagination();
+                    $listComments = $commentManager->getList($startReq, $totalCommentsPerPage, false);
+                }
+
+                $this->response->render('list_no_valid_comments.twig', ['title' => 'Commentaires à valider', 'listComments' => $listComments, 'user' => $user, 'pagination' => $pagination]);
+            }
+        }
+
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
+    }
 }

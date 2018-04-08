@@ -49,15 +49,28 @@ class CommentManager extends Manager
 	return $listComment;
 	}
 	  
-	public function countValidCommentsOfNews($newsId)
+	public function count($valid = true, $newsId = -1)
 	{
-		$request = $this->db->prepare('SELECT COUNT(*) FROM comment WHERE valid = true AND news_id = :newsId');
-		$request->bindValue(':newsId', (int) $newsId, \PDO::PARAM_INT);
+		$sql = 'SELECT COUNT(*) FROM comment WHERE valid = :valid';
+
+		if ($newsId != -1)
+		{
+			$sql .= ' AND news_id = :newsId';
+		}
+
+		$request = $this->db->prepare($sql);
+		$request->bindValue(':valid', (bool) $valid, \PDO::PARAM_BOOL);
+		
+		if ($newsId != -1)
+		{
+			$request->bindValue(':newsId', (int) $newsId, \PDO::PARAM_INT);
+		}
+
 		$request->execute();
 
-		$totalValidComment = $request->fetchColumn();
+		$totalComments = $request->fetchColumn();
 
-		return $totalValidComment;
+		return $totalComments;
 	}
 
 	public function save(Comment $comment)

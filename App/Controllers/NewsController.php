@@ -100,7 +100,7 @@ class NewsController extends Controller
 		}
 		
 		$totalCommentPerPage = $this->config->get('total_comments_show_page');
-		$totalComment = $commentManager->countValidCommentsOfNews($news->getId());
+		$totalComment = $commentManager->count($news->getId(), true);
 		$pagination = new Pagination($totalComment, $totalCommentPerPage);
 
 		if ($request->method() == 'POST' && $request->postExists('content'))

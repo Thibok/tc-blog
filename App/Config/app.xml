@@ -4,6 +4,7 @@
     <define var="total_news_list_page" value="10" />
     <define var="total_comments_show_page" value="10" />
     <define var="total_news_admin_page" value="10" />
+    <define var="total_comments_no_valid_admin" value="10" />
     <define var="user_pseudo_max_character" value="20" />
 	<define var="user_pseudo_min_character" value="4" />
     <define var="user_email_max_character" value="70" />

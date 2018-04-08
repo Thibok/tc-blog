@@ -10,5 +10,6 @@
     <route url="/deconnexion" module="Connexion" action="disconect" />
     <route url="/admin" module="Admin" action="admin" />
     <route url="/admin\?page=([0-9])" module="Admin" action="admin" vars="page" />
-    <route url="/admin/commentaires_a_valider" module="Admin" action="listNoValidComment" />
+    <route url="/admin/commentaires_a_valider" module="Admin" action="listNoValidComments" />
+    <route url="/admin/commentaires_a_valider\?page=([0-9])" module="Admin" action="listNoValidComments" vars="page" />
 </routes>
