@@ -6,12 +6,12 @@
         <div id="main" class="container mb-5">
             <section class="row">
                 <div class="col-md-8">
-                    <h1 id="border-bottom" class="my-4 mt-5 text-white"><img id="ico_blue" alt="icon" src="pictures/ico_blue.png"/>News</h1>
+                    <h1 id="border-bottom" class="my-4 mt-5 text-white"><img id="ico_blue" alt="icon" src="/pictures/ico_blue.png"/>News</h1>
                     <!-- Blog Post -->
                     {% for news in listNews %}
 
                     <article class="card mb-4">
-                        <a href="/news-{{ news.id }}.html"><img class="card-img-top" src="pictures/news.jpg" alt="news picture"/></a>
+                        <a href="/news-{{ news.id }}.html"><img class="card-img-top" src="/pictures/news.jpg" alt="news picture"/></a>
                         <div class="card-body">
                             <a href="/news-{{ news.id }}.html"><h2 class="card-title">{{ news.getTitle }}</h2></a>
                             <p class="card-text text-white">{{ news.getChapo }}</p>
