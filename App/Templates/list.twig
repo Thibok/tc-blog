@@ -4,14 +4,14 @@
     
     <div id="wrap">
         <div id="main" class="container mb-5">
-            <h1 id="border-bottom" class="mb-4 mt-5 text-white"><img id="ico_blue" alt="icon" src="pictures/ico_blue.png"/>Toutes les news</h1>
+            <h1 id="border-bottom" class="mb-4 mt-5 text-white"><img id="ico_blue" alt="icon" src="/pictures/ico_blue.png"/>Toutes les news</h1>
             <section class="row">
 
             {% for news in listNews %}
             
             <div class="col-lg-6 portfolio-item mb-5">
                 <article class="card h-100">
-                    <a href="/news-{{ news.id }}.html"><img class="card-img-top" alt="news picture" src="pictures/news.jpg"/></a>
+                    <a href="/news-{{ news.id }}.html"><img class="card-img-top" alt="news picture" src="/pictures/news.jpg"/></a>
                     <div class="card-body">
                         <h2 class="card-title text-white"><a href="/news-{{ news.id }}.html">{{ news.getTitle }}</a></h2>
                         <p class="card-text text-white">{{ news.getChapo }}</p>

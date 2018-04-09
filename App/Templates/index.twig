@@ -12,12 +12,12 @@
                     <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
                     </div>
                     {% endif %}
-                    <h1 id="border-bottom" class="mb-4 text-white"><img id="ico_blue" alt="icon" src="pictures/ico_blue.png"/>News</h1>
+                    <h1 id="border-bottom" class="mb-4 text-white"><img id="ico_blue" alt="icon" src="/pictures/ico_blue.png"/>News</h1>
                     <!-- Blog Post -->
                     {% for news in listNews %}
 
                     <article class="card mb-4">
-                        <a href="/news-{{ news.id }}.html"><img class="card-img-top" src="pictures/news.jpg" alt="news picture"/></a>
+                        <a href="/news-{{ news.id }}.html"><img class="card-img-top" src="/pictures/news.jpg" alt="news picture"/></a>
                         <div class="card-body">
                             <a href="/news-{{ news.id }}.html"><h2 class="card-title">{{ news.getTitle }}</h2></a>
                             <p class="card-text text-white">{{ news.getChapo }}</p>
@@ -37,7 +37,7 @@
                 <!-- Sidebar Column -->
                 <div class="col-md-4 mt-2">
                     <aside class="card my-4" id="aside">
-                        <img id="profil_picture"class="img-center" src="pictures/profil.jpg" alt="developer photo"/>
+                        <img id="profil_picture"class="img-center" src="/pictures/profil.jpg" alt="developer photo"/>
                         <div class="card-body">
                             <legend class="card-title text-center text-white">Thibault le développeur qu'il vous faut ! </legend>
                             <div class="d-flex justify-content-center">

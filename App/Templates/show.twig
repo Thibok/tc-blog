@@ -7,13 +7,13 @@
             <section class="row">
                 <div id="content_block" class="col-md-8 my-5 px-3 pt-2">
                     <a class="no_text_decoration" href="/news">Retour à la liste des news</a>
-                    <h1 class="mt-3 mb-3 text-white"><img id="ico_blue" src="pictures/ico_blue.png" alt="icon"/>{{ news.getTitle }}</h1>
+                    <h1 class="mt-3 mb-3 text-white"><img id="ico_blue" src="/pictures/ico_blue.png" alt="icon"/>{{ news.getTitle }}</h1>
                        
                        
                         <p id="date_publish" ><span class="font-italic">{{ news.getAddAt != news.getUpdateAt ? 'Modifié' : 'Publié' }} le {{ news.getAddAt != news.getUpdateAt ? news.getUpdateAt|date("d/m/Y à H\\hi") : news.getAddAt|date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.getUser }}</span></p>
                     
                     <hr/>
-                    <img class="img-fluid rounded" src="pictures/news.jpg" alt="news picture"/>
+                    <img class="img-fluid rounded" src="/pictures/news.jpg" alt="news picture"/>
                     <hr/>
                         <p class="lead text-white">{{ news.getChapo}}</p>
                     <hr/>
@@ -44,7 +44,7 @@
                     {% for comment in listComments %}
 
                     <div class="media mb-4">
-                        <img class="d-flex mr-3 rounded-circle" src="pictures/user.png" alt="user picture"/>
+                        <img class="d-flex mr-3 rounded-circle" src="/pictures/user.png" alt="user picture"/>
                         <div class="media-body col-md-12">
                             <span id="author_comment">{{ comment.getUser }}</span><small id="comment_add_at" class="ml-2">Ajouté le {{ comment.getAddAt|date("d/m/Y à H\\hi\\m\\i\\n s\\s")}}</small>
                             <p class="mt-2 text-white">{{ comment.getContent }}</p>
@@ -79,14 +79,14 @@
                 <!-- Sidebar Column -->
                 <div class="col-md-4 mt-2">
                     <aside class="card my-4" id="aside">
-                        <img id="profil_picture"class="img-center" src="pictures/profil.jpg" alt="developer photo"/>
+                        <img id="profil_picture"class="img-center" src="/pictures/profil.jpg" alt="developer photo"/>
                         <div class="card-body">
                             <legend class="card-title text-center text-white">Thibault le développeur qu'il vous faut ! </legend>
                             <div class="d-flex justify-content-center">
                                 <a class="p-2" href="https://github.com/Thibok" target="_blank"><i id="github" class="fa fa-github"></i></a>
                                 <a class="p-2" href="https://twitter.com/TCavailles" target="_blank"><i id="twitter" class="fa fa-twitter"></i></a>
                                 <a class="p-2" href="https://www.linkedin.com/in/thibault-cavailles-b40061146/" target="_blank"><i class="fa fa-linkedin text-white"></i></a>
-                                <a class="p-2" href="C.V.pdf" target="_blank"><i id="cv"class="fa fa-user"></i></a>
+                                <a class="p-2" href="/C.V.pdf" target="_blank"><i id="cv"class="fa fa-user"></i></a>
                             </div>
                         </div>
                     </aside>
