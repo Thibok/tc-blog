@@ -61,4 +61,31 @@ class AdminController extends Controller
             $this->response->redirect('/connexion.html');
         }
     }
+
+    public function executeAdminShowNews(Request $request)
+    {
+        if ($request->sessionExists('user'))
+        {
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                $newsManager = new NewsManager;
+                $news = $newsManager->getUnique($request->getData('id'));
+
+                if (empty($news->getId()))
+                {
+                    $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                }
+
+                $this->response->render('admin_show_news.twig', ['title' => $news->getTitle(), 'news' => $news, 'user' => $user]);
+            }
+
+        }
+
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
+    }
 }
