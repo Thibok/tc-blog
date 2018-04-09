@@ -138,4 +138,36 @@ class AdminController extends Controller
             $this->response->redirect('/connexion.html');
         }
     }
+    
+    public function executeValidComment(Request $request)
+    {
+        if ($request->sessionExists('user'))
+        {
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                $commentManager = new CommentManager;
+                $exists = $commentManager->commentExists($request->getData('id'));
+
+                if ($exists)
+                {
+                    $commentManager->validComment($request->getData('id'));
+                    $user->setFlash('Commentaire validé !');
+                    $this->response->redirect('/admin/commentaires_a_valider');
+                }
+
+                else
+                {
+                    $this->response->render('404.twig', ['title' => '404 Not Found']);
+                }
+
+            }
+        }
+
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
+    }
 }

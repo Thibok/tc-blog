@@ -7,7 +7,7 @@
                 <div class="row">
                     <nav id="admin_menu"class="col-lg-3 mx-4 my-5">
                         <div class="list-group my-3">
-                            <a href="/" role="button" class="bg-dark list-group-item text-white text-center">Tableau de bord</a>
+                            <a href="/admin" role="button" class="bg-dark list-group-item text-white text-center">Tableau de bord</a>
                             <a href="#" role="button" class="bg-dark list-group-item text-white text-center">Ajouter une news</a>
                             <a href="#" role="button" class="bg-dark list-group-item text-white text-center">Membres à valider</a>
                             <a href="/admin/commentaires_a_valider" role="button" class="bg-dark list-group-item text-white text-center">Commentaires à valider</a>
@@ -18,8 +18,8 @@
                         <p id="date_publish" class="pl-2">Commentaire posté le <span class="font-italic">{{ comment.getAddAt | date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ comment.getUser }}</span></p>
                         <p class="p-2 text-white">{{ comment.getContent }}</p>
                         <div class="text-center my-5">
-                            <button type="button" class="btn btn-success mr-2"><img class="mr-1 mb-1"src="/pictures/valid.png" alt="valid icon"/>Valider</button>
-                            <button type="button" class="btn btn-danger ml-2"><img class="mr-1" src="/pictures/delete.png" alt="delete icon"/>Supprimer</button>
+                            <a href="/admin/validation_commentaire_{{ comment.getId }}" role="button" class="btn btn-success mr-2"><img class="mr-1 mb-1"src="/pictures/valid.png" alt="valid icon"/>Valider</a>
+                            <a href="#" role="button" class="btn btn-danger ml-2"><img class="mr-1" src="/pictures/delete.png" alt="delete icon"/>Supprimer</a>
                         </div>
                     </div>
                 </div>
