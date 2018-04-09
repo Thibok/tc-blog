@@ -6,12 +6,12 @@
         <div id="main" class="container mb-5">
             <section class="row">
                 <div class="col-md-8">
-                    <h1 id="border-bottom" class="my-4 mt-5 text-white"><img id="ico_blue" alt="icon" src="pictures/ico_blue.png"/>News</h1>
+                    <h1 id="border-bottom" class="my-4 mt-5 text-white"><img id="ico_blue" alt="icon" src="/pictures/ico_blue.png"/>News</h1>
                     <!-- Blog Post -->
                     {% for news in listNews %}
 
                     <article class="card mb-4">
-                        <a href="#"><img class="card-img-top" src="pictures/news.jpg" alt="news picture"/></a>
+                        <a href="#"><img class="card-img-top" src="/pictures/news.jpg" alt="news picture"/></a>
                         <div class="card-body">
                             <a href="#"><h2 class="card-title">{{ news.getTitle }}</h2></a>
                             <p class="card-text text-white">{{ news.getChapo }}</p>
@@ -38,7 +38,7 @@
                                 <a class="p-2" href="https://github.com/Thibok" target="_blank"><i id="github" class="fa fa-github"></i></a>
                                 <a class="p-2" href="https://twitter.com/TCavailles" target="_blank"><i id="twitter" class="fa fa-twitter"></i></a>
                                 <a class="p-2" href="https://www.linkedin.com/in/thibault-cavailles-b40061146/" target="_blank"><i class="fa fa-linkedin text-white"></i></a>
-                                <a class="p-2" href="../../Web/C.V.pdf" target="_blank"><i id="cv"class="fa fa-user"></i></a>
+                                <a class="p-2" href="/C.V.pdf" target="_blank"><i id="cv"class="fa fa-user"></i></a>
                             </div>
                         </div>
                     </aside>
