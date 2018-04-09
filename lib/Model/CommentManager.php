@@ -73,6 +73,22 @@ class CommentManager extends Manager
 		return $totalComments;
 	}
 
+	public function getUnique($commentId, $valid = false)
+	{
+		$request = $this->db->prepare('SELECT comment.id, content, add_at, valid, user_id, news_id, pseudo FROM comment JOIN user ON user.id = comment.user_id WHERE comment.id = :commentId AND valid = :valid');
+		$request->bindValue(':commentId', (int) $commentId, \PDO::PARAM_INT);
+		$request->bindValue(':valid', (bool) $valid, \PDO::PARAM_BOOL);
+		$request->execute();
+		
+		$data = $request->fetch(\PDO::FETCH_ASSOC);
+
+		$comment = new Comment(['id' => $data['id'], 'content' => $data['content'], 'addAt' => new \DateTime($data['add_at']), 'valid' => $data['valid'], 'userId' => $data['user_id'], 'newsId' => $data['news_id'], 'user' => $data['pseudo']]);
+
+		$request->closeCursor();
+
+		return $comment;
+	}
+
 	public function save(Comment $comment)
 	{
 		$request = $this->db->prepare('INSERT INTO comment SET content = :content, add_at = NOW(), valid = :valid, user_id = :user_id, news_id = :news_id');
