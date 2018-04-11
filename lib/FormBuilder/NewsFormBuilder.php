@@ -86,7 +86,8 @@ class NewsFormBuilder extends FormBuilder
             'validators' => [
                 new FileSendValidator('Erreur d\'envoi, réessayez'),
                 new FileSizeValidator('Taille maximum : '.$maxImgSize / 1000000 .' mo', $maxImgSize),
-                new FileExtensionValidator('Extensions autorisées : jpeg, jpg, png', $allowedExtensions)
+                new FileExtensionValidator('Extensions autorisées : jpeg, jpg, png', $allowedExtensions),
+                new FileAuthenticity('Fichier invalide !', 'tmp')
                 ]
             ]));
 	}

@@ -278,6 +278,51 @@ class AdminController extends Controller
 
     public function executeAddNews(Request $request)
     {
+        if ($request->sessionExists('user'))
+        {
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                if ($request->method == 'POST')
+                {
+                    $news = new News(['title' => $request->postData('title'), 'user' => $request->postData('user'), 'chapo' => $request->postData('chapo'), 'content' => $request->postData('content'), 'picture' => $request->filesData('picture')]);
+                }
+
+                else
+                {
+                    $news = new News;
+                }
+
+                $newsFormBuilder = new NewsFormBuilder($news);
+                $newsFormBuilder->build();
+
+                $form = $newsFormBuilder->getForm();
+
+                if ($request->method == 'POST' && $form->isValid())
+                {
+                    $userManager = new UserManager;
+                    $newsManager = new NewsManager;
+                    $userId = $userManager->getId($news->getUser());
+                    $news->setUserId($userId);
+                    $newsId = $newsManager->save($news);
+
+                    if (!empty($request->filesData('picture')))
+                    {
+                        
+                    }
+                }
+            }
+
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+            }
+        }
         
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
     }
 }

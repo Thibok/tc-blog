@@ -20,7 +20,57 @@ class FileAuthenticityValidator extends Validator
 
         else
         {
+            $actualName = $value['tmp_name'];
+            $newName = str_shuffle('nf86Lp34c09');
+            $fileInfos = pathinfo($value['name']);
+            $extension = $fileInfos['extension'];
+            $file = $this->path.'/'.$newsName.'.'.$extension;
+
+            move_uploaded_file($actualName, $file);
+
+            $handle = fopen($file, 'r');
             
+            if ($handle) 
+            {
+                $error = 0;
+                while (!feof($handle) AND $error == 0)
+                {
+                    $buffer = fgets($handle);
+                    switch (true) 
+                    {
+                        case strstr($buffer,'<'):
+                        $error += 1;
+                        break;
+
+                        case strstr($buffer,'>'):
+                        $error += 1;
+                        break;
+
+                        case strstr($buffer,';'):
+                        $error += 1;
+                        break;
+
+                        case strstr($buffer,'&'):
+                        $error += 1;
+                        break;
+
+                        case strstr($buffer,'?'):
+                        $error += 1;
+                        break;
+                    }
+                }
+
+                if ($error == 1)
+                {
+                    fclose($handle);
+                    unlink($file);
+                    return false;
+                }
+            }
+
+            fclose($handle);
+            unlink($file);
+            return true;
         }
     }
 

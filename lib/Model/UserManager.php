@@ -32,6 +32,17 @@ class UserManager extends Manager
         return $pass;
     }
 
+    public function getId($pseudo)
+    {
+        $request = $this->db->prepare('SELECT id FROM user WHERE pseudo = :pseudo');
+        $request->bindValue(':pseudo', $pseudo);
+        $request->execute();
+
+        $userId = $request->fetchColumn();
+
+        return $userId;
+    }
+
     public function updateRole($userId, $role)
     {
         $request = $this->db->prepare('UPDATE user SET role = :role WHERE id = :userId');
