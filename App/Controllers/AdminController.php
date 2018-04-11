@@ -275,4 +275,9 @@ class AdminController extends Controller
             $this->response->redirect('/connexion.html');
         }
     }
+
+    public function executeAddNews(Request $request)
+    {
+        
+    }
 }

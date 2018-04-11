@@ -109,6 +109,16 @@ class UserManager extends Manager
         return $listRoles;
     }
 
+    public function getListPseudo()
+    {
+        $request = $this->db->query('SELECT pseudo FROM user');
+        $listPseudo = $request->fetchAll();
+
+        $request->closeCursor();
+
+        return $listPseudo;
+    }
+
     public function count()
 	{
 		return $this->db->query('SELECT COUNT(*) FROM user')->fetchColumn();
@@ -125,7 +135,7 @@ class UserManager extends Manager
 
 	    $request = $this->db->query($sql);
         
-        $listNews = [];
+        $listUsers = [];
 
 	    while ($data = $request->fetch(\PDO::FETCH_ASSOC))
 		{
