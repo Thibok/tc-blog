@@ -35,7 +35,7 @@
                                 {% for userInfos in listUsers %}
                                     <tr>
                                         <td class="font-weight-bold">{{ userInfos.getPseudo }}</td>
-                                        <td class="text-center font-weight-bold">{{ userInfos.getRole }}</td>
+                                        <td class="text-center font-weight-bold">{{ userInfos.getRole == 'Administrateur' ? 'Admin' : userInfos.getRole }}</td>
                                         <td class="text-center">
                                         <form action="" method="post">
                                             <input type="hidden" name="id" value="{{ userInfos.getId }}"/>

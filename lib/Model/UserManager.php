@@ -116,7 +116,7 @@ class UserManager extends Manager
     
     public function getList($start = -1, $number = -1)
   	{
-	    $sql = 'SELECT id, pseudo, email, register_date, role FROM user ORDER BY id DESC';
+	    $sql = 'SELECT id, pseudo, email, register_date, role FROM user ORDER BY pseudo';
 	 
 	    if ($start != -1 || $number != -1)
 	    {
