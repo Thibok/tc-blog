@@ -6,10 +6,13 @@ use \Components\MaxLengthValidator;
 use \Components\NotNullValidator;
 use \Components\TextField;
 use \Components\StringField;
-use \Components\UserManager;
+use \Components\SelectField;
+use \Model\UserManager;
+use \Components\FileSendValidator;
 use \Components\FileSizeValidator;
 use \Components\FileExtensionValidator;
 use \Components\OptionsExistsValidator;
+use \Components\FileAuthenticityValidator;
 
 class NewsFormBuilder extends FormBuilder
 {
@@ -48,7 +51,7 @@ class NewsFormBuilder extends FormBuilder
             'maxLength' => $titleMaxCharacter, 
             'required' => true,
             'validators' => [
-                new MaxLengthValidator('Longueur maximum : '.$titleMaxCharacter.' caractères', $titletMaxCharacter),
+                new MaxLengthValidator('Longueur maximum : '.$titleMaxCharacter.' caractères', $titleMaxCharacter),
                 new NotNullValidator('Le titre ne peut pas être vide !')
                 ]
             ]));
@@ -87,7 +90,7 @@ class NewsFormBuilder extends FormBuilder
                 new FileSendValidator('Erreur d\'envoi, réessayez'),
                 new FileSizeValidator('Taille maximum : '.$maxImgSize / 1000000 .' mo', $maxImgSize),
                 new FileExtensionValidator('Extensions autorisées : jpeg, jpg, png', $allowedExtensions),
-                new FileAuthenticity('Fichier invalide !', 'tmp')
+                new FileAuthenticityValidator('Fichier invalide !', 'tmp')
                 ]
             ]));
 	}

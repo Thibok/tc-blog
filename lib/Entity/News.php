@@ -79,7 +79,7 @@ class News extends Entity
 		}
 	}
 
-	public function getPicture($picture)
+	public function getPicture()
 	{
 		return $this->picture;
 	}

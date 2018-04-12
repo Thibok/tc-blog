@@ -123,7 +123,13 @@ class UserManager extends Manager
     public function getListPseudo()
     {
         $request = $this->db->query('SELECT pseudo FROM user');
-        $listPseudo = $request->fetchAll();
+
+        $listPseudo = [];
+
+        while ($raw = $request->fetch()) 
+        {
+            $listPseudo[] = $raw['pseudo'];
+        }
 
         $request->closeCursor();
 

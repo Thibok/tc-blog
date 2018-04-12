@@ -11,6 +11,8 @@ use \Components\Pagination;
 use \Entity\User;
 use \Model\UserManager;
 use \FormBuilder\ManageUsersFormBuilder;
+use \FormBuilder\NewsFormBuilder;
+use \Components\Gallery;
 
 class AdminController extends Controller
 {
@@ -284,7 +286,7 @@ class AdminController extends Controller
 
             if ($user->isAuthenticated() && $user->isAdmin())
             {
-                if ($request->method == 'POST')
+                if ($request->method() == 'POST')
                 {
                     $news = new News(['title' => $request->postData('title'), 'user' => $request->postData('user'), 'chapo' => $request->postData('chapo'), 'content' => $request->postData('content'), 'picture' => $request->filesData('picture')]);
                 }
@@ -299,19 +301,24 @@ class AdminController extends Controller
 
                 $form = $newsFormBuilder->getForm();
 
-                if ($request->method == 'POST' && $form->isValid())
+                if ($request->method() == 'POST' && $form->isValid())
                 {
                     $userManager = new UserManager;
                     $newsManager = new NewsManager;
                     $userId = $userManager->getId($news->getUser());
                     $news->setUserId($userId);
                     $newsId = $newsManager->save($news);
+                    $user->setFlash('La news a bien était ajouté !');
 
                     if (!empty($request->filesData('picture')))
                     {
-                        
+                        $allowedExtensions = explode($this->config->get('allowed_img_extensions'));
+                        $gallery = new Gallery('pictures/upload', $allowedExtensions);
+                        $gallery->savePicture('news-'.$newsId.'750-300', $request->filesData('picture'), 750, 300);
                     }
                 }
+
+                $this->response->render('add.twig', ['title' => 'Ajouter une news', 'user' => $user, 'form' => $form->generate()]);
             }
 
             else
