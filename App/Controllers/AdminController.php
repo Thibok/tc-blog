@@ -13,6 +13,7 @@ use \Model\UserManager;
 use \FormBuilder\ManageUsersFormBuilder;
 use \FormBuilder\NewsFormBuilder;
 use \Components\Gallery;
+use \FormBuilder\CommentFormBuilder;
 
 class AdminController extends Controller
 {
@@ -298,27 +299,29 @@ class AdminController extends Controller
 
                 $newsFormBuilder = new NewsFormBuilder($news);
                 $newsFormBuilder->build();
+    
+                $newsForm = $newsFormBuilder->getForm();
 
-                $form = $newsFormBuilder->getForm();
-
-                if ($request->method() == 'POST' && $form->isValid())
+                if ($request->method() == 'POST' && $newsForm->isValid())
                 {
                     $userManager = new UserManager;
                     $newsManager = new NewsManager;
                     $userId = $userManager->getId($news->getUser());
                     $news->setUserId($userId);
-                    $newsId = $newsManager->save($news);
+                    $newsId = $newsManager->add($news);
                     $user->setFlash('La news a bien était ajouté !');
 
-                    if (!empty($request->filesData('picture')))
+                    $picture = $request->filesData('picture');
+
+                    if ($picture['tmp_name'] != 0 && $picture['size'] != 0)
                     {
-                        $allowedExtensions = explode($this->config->get('allowed_img_extensions'));
+                        $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
                         $gallery = new Gallery('pictures/upload', $allowedExtensions);
-                        $gallery->savePicture('news-'.$newsId.'750-300', $request->filesData('picture'), 750, 300);
+                        $gallery->savePicture('news-'.$newsId, $request->filesData('picture'), 750, 300);
                     }
                 }
-
-                $this->response->render('add.twig', ['title' => 'Ajouter une news', 'user' => $user, 'form' => $form->generate()]);
+    
+                $this->response->render('add_news.twig', ['title' => 'Ajouter une news', 'form' => $newsForm->generate(), 'user' => $user]);
             }
 
             else
@@ -326,7 +329,7 @@ class AdminController extends Controller
                 $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
             }
         }
-        
+
         else
         {
             $this->response->redirect('/connexion.html');

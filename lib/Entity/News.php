@@ -119,7 +119,7 @@ class News extends Entity
 		return $this->updateAt;
 	}
 
-	public function userId()
+	public function getUserId()
 	{
 		return $this->userId;
 	}

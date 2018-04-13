@@ -56,7 +56,7 @@ class Gallery
 
         else
         {
-            throw new RuntimeException('L\'extension du fichier n\'est pas autorisé !');
+            throw new \RuntimeException('L\'extension du fichier n\'est pas autorisé !');
         }
     }
 
