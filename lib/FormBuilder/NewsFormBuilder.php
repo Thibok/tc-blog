@@ -13,6 +13,7 @@ use \Components\FileSizeValidator;
 use \Components\FileExtensionValidator;
 use \Components\OptionsExistsValidator;
 use \Components\FileAuthenticityValidator;
+use \Components\UploadField;
 
 class NewsFormBuilder extends FormBuilder
 {
@@ -80,17 +81,15 @@ class NewsFormBuilder extends FormBuilder
                 ]
             ]));
         
-        $this->form->add(new StringField([
+        $this->form->add(new UploadField([
             'name' => 'picture',
             'label' => 'Image',
-            'type' => 'file',
             'class' => 'form-group col-md-6',
             'required' => false,
             'validators' => [
-                new FileSendValidator('Erreur d\'envoi, réessayez'),
-                new FileSizeValidator('Taille maximum : '.$maxImgSize / 1000000 .' mo', $maxImgSize),
-                new FileExtensionValidator('Extensions autorisées : jpeg, jpg, png', $allowedExtensions),
-                new FileAuthenticityValidator()
+                new FileSendValidator('Erreur d\'envoi, Réessayez'),
+                new FileExtensionValidator('Extensions autorisées : jpg, jpeg, png', $allowedExtensions),
+                new FileSizeValidator('Taille maximum : '.$maxImgSize / $maxImgSize.'mo', $maxImgSize)
                 ]
             ]));
 	}

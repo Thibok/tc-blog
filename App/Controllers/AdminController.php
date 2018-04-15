@@ -313,7 +313,7 @@ class AdminController extends Controller
 
                     $picture = $request->filesData('picture');
 
-                    if ($picture['tmp_name'] != 0 && $picture['size'] != 0)
+                    if (!empty($picture['tmp_name']) && $picture['size'] != 0)
                     {
                         $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
                         $gallery = new Gallery('pictures/upload', $allowedExtensions);

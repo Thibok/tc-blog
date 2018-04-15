@@ -13,13 +13,12 @@ class FileExtensionValidator extends Validator
 
     public function isValid($value)
     {
-        if (empty($value))
+        if ($value['size'] == 0 && empty($value['tmp_name']))
         {
             return true;
         }
         
-        $fileInformation = pathinfo($value['name']);
-        $uploadExtension = $fileInformation['extension'];
+        $uploadExtension = pathinfo($value['name'], PATHINFO_EXTENSION);
 
         if (in_array($uploadExtension, $this->allowedExtensions))
         {

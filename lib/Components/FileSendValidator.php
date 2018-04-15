@@ -5,12 +5,12 @@ class FileSendValidator extends Validator
 {
     public function isValid($value)
     {
-        if (empty($value))
+        if ($value['size'] == 0 && empty($value['tmp_name']))
         {
             return true;
         }
         
-        if ($value['error' == 0])
+        if ($value['error'] == 0)
         {
             return true;
         }

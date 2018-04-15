@@ -15,48 +15,85 @@ class Gallery
 
     public function savePicture($pictureName, $varFile, $width, $height)
     {
-        $fileInformation = pathinfo($varFile['name']);
-        $fileExtension = $fileInformation['extension'];
+        $actualName = $varFile['tmp_name'];
 
-        if (in_array($fileExtension, $this->allowedExtension))
+        $upload_mime_type = mime_content_type($actualName);
+
+        if (in_array($upload_mime_type, ['image/jpeg', 'image/pjpeg', 'image/png']))
         {
-            if ($fileExtension == 'jpg' || $fileExtension == 'jpeg')
+            $extension = pathinfo($varFile['name'], PATHINFO_EXTENSION);
+
+            $name = bin2hex(random_bytes(16));
+
+            $file = $this->dirName.'/'.$name.'.'.$extension;
+
+            move_uploaded_file($actualName, $file);
+
+            $handle = fopen($file, 'r');
+
+            $error = 0;
+
+            while (!feof($handle) AND $error == 0) 
             {
-                $source = imagecreatefromjpeg($varFile['tmp_name']);
+                $buffer = fgets($handle);
+
+                switch (true) 
+                {
+                    case strstr($buffer,'<?php'):
+                    $error = 1;
+                    break;
+
+                    case strstr($buffer,'<?='):
+                    $error = 1;
+                    break;
+                }
+            }
+
+            fclose($handle);
+
+            if ($error == 1 | !getimagesize($file))
+            {
+                unlink($file);
             }
 
             else
             {
-                $source = 'imagecreatefrom'.$fileExtension;
-                $source = $source($varFile['tmp_name']);
+                if ($upload_mime_type == 'image/jpeg' || $upload_mime_type == 'image/pjpeg')
+                {
+                    $source = imagecreatefromjpeg($file);
+                }
+                        
+                else
+                {
+                    if ($upload_mime_type != 'image/jpeg' && $upload_mime_type != 'image/pjpeg')
+                    {
+                        $method = 'imagecreatefrom'.$extension;
+                        $source = $method($file);
+                    }
+                }
+
+                $destination = imagecreatetruecolor($width, $height);
+
+                $width_source = imagesx($source);
+                $height_source = imagesy($source);
+                $width_destination = imagesx($destination);
+                $height_destination = imagesy($destination);
+
+                imagecopyresampled($destination, $source, 0, 0, 0, 0, $width_destination, $height_destination, $width_source, $height_source);
+
+                if ($extension == 'jpg' || $extension == 'jpeg')
+                {
+                    unlink($file);
+                    imagejpeg($destination, $this->dirName.'/'.$pictureName.'.'.$extension);
+                }
+
+                else
+                {
+                    unlink($file);
+                    $imageSave = 'image'.$extension;
+                    $imageSave($destination, $this->dirName.'/'.$pictureName.'.'.$extension);
+                }
             }
-
-            $destination = imagecreatetruecolor($width, $height);
-
-            $width_source = imagesx($source);
-            $height_source = imagesy($source);
-            $width_destination = imagesx($destination);
-            $height_destination = imagesy($destination);
-
-            imagecopyresampled($destination, $source, 0, 0, 0, 0, $width_destination, $height_destination, $width_source, $height_source);
-
-            if ($fileExtension == 'jpg' || $fileExtension == 'jpeg')
-            {
-                imagejpeg($destination, $this->dirName.'/'.$pictureName.'.'.$fileExtension);
-            }
-
-            else
-            {
-                $imageSave = 'image'.$fileExtension;
-                $imageSave($destination, $this->dirName.'/'.$pictureName.'.'.$fileExtension);
-
-            }
-
-        }
-
-        else
-        {
-            throw new \RuntimeException('L\'extension du fichier n\'est pas autorisé !');
         }
     }
 

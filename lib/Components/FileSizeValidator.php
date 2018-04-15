@@ -13,22 +13,19 @@ class FileSizeValidator extends Validator
 
     public function isValid($value)
     {
-        if (empty($value))
+        if ($value['size'] == 0 && empty($value['tmp_name']))
+        {
+            return true;
+        }
+
+        if ($value['size'] <= $this->maxSize)
         {
             return true;
         }
 
         else
         {
-            if ($value['size'] <= $this->maxSize)
-            {
-                return true;
-            }
-
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 
