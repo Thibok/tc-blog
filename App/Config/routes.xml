@@ -1,3 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
+    <route url="/" module="News" action="index" />
+    <route url="/news" module="News" action="list" />
+    <route url="/news\?page=([0-9]+)" module="News" action="list" vars="page"/>
+    <route url="/news-([0-9]+)\.html" module="News" action="show" vars="id"/>
+    <route url="/news-([0-9]+)\.html\?page=([0-9]+)" module="News" action="show" vars="id,page"/>
+    <route url="/inscription.html" module="Connexion" action="signup" />
+    <route url="/connexion.html" module="Connexion" action="signin" />
+    <route url="/deconnexion" module="Connexion" action="disconect" />
+    <route url="/admin" module="Admin" action="admin" />
+    <route url="/admin\?page=([0-9]+)" module="Admin" action="admin" vars="page" />
+    <route url="/admin/commentaires_a_valider" module="Admin" action="listNoValidComments" />
+    <route url="/admin/commentaires_a_valider\?page=([0-9]+)" module="Admin" action="listNoValidComments" vars="page" />
+    <route url="/admin/commentaire_a_valider_([0-9]+)" module="Admin" action="showNoValidComment" vars="id" />
+    <route url="/admin/validation_commentaire_([0-9]+)" module="Admin" action="validComment" vars="id" />
+    <route url="/admin/gestion_des_utilisateurs" module="Admin" action="listUsers" />
+    <route url="/admin/gestion_des_utilisateurs\?page=([0-9]+)" module="Admin" action="listUsers" vars="page" />
+    <route url="/admin/ajouter_une_news" module="Admin" action="addNews" />
 </routes>

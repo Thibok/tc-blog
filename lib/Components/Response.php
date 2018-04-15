@@ -7,13 +7,13 @@ class Response
 
     public function __construct()
     {
-        $loader = new \Twig_Loader_Filesystem(__DIR__.'/../../App/Views');
+        $loader = new \Twig_Loader_Filesystem(__DIR__.'/../../App/Templates');
 	   	$this->twig = new \Twig_Environment($loader);
     }
 
 	public function redirect($location)
 	{
-        header($location);
+        header("Location: ".$location);
         exit;
     }
     

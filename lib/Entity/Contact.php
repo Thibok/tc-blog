@@ -10,11 +10,6 @@ class Contact extends Entity
     private $email;
     private $message;
 
-    public function isValid()
-    {
-        return !empty($this->name) || empty($this->firstName) || empty($this->email) || empty($this->message);
-    }
-
     public function setName($name)
     {
         if (is_string($name) && !empty($name))

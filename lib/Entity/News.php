@@ -14,11 +14,6 @@ class News extends Entity
 	private $userId;
 	private $picture;
 
-	public function isValid()
-	{
-		return !empty($this->user) || empty($this->title) || empty($this->chapo) || empty($this->content);
-	}
-
 	public function hasPicture()
 	{
 		return !empty($this->picture);
@@ -28,7 +23,7 @@ class News extends Entity
 	{
 		if (is_string($user) && !empty($user))
 		{
-			$this->user = htmspecialchars($user);
+			$this->user = htmlspecialchars($user);
 		}
 	}
 
@@ -50,7 +45,7 @@ class News extends Entity
 
 	public function setContent($content)
 	{
-		if (!is_string($content) && empty($content))
+		if (is_string($content) && !empty($content))
 		{
 			$this->content = htmlspecialchars($content);
 		}
@@ -73,20 +68,15 @@ class News extends Entity
 
 	public function setPicture($picture)
 	{
-		if (is_string($picture) && !empty($picture))
+		if (!empty($picture))
 		{
 			$this->picture = $picture;
-		}
+		}		
 	}
 
-	public function getPicture($picture)
+	public function getPicture()
 	{
 		return $this->picture;
-	}
-
-	public function isNew()
-	{
-		return empty($this->id);
 	}
 
 	public function getUser()
@@ -109,7 +99,7 @@ class News extends Entity
 		return $this->content;
 	}
 
-	public function getaddAt()
+	public function getAddAt()
 	{
 		return $this->addAt;
 	}
@@ -119,7 +109,7 @@ class News extends Entity
 		return $this->updateAt;
 	}
 
-	public function userId()
+	public function getUserId()
 	{
 		return $this->userId;
 	}

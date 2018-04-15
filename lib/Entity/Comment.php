@@ -12,11 +12,6 @@ class Comment extends Entity
 	private $userId;
 	private $valid;
 
-	public function isValid()
-	{
-		return !empty($this->user) || empty($this->content); 
-	}
-
 	public function setUser($user)
 	{
 		if (is_string($user) && !empty($user))
@@ -63,9 +58,9 @@ class Comment extends Entity
 		return $this->content;
 	}
 
-	public function getDateAdd()
+	public function getAddAt()
 	{
-		return $this->dateAdd;
+		return $this->addAt;
 	}
 
 	public function getNewsId()

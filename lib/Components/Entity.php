@@ -5,7 +5,7 @@ abstract class Entity
 {
 	protected $id;
 
-	public function __construct(array $data)
+	public function __construct(array $data = [])
 	{
 		if (!empty($data))
 		{
@@ -13,9 +13,6 @@ abstract class Entity
 		}
 		
 	}
-
-	abstract public function isValid();
-
 	public function hydrate(array $data)
 	{
 		foreach ($data as $key => $value) 
@@ -28,12 +25,7 @@ abstract class Entity
 			}
 		}
 	}
-
-	public function isNew()
-	{
-		return empty($this->id);
-	}
-
+	
 	public function getId()
 	{
 		return $this->id;

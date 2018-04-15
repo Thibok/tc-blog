@@ -12,11 +12,6 @@ class User extends Entity
 	private $password;
 	private $registerDate;
     private $role;
-    
-    public function isValid()
-    {
-        return !empty($this->pseudo) || empty($this->email) || empty($this->password) || empty($this->role);
-    }
 
 	public function getFlash()
 	{
@@ -24,6 +19,14 @@ class User extends Entity
 		unset($_SESSION['flash']);
 
 		return $flash;
+	}
+
+	public function setFlash($flash)
+	{
+		if (is_string($flash) && !empty($flash))
+		{
+			$_SESSION['flash'] = $flash;
+		}
 	}
 
 	public function __sleep()

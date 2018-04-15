@@ -5,12 +5,22 @@ require __DIR__.'/../vendor/autoload.php';
 use \Components\Router;
 use \Components\Route;
 use \Components\Request;
+use \Components\Response;
+use \Entity\User;
 
-  $loader = new Twig_Loader_Filesystem(__DIR__.'/../App/Views');
-  $twig = new Twig_Environment($loader);
-
+  $response = new Response;
   $request = new Request;
   $router = new Router;
+
+  if ($request->sessionExists('user'))
+  {
+    $user = $request->sessionData('user');
+  }
+
+  else
+  {
+    $user = new User;
+  }
  
   $xml = new \DOMDocument;
   $xml->load(__DIR__.'/../App/Config/routes.xml');
@@ -38,9 +48,9 @@ use \Components\Request;
   {
     if ($e->getCode() == Router::NO_ROUTE)
     {
-      echo $twig->render('404.html');
-      exit;
-	}
+      session_start();
+      $response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+	  }
   }
 
 
@@ -48,7 +58,7 @@ use \Components\Request;
  	
  	$controller = '\Controllers\\'.$matchedRoute->module().'Controller';
 
- 	$controller = new $controller;
+ 	$controller = new $controller;  
    	
 
   $method = 'execute'.ucfirst($matchedRoute->action());
@@ -57,6 +67,8 @@ use \Components\Request;
   {
    	throw new \RuntimeException('La méthode '.$method.'n\'est pas définis sur ce controlleur');
   }
+
+  session_start();
 
   $controller->$method($request);
 
