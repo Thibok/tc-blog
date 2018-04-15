@@ -335,4 +335,40 @@ class AdminController extends Controller
             $this->response->redirect('/connexion.html');
         }
     }
+
+    public function executeShow(Request $request)
+    {
+        if ($request->sessionExists('user'))
+        {
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                $newsManager = new NewsManager;
+                $news = $newsManager->getUnique($request->getData('id'));
+
+                if (empty($news->getId()))
+                {
+                    $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                }
+
+                $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
+                $gallery = new Gallery('pictures/upload', $allowedExtensions);
+                $news->setPicture($gallery->getPicture('news-'.$news->getId()));
+
+                $this->response->render('admin_show_news.twig', ['title' => $news->getTitle(), 'user' => $user, 'news' => $news]);
+
+            }
+
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+            }
+        }
+
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
+    }
 }
