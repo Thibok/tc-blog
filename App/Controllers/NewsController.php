@@ -6,8 +6,10 @@ use \Components\Request;
 use \Model\NewsManager;
 use \Model\CommentManager;
 use \Entity\News;
+use \Entity\Comment;
 use \Components\Pagination;
 use \Entity\User;
+use \FormBuilder\CommentFormBuilder;
 
 class NewsController extends Controller
 {
@@ -101,6 +103,33 @@ class NewsController extends Controller
 		$totalComment = $commentManager->countValidCommentsOfNews($news->getId());
 		$pagination = new Pagination($totalComment, $totalCommentPerPage);
 
+		if ($request->method() == 'POST' && $request->postExists('content'))
+		{
+			if (!$user->isAuthenticated())
+			{
+				$this->response->redirect('/connexion.html');
+			}
+
+			$comment = new Comment(['content' => $request->postData('content'), 'userId' => $user->getId(), 'newsId' => $news->getId(), 'valid' => false]);
+		}
+
+		else
+		{
+			$comment = new Comment;
+		}
+
+		$commentFormBuilder = new CommentFormBuilder($comment);
+
+		$commentFormBuilder->build();
+
+		$commentForm = $commentFormBuilder->getForm();
+
+		if ($request->method() == 'POST' && $commentForm->isValid())
+		{
+			$commentManager->save($comment);
+			$user->setFlash('Le commentaire à bien était ajouté ! Il doit maintenant être valider !');
+		}
+
 		if ($request->getExists('page'))
 		{
 			$pagination->setActualPage($request->getData('page'));
@@ -109,6 +138,7 @@ class NewsController extends Controller
 			{
 				$this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
 			}
+
 			$startReq = $pagination->makePagination();
 			$listComments = $commentManager->getListOfNews($startReq, $totalCommentPerPage, $news->getId());
 
@@ -124,6 +154,6 @@ class NewsController extends Controller
 			$listComments = $commentManager->getListOfNews($startReq, $totalCommentPerPage, $news->getId());
 		}
 
-		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination, 'user' => $user]);
+		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination, 'user' => $user, 'commentForm' => $commentForm->generate()]);
 	}
 }
