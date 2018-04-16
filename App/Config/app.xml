@@ -9,4 +9,5 @@
 	<define var="user_email_min_character" value="6" />
     <define var="user_password_max_character" value="40" />
 	<define var="user_password_min_character" value="8" />
+    <define var="comment_content_max_character" value="500" />
 </definitions>
