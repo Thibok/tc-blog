@@ -6,39 +6,87 @@ use \Entity\Comment;
 
 class CommentManager extends Manager
 {
-	public function getListOfNews($start = -1, $number = -1, $newsId)
+	public function getList($start = -1, $number = -1, $valid = true, $newsId = -1)
   	{
-      $sql = 'SELECT comment.id, content, add_at, pseudo FROM comment JOIN user ON user.id = comment.user_id WHERE news_id = :newsId AND valid = true ORDER BY id DESC';
-	 
-	  if ($start != -1 || $number != -1)
+	  $sql = 'SELECT comment.id, content, add_at, pseudo FROM comment JOIN user ON user.id = comment.user_id';
+
+	  if ($newsId != -1)
 	  {
-	    $sql .= ' LIMIT '.(int) $start.', '.(int) $number;
+		  $sql .= ' WHERE news_id = :newsId AND valid = :valid';
 	  }
 
-    $request = $this->db->prepare($sql);
-    $request->bindValue(':newsId', (int) $newsId, \PDO::PARAM_INT);
-    $request->execute();
+	  else
+	  {
+		$sql .= ' WHERE valid = :valid';
+	  }
+
+	  $sql .= ' ORDER BY id DESC';
+	 
+	if ($start != -1 || $number != -1)
+	{
+	    $sql .= ' LIMIT '.(int) $start.', '.(int) $number;
+	}
+
+	$request = $this->db->prepare($sql);
+	$request->bindValue(':valid', (bool) $valid, \PDO::PARAM_BOOL);
+
+	if ($newsId != -1)
+	{
+		$request->bindValue(':newsId', (int) $newsId, \PDO::PARAM_INT);
+	}
+	
+	$request->execute();
         
     $listComment = [];
-    
-	    while ($data = $request->fetch(\PDO::FETCH_ASSOC))
-			{
-  			$listComment[] = new Comment(['id' => $data['id'], 'content' => $data['content'], 'addAt' => new \DateTime($data['add_at']), 'user' => $data['pseudo']]);
-			}	
-			$request->closeCursor();
 
-			return $listComment;
-	  }
-	  
-	public function countValidCommentsOfNews($newsId)
+	while ($data = $request->fetch(\PDO::FETCH_ASSOC))
 	{
-		$request = $this->db->prepare('SELECT COUNT(*) FROM comment WHERE valid = true AND news_id = :newsId');
+  		$listComment[] = new Comment(['id' => $data['id'], 'content' => $data['content'], 'addAt' => new \DateTime($data['add_at']), 'user' => $data['pseudo']]);
+	}	
+
+	$request->closeCursor();
+
+	return $listComment;
+	}
+	  
+	public function count($valid = true, $newsId = -1)
+	{
+		$sql = 'SELECT COUNT(*) FROM comment WHERE valid = :valid';
+
+		if ($newsId != -1)
+		{
+			$sql .= ' AND news_id = :newsId';
+		}
+
+		$request = $this->db->prepare($sql);
+		$request->bindValue(':valid', (bool) $valid, \PDO::PARAM_BOOL);
+		
+		if ($newsId != -1)
+		{
 			$request->bindValue(':newsId', (int) $newsId, \PDO::PARAM_INT);
-			$request->execute();
+		}
 
-			$totalValidComment = $request->fetchColumn();
+		$request->execute();
 
-		return $totalValidComment;
+		$totalComments = $request->fetchColumn();
+
+		return $totalComments;
+	}
+
+	public function getUnique($commentId, $valid = false)
+	{
+		$request = $this->db->prepare('SELECT comment.id, content, add_at, valid, user_id, news_id, pseudo FROM comment JOIN user ON user.id = comment.user_id WHERE comment.id = :commentId AND valid = :valid');
+		$request->bindValue(':commentId', (int) $commentId, \PDO::PARAM_INT);
+		$request->bindValue(':valid', (bool) $valid, \PDO::PARAM_BOOL);
+		$request->execute();
+		
+		$data = $request->fetch(\PDO::FETCH_ASSOC);
+
+		$comment = new Comment(['id' => $data['id'], 'content' => $data['content'], 'addAt' => new \DateTime($data['add_at']), 'valid' => $data['valid'], 'userId' => $data['user_id'], 'newsId' => $data['news_id'], 'user' => $data['pseudo']]);
+
+		$request->closeCursor();
+
+		return $comment;
 	}
 
 	public function save(Comment $comment)
