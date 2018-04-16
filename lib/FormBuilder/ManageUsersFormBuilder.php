@@ -11,9 +11,8 @@ class ManageUsersFormBuilder extends FormBuilder
 {
 	public function build()
 	{
-        $userManager = new UserManager;
-        $options = $userManager->getRoles();
-
+       $options = $this->form->getEntity()->getRoleEnum();
+        
         $this->form->add(new SelectField([
             'name' => 'role',
             'class' => 'd-inline-block',
