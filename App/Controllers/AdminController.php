@@ -62,7 +62,7 @@ class AdminController extends Controller
         }
     }
 
-    public function executeAdminShowNews(Request $request)
+    public function executeListNoValidComments(Request $request)
     {
         if ($request->sessionExists('user'))
         {
@@ -70,17 +70,67 @@ class AdminController extends Controller
 
             if ($user->isAuthenticated() && $user->isAdmin())
             {
-                $newsManager = new NewsManager;
-                $news = $newsManager->getUnique($request->getData('id'));
+                $totalCommentsPerPage = $this->config->get('total_comments_no_valid_admin');
+                $commentManager = new CommentManager;
+                $totalComments = $commentManager->count(false);
 
-                if (empty($news->getId()))
+                $pagination = new Pagination($totalComments, $totalCommentsPerPage);
+
+                if ($request->getExists('page'))
                 {
-                    $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                    $pagination->setActualPage($request->getData('page'));
+
+                    if ($pagination->getActualPage() == 0)
+                    {
+                        $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                    }
+
+                    $startReq = $pagination->makePagination();
+                    $listComments = $commentManager->getList($startReq, $totalCommentsPerPage, false);
+
+                    if (empty($listComments))
+                    {
+                        $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                    }
                 }
 
-                $this->response->render('admin_show_news.twig', ['title' => $news->getTitle(), 'news' => $news, 'user' => $user]);
-            }
+                else
+                {
+                    $startReq = $pagination->makePagination();
+                    $listComments = $commentManager->getList($startReq, $totalCommentsPerPage, false);
+                }
 
+                $this->response->render('list_no_valid_comments.twig', ['title' => 'Commentaires à valider', 'listComments' => $listComments, 'user' => $user, 'pagination' => $pagination]);
+            }
+        }
+
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
+    }
+
+    public function executeShowNoValidComment(Request $request)
+    {
+        if ($request->sessionExists('user'))
+        {
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                $commentManager = new CommentManager;
+                $comment = $commentManager->getUnique($request->getData('id'), false);
+                
+                if (empty($comment->getId()))
+                {
+                    $this->response->render('404.twig', ['title' => '404 Not Found']);
+                }
+
+                $newsManager = new NewsManager;
+                $news = $newsManager->getUnique($comment->getNewsId());
+                
+                $this->response->render('show_no_valid_comment.twig', ['title' => $news->getTitle(), 'news' => $news, 'comment' => $comment, 'user' => $user]);
+            }
         }
 
         else
