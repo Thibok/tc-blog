@@ -32,37 +32,20 @@ The bootstrap template <a href="https://startbootstrap.com/template-overviews/bl
 
 <h3>2. Create config</h3>
 
-<p>Create a folder Config in /App with app.xml and routes.xml files.
+<p>Create a file config.xml in /App/Config and enter database informations
 
-For app.xml write your config in xml.Example :
+Write your config in xml.Example :
 
   \<definitions><br/>
-    \<define var="total_news" value="5"/><br/>
+    \<define var="db_name" value="example"/><br/>
    \</definitions>
 </p>
 
-<p>For routes.xml write your path with vars or not.Example :
+<p>Update PDOFactory.php and change by your vars</p>
 
-  \<routes><br/>
-    \<route url="/show_news([0-9]+)\.html" module="News" action="show" vars="news_number"/><br/>
-  \</routes>
-</p>
+<h3>3. Create htaccess</h3>
 
-<p>Update PDOFactory.php and enter your login database informations or enter this in config file.</p>
-
-<h3>3. Install dependencies</h3>
-
-<p>Install Twig :
-
-<pre>
-  composer require twig/twig:~2.0
-</pre>
-
-Install SwiftMailer :
-<pre>
-  composer require "swiftmailer/swiftmailer:^6.0"
-</pre>
-</p>
+<p>Create a file .htaccess in /Web and edit this for redirect request on index.php and prevents access to other files</p>
 
 <h2>Run ! </h2>
 
