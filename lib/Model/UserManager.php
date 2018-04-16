@@ -108,18 +108,6 @@ class UserManager extends Manager
         return $userId;
     }
 
-    public function getRoles()
-    {
-        $request = $this->db->query('SHOW COLUMNS FROM user LIKE "role"');
-        $data = $request->fetch(\PDO::FETCH_ASSOC);
-
-        $type = substr($data['Type'], 6, -2);
-
-        $listRoles = explode("','", $type);
-
-        return $listRoles;
-    }
-
     public function getListPseudo()
     {
         $request = $this->db->query('SELECT pseudo FROM user');
@@ -135,7 +123,7 @@ class UserManager extends Manager
 
         return $listPseudo;
     }
-
+  
     public function count()
 	{
 		return $this->db->query('SELECT COUNT(*) FROM user')->fetchColumn();
