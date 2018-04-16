@@ -1,0 +1,78 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    
+    <div id="wrap">
+        <div id="main" class="container pt-4">
+            <section class="row">
+                <nav id="admin_menu" class="col-lg-3 mx-4 my-5">
+                    <div class="list-group my-3">
+                        <a href="/admin" role="button" class="bg-dark list-group-item text-white text-center">Tableau de bord</a>
+                        <a href="#" role="button" class="bg-dark list-group-item text-white text-center">Ajouter une news</a>
+                        <a href="#" role="button" class="bg-dark list-group-item text-white text-center">Membres à valider</a>
+                        <a href="#" role="button" class="bg-dark list-group-item text-white text-center">Commentaires à valider</a>
+                    </div>
+                </nav>
+                <div id="admin_block" class="col-lg-8 col-sm-12 my-5">
+                    <h1 class="pt-3 pl-1 text-white"><img id="ico_blue" src="/pictures/ico_blue.png" alt="icon"/>Tableau de bord</h1>
+                    <p class="text-center text-white">Il y a actuellement {{ pagination.getTotal }} news</p>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered mt-3 bg-dark">
+                            <thead>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th class="text-center">Date d'ajout</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-white">
+
+                                {% for news in listNews %}
+
+                                    <tr>
+                                        <td><a class="text-white"href="/admin/news-{{ news.getId }}.html">{{ news.getTitle }}</a></td>
+                                        <td class="text-center font-italic">{{ news.getAddAt|date("d/m/Y à H\\hi") }}</td>
+                                        <td class="text-center"><a href="#"><img style="margin-right:1px;" src="/pictures/update.png" alt="update icon"/></a><a href="#"><img style="margin-left:1px;" src="/pictures/delete.png" alt="delete icon"/></a></td>
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="pagination justify-content-center my-4">
+                        
+                        {% if pagination.canPrevious %}
+
+                        <li class="page-item">
+                            <a class="page-link" href="/admin?page={{ pagination.getPreviousPage }}">&larr; Précédent</a>
+                        </li>
+
+                        {% else %}
+
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/admin?page={{ pagination.getPreviousPage }}">&larr; Précédent</a>
+                        </li>
+
+                        {% endif %}
+                        {% if pagination.canNext %}
+
+                        <li class="page-item">
+                            <a class="page-link" href="/admin?page={{ pagination.getNextPage }}">Suivant &rarr;</a>
+                        </li>
+
+                        {% else %}
+
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/admin?page={{ pagination.getNextPage }}">Suivant &rarr;</a>
+                        </li>
+
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+        
+{% endblock %}
