@@ -10,6 +10,7 @@ use \Entity\Comment;
 use \Components\Pagination;
 use \Entity\User;
 use \FormBuilder\CommentFormBuilder;
+use \Components\Gallery;
 
 class NewsController extends Controller
 {
@@ -30,6 +31,15 @@ class NewsController extends Controller
         $totalNews = $this->config->get('total_news_main_page');
 
 		$listNews = $manager->getList(0, $totalNews);
+
+		$allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
+
+		$gallery = new Gallery('pictures/upload', $allowedExtensions);
+
+		foreach ($listNews as $news) 
+		{
+			$news->setPicture($gallery->getPicture('news-'.$news->getId()));
+		}
 
 		$this->response->render('index.twig', ['title' => 'Tc-blog', 'listNews' => $listNews, 'user' => $user]);
 	}
@@ -72,6 +82,15 @@ class NewsController extends Controller
 		{
 			$startReq = $pagination->makePagination();
 			$listNews = $manager->getList($startReq, $totalNewsPerPage);
+		}
+
+		$allowedExtensions = explode(',', $this->config->get('allowed_img_extensions'));
+		
+		$gallery = new Gallery('pictures/upload', $allowedExtensions);
+
+		foreach ($listNews as $news) 
+		{
+			$news->setPicture($gallery->getPicture('news-'.$news->getId()));
 		}
 		
 		$this->response->render('list.twig', ['title' => 'Toutes les news', 'listNews' => $listNews, 'pagination' => $pagination, 'user' => $user]);
@@ -153,6 +172,11 @@ class NewsController extends Controller
 			$startReq = $pagination->makePagination();
 			$listComments = $commentManager->getList($startReq, $totalCommentPerPage, true, $news->getId());
 		}
+
+		$allowedExtensions = explode(',', $this->config->get('allowed_img_extensions'));
+
+		$gallery = new Gallery('pictures/upload', $allowedExtensions);
+		$news->setPicture($gallery->getPicture('news-'.$news->getId()));
 
 		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination, 'user' => $user, 'commentForm' => $commentForm->generate()]);
 	}

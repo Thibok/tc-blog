@@ -7,7 +7,10 @@ class TextField extends Field
 
 	public function buildField()
 	{
-		$label = '<label class="control-label" for="'.$this->name.'">'.$this->label.'</label>';
+		if (!empty($this->label))
+		{
+			$label = '<label class="control-label text-white" for="'.$this->name.'">'.$this->label.'</label>';
+		}
 
 		$field = '<textarea class="form-control" id="'.$this->name.'" name="'.$this->name.'"';
 
@@ -36,7 +39,14 @@ class TextField extends Field
 			$field = '<div class="alert alert-danger">'.$this->errorMessage.$field.'</div>';
 		}
 
-		$field = '<div class="'.$this->class.'">'.$field.'</div>';
+		$container = '<div class="'.$this->class.'">';
+
+		if (isset($label))
+		{
+			$container .= $label;
+		}
+
+		$field = $container.$field.'</div>';
 
 		return $field;
 	}

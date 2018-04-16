@@ -29,6 +29,28 @@ class NewsManager extends Manager
 		return $listNews;
 	}
 
+	private function update(News $news)
+	{
+
+	}
+
+	public function add(News $news)
+	{
+		$request = $this->db->prepare('INSERT INTO news SET title = :title, chapo = :chapo, content = :content, user_id = :userId, add_at = NOW(), update_at = NOW()');
+        $request->bindValue(':title', $news->getTitle());
+        $request->bindValue(':chapo', $news->getChapo());
+        $request->bindValue(':content', $news->getContent());
+        $request->bindValue(':userId', $news->getUserId());
+
+        $request->execute();
+
+        $newsId = $this->db->lastInsertId();
+
+        $request->closeCursor();
+
+        return $newsId;
+	}
+
 	public function getUnique($newsId)
 	{
 		$request = $this->db->prepare('SELECT news.id, title, chapo, content, add_at, update_at, pseudo FROM news JOIN user ON user.id = news.user_id WHERE news.id = :newsId');

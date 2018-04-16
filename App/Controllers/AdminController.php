@@ -11,6 +11,9 @@ use \Components\Pagination;
 use \Entity\User;
 use \Model\UserManager;
 use \FormBuilder\ManageUsersFormBuilder;
+use \FormBuilder\NewsFormBuilder;
+use \Components\Gallery;
+use \FormBuilder\CommentFormBuilder;
 
 class AdminController extends Controller
 {
@@ -262,6 +265,63 @@ class AdminController extends Controller
                 }
 
                 $this->response->render('list_manage_users_admin.twig', ['title' => 'Gestion des utilisateurs', 'listUsers' => $listUsers, 'user' => $user, 'pagination' => $pagination, 'form' => $form->generate()]);
+            }
+
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+            }
+        }
+
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
+    }
+
+    public function executeAddNews(Request $request)
+    {
+        if ($request->sessionExists('user'))
+        {
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                if ($request->method() == 'POST')
+                {
+                    $news = new News(['title' => $request->postData('title'), 'user' => $request->postData('user'), 'chapo' => $request->postData('chapo'), 'content' => $request->postData('content'), 'picture' => $request->filesData('picture')]);
+                }
+
+                else
+                {
+                    $news = new News;
+                }
+
+                $newsFormBuilder = new NewsFormBuilder($news);
+                $newsFormBuilder->build();
+    
+                $newsForm = $newsFormBuilder->getForm();
+
+                if ($request->method() == 'POST' && $newsForm->isValid())
+                {
+                    $userManager = new UserManager;
+                    $newsManager = new NewsManager;
+                    $userId = $userManager->getId($news->getUser());
+                    $news->setUserId($userId);
+                    $newsId = $newsManager->add($news);
+                    $user->setFlash('La news a bien était ajouté !');
+
+                    $picture = $request->filesData('picture');
+
+                    if (!empty($picture['tmp_name']) && $picture['size'] != 0)
+                    {
+                        $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
+                        $gallery = new Gallery('pictures/upload', $allowedExtensions);
+                        $gallery->savePicture('news-'.$newsId, $request->filesData('picture'), 750, 300);
+                    }
+                }
+    
+                $this->response->render('add_news.twig', ['title' => 'Ajouter une news', 'form' => $newsForm->generate(), 'user' => $user]);
             }
 
             else

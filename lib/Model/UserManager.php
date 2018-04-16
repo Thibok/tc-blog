@@ -32,6 +32,17 @@ class UserManager extends Manager
         return $pass;
     }
 
+    public function getId($pseudo)
+    {
+        $request = $this->db->prepare('SELECT id FROM user WHERE pseudo = :pseudo');
+        $request->bindValue(':pseudo', $pseudo);
+        $request->execute();
+
+        $userId = $request->fetchColumn();
+
+        return $userId;
+    }
+
     public function updateRole($userId, $role)
     {
         $request = $this->db->prepare('UPDATE user SET role = :role WHERE id = :userId');
@@ -97,6 +108,22 @@ class UserManager extends Manager
         return $userId;
     }
 
+    public function getListPseudo()
+    {
+        $request = $this->db->query('SELECT pseudo FROM user');
+
+        $listPseudo = [];
+
+        while ($raw = $request->fetch()) 
+        {
+            $listPseudo[] = $raw['pseudo'];
+        }
+
+        $request->closeCursor();
+
+        return $listPseudo;
+    }
+  
     public function count()
 	{
 		return $this->db->query('SELECT COUNT(*) FROM user')->fetchColumn();
@@ -113,7 +140,7 @@ class UserManager extends Manager
 
 	    $request = $this->db->query($sql);
         
-        $listNews = [];
+        $listUsers = [];
 
 	    while ($data = $request->fetch(\PDO::FETCH_ASSOC))
 		{

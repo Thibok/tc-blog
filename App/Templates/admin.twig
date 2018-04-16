@@ -8,7 +8,7 @@
                 <nav id="admin_menu" class="col-lg-3 mx-4 my-5">
                     <div class="list-group my-3">
                         <a href="/admin" role="button" class="bg-dark list-group-item text-white text-center">Tableau de bord</a>
-                        <a href="#" role="button" class="bg-dark list-group-item text-white text-center">Ajouter une news</a>
+                        <a href="/admin/ajouter_une_news" role="button" class="bg-dark list-group-item text-white text-center">Ajouter une news</a>
                         <a href="/admin/gestion_des_utilisateurs" role="button" class="bg-dark list-group-item text-white text-center">Gestion des utilisateurs</a>
                         <a href="/admin/commentaires_a_valider" role="button" class="bg-dark list-group-item text-white text-center">Commentaires à valider</a>
                     </div>
@@ -30,8 +30,9 @@
                                 {% for news in listNews %}
 
                                     <tr>
+
                                         <td><a class="text-white"href="/admin/news-{{ news.getId }}.html">{{ news.getTitle }}</a></td>
-                                        <td class="text-center font-italic">{{ news.getAddAt|date("d/m/Y à H\\hi") }}</td>
+                                        <td class="text-center font-italic">{{ news.getAddAt | date("d/m/Y à H\\hi") }}</td>
                                         <td class="text-center"><a href="#"><img style="margin-right:1px;" src="/pictures/update.png" alt="update icon"/></a><a href="#"><img style="margin-left:1px;" src="/pictures/delete.png" alt="delete icon"/></a></td>
                                     </tr>
 
@@ -55,6 +56,7 @@
                         </li>
 
                         {% endif %}
+                        
                         {% if pagination.canNext %}
 
                         <li class="page-item">
