@@ -18,9 +18,9 @@ class Request
     	return isset($_POST[$key]) ? $_POST[$key] : null;
   	}
 
-	public function getData($name)
+	public function getData($key)
 	{
-		return isset($_GET[$key]) ? $_GET[$key ] : null;
+		return isset($_GET[$key]) ? $_GET[$key] : null;
 	}
 
 	public function getUrl()
