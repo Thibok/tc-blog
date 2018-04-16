@@ -1,5 +1,4 @@
 <?php
-
 namespace Controllers;
 
 use \Components\Controller;
@@ -56,14 +55,14 @@ class NewsController extends Controller
 
 			if ($pagination->getActualPage() == 0)
 			{
-				$this->response->render('404.twig', ['title' => '404 Not Found']);
+				$this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
 			}
 			$startReq = $pagination->makePagination();
 			$listNews = $manager->getList($startReq, $totalNewsPerPage);
 
 			if (empty($listNews))
 			{
-				$this->response->render('404.twig', ['title' => '404 Not Found']);
+				$this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
 			}
 		}
 
@@ -95,7 +94,7 @@ class NewsController extends Controller
 
 		if (empty($news->getId()))
 		{
-			$this->response->render('404.twig', ['title' => '404 Not Found']);
+			$this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
 		}
 		
 		$totalCommentPerPage = $this->config->get('total_comments_show_page');
@@ -108,14 +107,14 @@ class NewsController extends Controller
 
 			if ($pagination->getActualPage() == 0)
 			{
-				$this->response->render('404.twig', ['title' => '404 Not Found']);
+				$this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
 			}
 			$startReq = $pagination->makePagination();
 			$listComments = $commentManager->getListOfNews($startReq, $totalCommentPerPage, $news->getId());
 
 			if (empty($listComments))
 			{
-				$this->response->render('404.twig', ['title' => '404 Not Found']);
+				$this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
 			}
 		}
 
