@@ -317,7 +317,7 @@ class AdminController extends Controller
                     {
                         $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
                         $gallery = new Gallery('pictures/upload', $allowedExtensions);
-                        $gallery->savePicture('news-'.$newsId, $request->filesData('picture'), 750, 300);
+                        $gallery->savePicture('news-'.$newsId, $picture, 750, 300);
                     }
                 }
     
@@ -357,6 +357,80 @@ class AdminController extends Controller
                 $news->setPicture($gallery->getPicture('news-'.$news->getId()));
 
                 $this->response->render('admin_show_news.twig', ['title' => $news->getTitle(), 'user' => $user, 'news' => $news]);
+
+            }
+
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+            }
+        }
+
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
+    }
+
+    public function executeUpdateNews(Request $request)
+    {
+        if ($request->sessionExists('user'))
+        {
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                $newsManager = new NewsManager;
+                $userManager = new UserManager;
+                $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
+                $gallery = new Gallery('pictures/upload', $allowedExtensions);
+                
+                if ($request->method() == 'POST')
+                {
+                    $news = new News(['user' => $request->postData('user'), 'title' => $request->postData('title'), 'chapo' => $request->postData('chapo'), 'content' => $request->postData('content'), 'picture' => $request->filesData('picture'), 'id' => $request->getData('id')]);                  
+                }
+
+                else
+                {
+                    $news = $newsManager->getUnique($request->getData('id'));
+                    $news->setPicture($gallery->getPicture('news-'.$request->getData('id')));
+                }
+
+                if (empty($news->getId()))
+                {
+                    $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                }
+
+                $newsFormBuilder = new NewsFormBuilder($news);
+                $newsFormBuilder->build();
+                $form = $newsFormBuilder->getForm();
+
+                if ($request->method() == 'POST' && $form->isValid())
+                {
+                    $exists = $newsManager->newsExists($request->getData('id'));
+
+                    if (!$exists)
+                    {
+                        $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                    }
+
+                    $picture = $request->filesData('picture');
+
+                    if (!empty($picture['tmp_name']) && $picture['size'] != 0)
+                    {
+                        $gallery->deletePicture('news-'.$request->getData('id'));
+                        $gallery->savePicture('news-'.$request->getData('id'), $picture, 750, 300);
+                    }
+
+                    $userId = $userManager->getId($news->getUser());
+                    $news->setUserId($userId);
+                    $newsManager->update($news);
+                    $user->setFlash('La news a bien été modifié !');
+                    $this->response->redirect('/admin');
+                }
+
+                $this->response->render('update_news.twig', ['title' => $news->getTitle(), 'form' => $form->generate(), 'user' => $user, 'news' => $news]);
+
 
             }
 

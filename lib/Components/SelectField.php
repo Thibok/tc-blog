@@ -27,9 +27,17 @@ class SelectField extends Field
 
 		$field .= '>';
 
-		foreach ($this->options as $key => $value) 
+		foreach ($this->options as $key => $option) 
 		{
-			$field .= '<option value="'.$value.'">'.$value.'</option>';
+			if ($option == $this->getValue())
+			{
+				$field .= '<option value="'.$option.'" selected>'.$option.'</option>';
+			}
+
+			else
+			{
+				$field .= '<option value="'.$option.'">'.$option.'</option>';
+			}
 		}
 
 		$field .= '</select>';
