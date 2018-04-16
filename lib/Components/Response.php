@@ -13,7 +13,7 @@ class Response
 
 	public function redirect($location)
 	{
-        header($location);
+        header("Location: ".$location);
         exit;
     }
     

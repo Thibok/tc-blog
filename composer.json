@@ -16,7 +16,8 @@
           "Entity\\": "lib/Entity/",
           "Components\\": "lib/Components/",
           "Model\\": "lib/Model/",
-          "Controllers\\": "App/Controllers"
+          "Controllers\\": "App/Controllers",
+	  "FormBuilder\\": "lib/FormBuilder"
         }
       }
 }
