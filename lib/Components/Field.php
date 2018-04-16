@@ -73,11 +73,8 @@ abstract class Field
     }
 
     public function setValue($value)
-    {
-    	if (is_string($value))
-    	{
-    		$this->value = $value;
-    	}
+    {   	
+    	$this->value = $value; 	
     }
 
     public function setValidators(array $validators)

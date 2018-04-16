@@ -12,11 +12,6 @@ class User extends Entity
 	private $password;
 	private $registerDate;
     private $role;
-    
-    public function isValid()
-    {
-        return !empty($this->pseudo) || empty($this->email) || empty($this->password) || empty($this->role);
-    }
 
 	public function getFlash()
 	{
