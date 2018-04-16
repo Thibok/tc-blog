@@ -6,4 +6,6 @@
     <route url="/news-([0-9]+)\.html" module="News" action="show" vars="id"/>
     <route url="/news-([0-9]+)\.html\?page=([0-9]+)" module="News" action="show" vars="id,page"/>
     <route url="/inscription.html" module="Connexion" action="signup" />
+    <route url="/connexion.html" module="Connexion" action="signin" />
+    <route url="/deconnexion" module="Connexion" action="disconect" />
 </routes>

@@ -7,15 +7,13 @@
                 <section id="main" class="container">
                     <div class="row">
                         <div id="sign_block" class="col-lg-5 p-4">
-                            <form action="" method="post" class="form-horizontal">
+                            <form class="form-horizontal" method="post" action="">
                                 <fieldset>
-                                    <h2 class="text-white"><img id="ico_blue" src="/pictures/ico_blue.png" alt="icon"/>Inscription</h2>
-
+                                    <h2 class="text-white"><img id="ico_blue" src="/pictures/ico_blue.png" alt="icon"/>Connexion</h2>
                                     {{ form | raw }}
-                                    
                                     <div class="form-group d-inline-flex align-items-end pl-3">
-                                        <button name="signup" type="submit" class="btn btn-primary mt-2">S'inscrire</button>
-                                        <a href="/connexion.html" role="button" class="ml-3 text-primary">Déjà inscrit ?</a>
+                                        <button name="signin" type="submit" class="btn btn-primary mt-2">Se connecter</button>
+                                        <a href="/inscription.html" role="button" class="ml-3 text-primary">Pas encore inscrit ?</a>
                                     </div>
                                 </fieldset>
                             </form>
@@ -24,5 +22,5 @@
                 </section>
             </div>
         </div>
-
+        
 {% endblock %}
