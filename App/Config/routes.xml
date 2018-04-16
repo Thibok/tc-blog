@@ -13,4 +13,5 @@
     <route url="/admin/commentaires_a_valider" module="Admin" action="listNoValidComments" />
     <route url="/admin/commentaires_a_valider\?page=([0-9]+)" module="Admin" action="listNoValidComments" vars="page" />
     <route url="/admin/commentaire_a_valider_([0-9]+)" module="Admin" action="showNoValidComment" vars="id" />
+    <route url="/admin/validation_commentaire_([0-9]+)" module="Admin" action="validComment" vars="id" />
 </routes>

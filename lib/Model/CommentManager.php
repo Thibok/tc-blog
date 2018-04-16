@@ -101,4 +101,27 @@ class CommentManager extends Manager
 
 		$request->closeCursor();
 	}
+
+	public function commentExists($commentId, $valid = 0)
+	{
+		$request = $this->db->prepare('SELECT COUNT(*) FROM comment WHERE id = :commentId AND valid = :valid');
+        $request->bindValue(':commentId', $commentId, \PDO::PARAM_INT);
+        $request->bindValue(':valid', $valid, \PDO::PARAM_BOOL);
+        $request->execute();
+
+        $exists = $request->fetchColumn();
+
+        $request->closeCursor();
+
+		return $exists;
+	}
+
+	public function validComment($commentId)
+	{
+		$request = $this->db->prepare('UPDATE comment SET valid = true WHERE id = :commentId');
+		$request->bindValue(':commentId', $commentId, \PDO::PARAM_INT);
+		$request->execute();
+
+		$request->closeCursor();
+	}
 }
