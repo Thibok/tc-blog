@@ -126,4 +126,22 @@ class NewsController extends Controller
 
 		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination, 'user' => $user]);
 	}
+
+	public function executeShow(Request $request)
+	{
+		$commentManager = new CommentManager;
+		$newsManager = new NewsManager;
+
+		$news = $newsManager->getUnique($request->getData('id'));
+
+		if (empty($news))
+		{
+			$this->response->render('404.twig', ['title' => '404 Not Found']);
+		}
+
+		$totalComment = $this->config->get('total_comments_show_page');
+		$listComment = $commentManager->getListOfNews(0, $totalComment, $news->getId());
+
+		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComment' => $listComment]);
+	}
 }
