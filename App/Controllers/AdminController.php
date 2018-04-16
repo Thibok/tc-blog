@@ -9,6 +9,8 @@ use \Entity\News;
 use \Entity\Comment;
 use \Components\Pagination;
 use \Entity\User;
+use \Model\UserManager;
+use \FormBuilder\ManageUsersFormBuilder;
 
 class AdminController extends Controller
 {
@@ -53,6 +55,11 @@ class AdminController extends Controller
                 
 
                 $this->response->render('admin.twig', ['title' => 'Tableau de bord', 'listNews' => $listNews, 'user' => $user, 'pagination' => $pagination]);
+            }
+
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
             }
         }
 
@@ -102,6 +109,11 @@ class AdminController extends Controller
 
                 $this->response->render('list_no_valid_comments.twig', ['title' => 'Commentaires à valider', 'listComments' => $listComments, 'user' => $user, 'pagination' => $pagination]);
             }
+
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+            }
         }
 
         else
@@ -130,6 +142,11 @@ class AdminController extends Controller
                 $news = $newsManager->getUnique($comment->getNewsId());
                 
                 $this->response->render('show_no_valid_comment.twig', ['title' => $news->getTitle(), 'news' => $news, 'comment' => $comment, 'user' => $user]);
+            }
+
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
             }
         }
 
@@ -161,7 +178,95 @@ class AdminController extends Controller
                 {
                     $this->response->render('404.twig', ['title' => '404 Not Found']);
                 }
+            }
 
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+            }
+        }
+
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
+    }
+
+    public function executeListUsers(Request $request)
+    {
+        if ($request->sessionExists('user'))
+        {
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                $totalUsersPerPage = $this->config->get('total_users_admin_page');
+                $userManager = new UserManager;
+                $totalUsers = $userManager->count();
+
+                $pagination = new Pagination($totalUsers, $totalUsersPerPage);
+
+                if ($request->getExists('page'))
+                {
+                    $pagination->setActualPage($request->getData('page'));
+
+                    if ($pagination->getActualPage() == 0)
+                    {
+                        $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                    }
+
+                    $startReq = $pagination->makePagination();
+                    $listUsers = $userManager->getList($startReq, $totalUsersPerPage);
+
+                    if (empty($listUsers))
+                    {
+                        $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                    }
+                }
+
+                else
+                {
+                    $startReq = $pagination->makePagination();
+                    $listUsers = $userManager->getList($startReq, $totalUsersPerPage);
+                }
+
+                if ($request->method() == 'POST')
+                {
+                    $userForForm = new User(['role' => $request->postData('role')]);
+                }
+
+                else
+                {
+                    $userForForm = new User;
+                }
+
+                $managerUserFormBuilder = new ManageUsersFormBuilder($userForForm);
+                $managerUserFormBuilder->build();
+
+                $form = $managerUserFormBuilder->getForm();
+
+                if ($request->method() == 'POST' && $form->isValid())
+                {
+                    $exists = $request->postData('id');
+
+                    if ($exists)
+                    {
+                        $userManager->updateRole($request->postData('id'), $userForForm->getRole());
+                        $user->setFlash('Modifications validé !');
+                    }
+
+                    else
+                    {
+                        $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                    }
+                }
+
+                $this->response->render('list_manage_users_admin.twig', ['title' => 'Gestion des utilisateurs', 'listUsers' => $listUsers, 'user' => $user, 'pagination' => $pagination, 'form' => $form->generate()]);
+            }
+
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
             }
         }
 
