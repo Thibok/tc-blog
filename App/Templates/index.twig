@@ -17,7 +17,7 @@
                     {% for news in listNews %}
 
                     <article class="card mb-4">
-                        <a href="/news-{{ news.id }}.html"><img class="card-img-top" src="pictures/news.jpg" alt="news picture"/></a>
+                        <a href="/news-{{ news.id }}.html"><img class="card-img-top" src="/pictures/news.jpg" alt="news picture"/></a>
                         <div class="card-body">
                             <a href="/news-{{ news.id }}.html"><h2 class="card-title">{{ news.getTitle }}</h2></a>
                             <p class="card-text text-white">{{ news.getChapo }}</p>
