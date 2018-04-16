@@ -28,7 +28,7 @@ class News extends Entity
 	{
 		if (is_string($user) && !empty($user))
 		{
-			$this->user = htmspecialchars($user);
+			$this->user = htmlspecialchars($user);
 		}
 	}
 
@@ -109,7 +109,7 @@ class News extends Entity
 		return $this->content;
 	}
 
-	public function getaddAt()
+	public function getAddAt()
 	{
 		return $this->addAt;
 	}
