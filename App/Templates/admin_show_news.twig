@@ -1,0 +1,33 @@
+{% extends 'layout.twig' %}
+{% block content %}
+        <div id="wrap">
+            <div id="main" class="container">
+                <section class="row">
+                    <nav class="col-lg-3 mx-4 my-5" id="admin_menu">
+                        <div class="list-group my-3">
+                            <a href="/admin" role="button" class="bg-dark list-group-item text-center text-white">Tableau de bord</a>
+                            <a href="#" role="button" class="bg-dark list-group-item text-center text-white">Ajouter une news</a>
+                            <a href="#" role="button" class="bg-dark list-group-item text-center text-white">Membres à valider</a>
+                            <a href="#" role="button" class="bg-dark list-group-item text-center text-white">Commentaires à valider</a>
+                        </div>
+                    </nav>
+                    <article class="col-lg-8 col-sm-12 my-5" id="admin_block">
+                        <h1 class="pt-3 pl-1 text-white"><img src="/pictures/ico_blue.png" id="ico_blue" alt="icon"/>{{ news.getTitle }}</h1>
+                        <p id="date_publish" class="pl-1">Publié le <span class="font-italic">{{ news.getAddAt | date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.user }}</span></p>
+                        <hr/>
+                        <img class="img-fluid rounded" src="/pictures/news.jpg" alt="news picture"/>
+                        <hr/>
+                        <p class="lead text-white">{{ news.getChapo }}</p>
+                        <hr/>
+                        <p class="text-white">{{ news.getContent }}</p>
+                        <hr/>
+                        <div class="text-center my-5">
+                            <button type="button" class="btn btn-warning mr-2 text-white"><img class="mr-1 mb-1" src="/pictures/update.png" alt="update icon"/>Modifier</button>
+                            <button type="button" class="btn btn-danger ml-2 text-white"><img class="mr-1" src="/pictures/delete.png" alt="delete icon"/>Supprimer</button>
+                        </div>
+                    </article>
+                </section>
+            </div>
+        </div>
+        
+{% endblock %}
