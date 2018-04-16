@@ -2,4 +2,5 @@
 <definitions>
     <define var="total_news_main_page" value="3" />
     <define var="total_news_list_page" value="10" />
+    <define var="total_comments_show_page" value="10" />
 </definitions>

@@ -65,7 +65,7 @@ th
   color: #5DC4F4;
 }
 
-td a:link
+td a:link, div .no_text_decoration
 {
   text-decoration: none;
 }
