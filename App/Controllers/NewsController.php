@@ -7,6 +7,7 @@ use \Components\Request;
 use \Model\NewsManager;
 use \Model\CommentManager;
 use \Entity\News;
+use \Components\Pagination;
 
 class NewsController extends Controller
 {
@@ -23,12 +24,35 @@ class NewsController extends Controller
 	
 	public function executeList(Request $request)
 	{
-		$totalNews = $this->config->get('total_news_list_page');
+		$totalNewsPerPage = $this->config->get('total_news_list_page');
 		$manager = new NewsManager;
+		$totalNews = $manager->count();
+		$pagination = new Pagination($totalNews, $totalNewsPerPage);
+
+		if ($request->getExists('page'))
+		{
+			$pagination->setActualPage($request->getData('page'));
+
+			if ($pagination->getActualPage() == 0)
+			{
+				$this->response->render('404.twig', ['title' => '404 Not Found']);
+			}
+			$startReq = $pagination->makePagination();
+			$listNews = $manager->getList($startReq, $totalNewsPerPage);
+
+			if (empty($listNews))
+			{
+				$this->response->render('404.twig', ['title' => '404 Not Found']);
+			}
+		}
+
+		else
+		{
+			$startReq = $pagination->makePagination();
+			$listNews = $manager->getList($startReq, $totalNewsPerPage);
+		}
 		
-		$listNews = $manager->getList(0, $totalNews);
-		
-		$this->response->render('list.twig', ['title' => 'Toutes les news', 'listNews' => $listNews]);
+		$this->response->render('list.twig', ['title' => 'Toutes les news', 'listNews' => $listNews, 'pagination' => $pagination]);
 	}
 
 	public function executeShow(Request $request)
@@ -38,14 +62,38 @@ class NewsController extends Controller
 
 		$news = $newsManager->getUnique($request->getData('id'));
 
-		if (empty($news))
+		if (empty($news->getId()))
 		{
 			$this->response->render('404.twig', ['title' => '404 Not Found']);
 		}
+		
+		$totalCommentPerPage = $this->config->get('total_comments_show_page');
+		$totalComment = $commentManager->countValidCommentsOfNews($news->getId());
+		$pagination = new Pagination($totalComment, $totalCommentPerPage);
 
-		$totalComment = $this->config->get('total_comments_show_page');
-		$listComment = $commentManager->getListOfNews(0, $totalComment, $news->getId());
+		if ($request->getExists('page'))
+		{
+			$pagination->setActualPage($request->getData('page'));
 
-		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComment' => $listComment]);
+			if ($pagination->getActualPage() == 0)
+			{
+				$this->response->render('404.twig', ['title' => '404 Not Found']);
+			}
+			$startReq = $pagination->makePagination();
+			$listComments = $commentManager->getListOfNews($startReq, $totalCommentPerPage, $news->getId());
+
+			if (empty($listComments))
+			{
+				$this->response->render('404.twig', ['title' => '404 Not Found']);
+			}
+		}
+
+		else
+		{
+			$startReq = $pagination->makePagination();
+			$listComments = $commentManager->getListOfNews($startReq, $totalCommentPerPage, $news->getId());
+		}
+
+		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination]);
 	}
 }
