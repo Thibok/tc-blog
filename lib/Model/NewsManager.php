@@ -43,7 +43,7 @@ class NewsManager extends Manager
 
 		return $news;
 	}
-
+  
 	public function count()
 	{
 		return $this->db->query('SELECT COUNT(*) FROM news')->fetchColumn();
