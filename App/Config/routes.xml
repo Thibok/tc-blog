@@ -17,4 +17,6 @@
     <route url="/admin/gestion_des_utilisateurs" module="Admin" action="listUsers" />
     <route url="/admin/gestion_des_utilisateurs\?page=([0-9]+)" module="Admin" action="listUsers" vars="page" />
     <route url="/admin/ajouter_une_news" module="Admin" action="addNews" />
+    <route url="/admin/news-([0-9]+)\.html" module="Admin" action="show" vars="id" />
+    <route url="/admin/modifier_news-([0-9]+)\.html" module="Admin" action="updateNews" vars="id" />
 </routes>

@@ -1,7 +1,8 @@
 {% extends 'layout.twig' %}
+
 {% block content %}
         <div id="wrap">
-            <div id="main" class="container pt-4">
+            <div id="main" class="container">
                 <section class="row">
                     <nav class="col-lg-3 mx-4 my-5" id="admin_menu">
                         <div class="list-group my-3">
@@ -11,23 +12,18 @@
                             <a href="/admin/commentaires_a_valider" role="button" class="bg-dark list-group-item text-white text-center">Commentaires à valider</a>
                         </div>
                     </nav>
-                     <div id ="admin_block" class="col-lg-8 my-5">
-
-                     {% if user.hasFlash %}
-
-                    <div class="alert alert-info alert-dismissible text-center mt-4">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
-                    </div>
-
-                    {% endif %}
-                    
-                        <h1 class="pt-3 pl-1 text-white"><img src="/pictures/ico_blue.png" id="ico_blue" alt="icon"/>Ajouter une news</h1>
+                    <div class="col-lg-8 my-5" id="admin_block">
+                        <h1 class="pt-3 pl-1 text-white"><img src="/pictures/ico_blue.png" alt="icon" id="ico_blue"/>{{ news.getTitle }}</h1>
+                        <p id="date_publish" ><span class="font-italic">{{ news.getAddAt != news.getUpdateAt ? 'Modifié' : 'Publié' }} le {{ news.getAddAt != news.getUpdateAt ? news.getUpdateAt|date("d/m/Y à H\\hi") : news.getAddAt|date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.getUser }}</span></p>
+                        <hr/>
+                        <img class="img-fluid rounded" src="{{ news.getPicture }}" alt="news picture"/>
+                        <hr/>
                         <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
                             <fieldset>
-                                {{ form | raw }}
+                                {{ form|raw }}
+
                                 <div class="col-md-4 mb-4">
-                                    <button type="submit" name="publish" class="btn btn-primary">Publier</button>
+                                    <button type="submit" name="publish" class="btn btn-primary">Modifier</button>
                                 </div>
                             </fieldset>
                         </form>
@@ -35,5 +31,4 @@
                 </section>
             </div>
         </div>
-            
 {% endblock %}
