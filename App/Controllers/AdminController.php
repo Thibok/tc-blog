@@ -336,14 +336,22 @@ class AdminController extends Controller
         }
     }
 
-    public function executeShow(Request $request)
+    public function executeDeleteNews(Request $request)
     {
         if ($request->sessionExists('user'))
-        {
+        {   
             $user = $request->sessionData('user');
 
             if ($user->isAuthenticated() && $user->isAdmin())
             {
+                $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
+                $newsManager = new NewsManager;
+                $gallery = new Gallery('pictures/upload', $allowedExtensions);
+                
+                $newsManager->delete($request->getData('id'));
+                $gallery->deletePicture('news-'.$request->getData('id'));
+                $user->setFlash('La news a bien été supprimé !');
+                $this->response->redirect('/admin');
                 $newsManager = new NewsManager;
                 $news = $newsManager->getUnique($request->getData('id'));
 
@@ -430,7 +438,6 @@ class AdminController extends Controller
                 }
 
                 $this->response->render('update_news.twig', ['title' => $news->getTitle(), 'form' => $form->generate(), 'user' => $user, 'news' => $news]);
-
 
             }
 

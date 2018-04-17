@@ -1,41 +1,34 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-
-    <div id="wrap">
-        <div id="main" class="container">
-            <section class="row">
-                <nav id="admin_menu" class="col-lg-3 mx-4 my-5">
-                    <div class="list-group my-3">
-                        <a href="/admin" role="button" class="bg-dark list-group-item text-white text-center">Tableau de bord</a>
-                        <a href="/admin/ajouter_une_news" role="button" class="bg-dark list-group-item text-white text-center">Ajouter une news</a>
-                        <a href="/admin/gestion_des_utilisateurs" role="button" class="bg-dark list-group-item text-white text-center">Gestion des utilisateurs</a>
-                        <a href="/admin/commentaires_a_valider" role="button" class="bg-dark list-group-item text-white text-center">Commentaires à valider</a>
-                    </div>
-                </nav>
-                <article class="col-lg-8 col-sm-12 my-5" id="admin_block">
-                    <h1 class="pt-3 pl-1 text-white"><img src="/pictures/ico_blue.png" id="ico_blue" alt="icon"/>{{ news.getTitle }}</h1>
-                    <p id="date_publish" ><span class="font-italic">{{ news.getAddAt != news.getUpdateAt ? 'Modifié' : 'Publié' }} le {{ news.getAddAt != news.getUpdateAt ? news.getUpdateAt|date("d/m/Y à H\\hi") : news.getAddAt|date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.getUser }}</span></p>
-                    <hr/>
-
-                    {% if news.hasPicture %}
-
-                    <img class="img-fluid rounded" src="{{ news.getPicture }}" alt="news picture"/>
-                    <hr/>
-
-                    {% endif %}
-
-                    <p class="lead text-white">{{ news.getChapo }}</p>
-                    <hr/>
-                    <p class="text-white">{{ news.getContent|nl2br }}</p>
-                    <hr/>
-                    <div class="text-center my-5">
-                        <a role="button" href="/admin/modifier_news-{{ news.getId }}.html" class="btn btn-warning mr-2 text-white"><img class="mr-1 mb-1" src="/pictures/update.png" alt="update icon"/>Modifier</a>
-                        <button type="button" class="btn btn-danger ml-2 text-white"><img class="mr-1" src="/pictures/delete.png" alt="delete icon"/>Supprimer</button>
-                    </div>
-                </article>
-            </section>
+        <div id="wrap">
+            <div id="main" class="container">
+                <section class="row">
+                    <nav class="col-lg-3 mx-4 my-5" id="admin_menu">
+                        <div class="list-group my-3">
+                            <a href="/admin" role="button" class="bg-dark list-group-item text-center text-white">Tableau de bord</a>
+                            <a href="#" role="button" class="bg-dark list-group-item text-center text-white">Ajouter une news</a>
+                            <a href="#" role="button" class="bg-dark list-group-item text-center text-white">Membres à valider</a>
+                            <a href="#" role="button" class="bg-dark list-group-item text-center text-white">Commentaires à valider</a>
+                        </div>
+                    </nav>
+                    <article class="col-lg-8 col-sm-12 my-5" id="admin_block">
+                        <h1 class="pt-3 pl-1 text-white"><img src="/pictures/ico_blue.png" id="ico_blue" alt="icon"/>{{ news.getTitle }}</h1>
+                        <p id="date_publish" class="pl-1">Publié le <span class="font-italic">{{ news.getAddAt | date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.user }}</span></p>
+                        <hr/>
+                        <img class="img-fluid rounded" src="/pictures/news.jpg" alt="news picture"/>
+                        <hr/>
+                        <p class="lead text-white">{{ news.getChapo }}</p>
+                        <hr/>
+                        <p class="text-white">{{ news.getContent }}</p>
+                        <hr/>
+                        <div class="text-center my-5">
+                            <a role="button" href="/admin/modifier_news-{{ news.getId }}.html" class="btn btn-warning mr-2 text-white"><img class="mr-1 mb-1" src="/pictures/update.png" alt="update icon"/>Modifier</a>
+                            <a role="button" href="/admin/supprimer_news-{{ news.getId }}" class="btn btn-danger ml-2 text-white"><img class="mr-1" src="/pictures/delete.png" alt="delete icon"/>Supprimer</a>
+                        </div>
+                    </article>
+                </section>
+            </div>
         </div>
-    </div>
         
 {% endblock %}
