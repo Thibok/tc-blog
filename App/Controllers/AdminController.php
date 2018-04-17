@@ -336,6 +336,44 @@ class AdminController extends Controller
         }
     }
 
+    public function executeShow(Request $request)
+    {
+        if ($request->sessionExists('user'))
+        {   
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
+                $newsManager = new NewsManager;
+                $gallery = new Gallery('pictures/upload', $allowedExtensions);
+                $news = $newsManager->getUnique($request->getData('id'));
+
+                if (empty($news->getId()))
+                {
+                    $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                }
+
+                $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
+                $gallery = new Gallery('pictures/upload', $allowedExtensions);
+                $news->setPicture($gallery->getPicture('news-'.$news->getId()));
+
+                $this->response->render('admin_show_news.twig', ['title' => $news->getTitle(), 'user' => $user, 'news' => $news]);
+
+            }
+
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+            }
+        }
+
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
+    }
+
     public function executeDeleteNews(Request $request)
     {
         if ($request->sessionExists('user'))
@@ -352,20 +390,6 @@ class AdminController extends Controller
                 $gallery->deletePicture('news-'.$request->getData('id'));
                 $user->setFlash('La news a bien été supprimé !');
                 $this->response->redirect('/admin');
-                $newsManager = new NewsManager;
-                $news = $newsManager->getUnique($request->getData('id'));
-
-                if (empty($news->getId()))
-                {
-                    $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
-                }
-
-                $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
-                $gallery = new Gallery('pictures/upload', $allowedExtensions);
-                $news->setPicture($gallery->getPicture('news-'.$news->getId()));
-
-                $this->response->render('admin_show_news.twig', ['title' => $news->getTitle(), 'user' => $user, 'news' => $news]);
-
             }
 
             else
