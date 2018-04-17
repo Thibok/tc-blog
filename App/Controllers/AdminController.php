@@ -335,4 +335,34 @@ class AdminController extends Controller
             $this->response->redirect('/connexion.html');
         }
     }
+
+    public function executeDeleteNews(Request $request)
+    {
+        if ($request->sessionExists('user'))
+        {   
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
+                $newsManager = new NewsManager;
+                $gallery = new Gallery('pictures/upload', $allowedExtensions);
+                
+                $newsManager->delete($request->getData('id'));
+                $gallery->deletePicture('news-'.$request->getData('id'));
+                $user->setFlash('La news a bien été supprimé !');
+                $this->response->redirect('/admin');
+            }
+
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404.twig', 'user' => $user]);
+            }
+        }
+
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
+    }
 }

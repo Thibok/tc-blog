@@ -34,6 +34,11 @@ class NewsManager extends Manager
 
 	}
 
+	public function delete($newsId)
+	{
+		$this->db->exec('DELETE FROM news WHERE id = '.(int) $newsId);
+	}
+
 	public function add(News $news)
 	{
 		$request = $this->db->prepare('INSERT INTO news SET title = :title, chapo = :chapo, content = :content, user_id = :userId, add_at = NOW(), update_at = NOW()');
