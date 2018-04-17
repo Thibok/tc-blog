@@ -1,4 +1,5 @@
 {% extends 'layout.twig' %}
+
 {% block content %}
         <div id="wrap">
             <div id="main" class="container">
@@ -22,7 +23,7 @@
                         <p class="text-white">{{ news.getContent }}</p>
                         <hr/>
                         <div class="text-center my-5">
-                            <button type="button" class="btn btn-warning mr-2 text-white"><img class="mr-1 mb-1" src="/pictures/update.png" alt="update icon"/>Modifier</button>
+                            <a role="button" href="/admin/modifier_news-{{ news.getId }}.html" class="btn btn-warning mr-2 text-white"><img class="mr-1 mb-1" src="/pictures/update.png" alt="update icon"/>Modifier</a>
                             <a role="button" href="/admin/supprimer_news-{{ news.getId }}" class="btn btn-danger ml-2 text-white"><img class="mr-1" src="/pictures/delete.png" alt="delete icon"/>Supprimer</a>
                         </div>
                     </article>
