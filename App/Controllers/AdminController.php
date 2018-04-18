@@ -254,8 +254,13 @@ class AdminController extends Controller
 
                     if ($exists)
                     {
-                        $userManager->updateRole($request->postData('id'), $userForForm->getRole());
-                        $user->setFlash('Modifications validé !');
+                        $token = $request->postData('token');
+
+                        if (!empty($user->getToken()) && $user->getToken() == $token)
+                        {
+                            $userManager->updateRole($request->postData('id'), $userForForm->getRole());
+                            $user->setFlash('Modifications validé !');
+                        }
                     }
 
                     else
@@ -304,20 +309,25 @@ class AdminController extends Controller
 
                 if ($request->method() == 'POST' && $newsForm->isValid())
                 {
-                    $userManager = new UserManager;
-                    $newsManager = new NewsManager;
-                    $userId = $userManager->getId($news->getUser());
-                    $news->setUserId($userId);
-                    $newsId = $newsManager->add($news);
-                    $user->setFlash('La news a bien était ajouté !');
+                    $token = $request->postData('token');
 
-                    $picture = $request->filesData('picture');
-
-                    if (!empty($picture['tmp_name']) && $picture['size'] != 0)
+                    if (!empty($user->getToken() && $user->getToken() == $token))
                     {
-                        $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
-                        $gallery = new Gallery('pictures/upload', $allowedExtensions);
-                        $gallery->savePicture('news-'.$newsId, $picture, 750, 300);
+                        $userManager = new UserManager;
+                        $newsManager = new NewsManager;
+                        $userId = $userManager->getId($news->getUser());
+                        $news->setUserId($userId);
+                        $newsId = $newsManager->add($news);
+                        $user->setFlash('La news a bien était ajouté !');
+
+                        $picture = $request->filesData('picture');
+
+                        if (!empty($picture['tmp_name']) && $picture['size'] != 0)
+                        {
+                            $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
+                            $gallery = new Gallery('pictures/upload', $allowedExtensions);
+                            $gallery->savePicture('news-'.$newsId, $picture, 750, 300);
+                        }
                     }
                 }
     
@@ -439,26 +449,31 @@ class AdminController extends Controller
 
                 if ($request->method() == 'POST' && $form->isValid())
                 {
-                    $exists = $newsManager->newsExists($request->getData('id'));
+                    $token = $request->postData('token');
 
-                    if (!$exists)
+                    if (!empty($user->getToken() && $user->getToken() == $token))
                     {
-                        $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                        $exists = $newsManager->newsExists($request->getData('id'));
+
+                        if (!$exists)
+                        {
+                            $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                        }
+
+                        $picture = $request->filesData('picture');
+
+                        if (!empty($picture['tmp_name']) && $picture['size'] != 0)
+                        {
+                            $gallery->deletePicture('news-'.$request->getData('id'));
+                            $gallery->savePicture('news-'.$request->getData('id'), $picture, 750, 300);
+                        }
+
+                        $userId = $userManager->getId($news->getUser());
+                        $news->setUserId($userId);
+                        $newsManager->update($news);
+                        $user->setFlash('La news a bien été modifié !');
+                        $this->response->redirect('/admin');
                     }
-
-                    $picture = $request->filesData('picture');
-
-                    if (!empty($picture['tmp_name']) && $picture['size'] != 0)
-                    {
-                        $gallery->deletePicture('news-'.$request->getData('id'));
-                        $gallery->savePicture('news-'.$request->getData('id'), $picture, 750, 300);
-                    }
-
-                    $userId = $userManager->getId($news->getUser());
-                    $news->setUserId($userId);
-                    $newsManager->update($news);
-                    $user->setFlash('La news a bien été modifié !');
-                    $this->response->redirect('/admin');
                 }
 
                 $this->response->render('update_news.twig', ['title' => $news->getTitle(), 'form' => $form->generate(), 'user' => $user, 'news' => $news]);
