@@ -145,8 +145,12 @@ class NewsController extends Controller
 
 		if ($request->method() == 'POST' && $commentForm->isValid())
 		{
-			$commentManager->save($comment);
-			$user->setFlash('Le commentaire à bien était ajouté ! Il doit maintenant être valider !');
+			$token = $request->postData('token');
+			if (!empty($user->getToken() && $user->getToken() == $token))
+			{
+				$commentManager->save($comment);
+				$user->setFlash('Le commentaire à bien était ajouté ! Il doit maintenant être valider !');
+			}
 		}
 
 		if ($request->getExists('page'))

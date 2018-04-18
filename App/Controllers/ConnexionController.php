@@ -49,6 +49,7 @@ class ConnexionController extends Controller
             $user = $manager->getInfosByEmail($user);
 
             $user->setAuthenticated(true);
+            $user->setToken(bin2hex(random_bytes(32)));
             $user->setFlash('Vous êtes maintenant connecté !');
             $_SESSION['user'] = $user;
 
@@ -91,7 +92,7 @@ class ConnexionController extends Controller
             
             $user->setId($userId);
             $user->setRole('Membre');
-
+            $user->setToken(bin2hex(random_bytes(32)));
             $user->setAuthenticated(true);
             $_SESSION['user'] = $user;
 

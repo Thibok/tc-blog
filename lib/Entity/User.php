@@ -11,7 +11,8 @@ class User extends Entity
 	private $email;
 	private $password;
 	private $registerDate;
-    private $role;
+	private $role;
+	private $token;
 
 	public function getFlash()
 	{
@@ -31,7 +32,7 @@ class User extends Entity
 
 	public function __sleep()
 	{
-		return ['id', 'role'];
+		return ['id', 'role', 'token'];
 	}
 	
 	public function hasFlash()
@@ -59,6 +60,11 @@ class User extends Entity
 		return $this->pseudo;
 	}
 
+	public function getToken()
+	{
+		return $this->token;
+	}
+
 	public function getEmail()
 	{
 		return $this->email;
@@ -77,6 +83,14 @@ class User extends Entity
 	public function getRole()
 	{
 		return $this->role;
+	}
+
+	public function setToken($token)
+	{
+		if (is_string($token) && !empty($token))
+		{
+			$this->token = $token;
+		}
 	}
 
 	public function setPseudo($pseudo)
