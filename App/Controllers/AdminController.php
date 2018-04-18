@@ -250,7 +250,7 @@ class AdminController extends Controller
 
                 if ($request->method() == 'POST' && $form->isValid())
                 {
-                    $exists = $request->postData('id');
+                    $exists = $userManager->countWhereId($request->postData('id'));
 
                     if ($exists)
                     {
