@@ -172,9 +172,14 @@ class AdminController extends Controller
 
                 if ($exists)
                 {
-                    $commentManager->validComment($request->getData('id'));
-                    $user->setFlash('Commentaire validé !');
-                    $this->response->redirect('/admin/commentaires_a_valider');
+                    $token = $request->getData('token');
+
+                    if (!empty($user->getToken()) && $user->getToken() == $token)
+                    {
+                        $commentManager->validComment($request->getData('id'));
+                        $user->setFlash('Commentaire validé !');
+                        $this->response->redirect('/admin/commentaires_a_valider');
+                    }
                 }
 
                 else
@@ -395,11 +400,16 @@ class AdminController extends Controller
                 $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
                 $newsManager = new NewsManager;
                 $gallery = new Gallery('pictures/upload', $allowedExtensions);
-                
-                $newsManager->delete($request->getData('id'));
-                $gallery->deletePicture('news-'.$request->getData('id'));
-                $user->setFlash('La news a bien été supprimé !');
-                $this->response->redirect('/admin');
+
+                $token = $request->getData('token');
+
+                if (!empty($user->getToken() && $user->getToken() == $token))
+                {
+                    $newsManager->delete($request->getData('id'));
+                    $gallery->deletePicture('news-'.$request->getData('id'));
+                    $user->setFlash('La news a bien été supprimé !');
+                    $this->response->redirect('/admin');
+                }
             }
 
             else

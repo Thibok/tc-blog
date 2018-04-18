@@ -43,7 +43,7 @@
                                     <tr>
                                         <td><a class="text-white"href="/admin/news-{{ news.getId }}.html">{{ news.getTitle }}</a></td>
                                         <td class="text-center font-italic">{{ news.getAddAt | date("d/m/Y à H\\hi") }}</td>
-                                        <td class="text-center"><a href="/admin/modifier_news-{{ news.getId }}.html"><img style="margin-right:1px;" src="/pictures/update.png" alt="update icon"/></a><a href="/admin/supprimer_news-{{ news.getId }}"><img style="margin-left:1px;" src="/pictures/delete.png" alt="delete icon"/></a></td>
+                                        <td class="text-center"><a href="/admin/modifier_news-{{ news.getId }}.html"><img style="margin-right:1px;" src="/pictures/update.png" alt="update icon"/></a><a href="/admin/supprimer_news-{{ news.getId }}?token={{ user.getToken }}"><img style="margin-left:1px;" src="/pictures/delete.png" alt="delete icon"/></a></td>
                                     </tr>
 
                                 {% endfor %}

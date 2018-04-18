@@ -41,7 +41,7 @@
                                     <tr>
                                         <td class="font-weight-bold"><a class="text-white" href="/admin/commentaire_a_valider_{{ comment.getId }}">{{ comment.getUser }}</a></td>
                                         <td class="text-center font-italic">{{ comment.getAddAt | date("d/m/Y à H\\hi") }}</td>
-                                        <td class="text-center"><a href="/admin/validation_commentaire_{{ comment.getId }}"><img style="margin-right:1px;" src="/pictures/valid.png" alt="valid icon"/></a><a href="#"><img style="margin-left:1px;" src="/pictures/delete.png" alt="delete icon"/></a></td>
+                                        <td class="text-center"><a href="/admin/validation_commentaire_{{ comment.getId }}?token={{ user.getToken }}"><img style="margin-right:1px;" src="/pictures/valid.png" alt="valid icon"/></a><a href="#"><img style="margin-left:1px;" src="/pictures/delete.png" alt="delete icon"/></a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
