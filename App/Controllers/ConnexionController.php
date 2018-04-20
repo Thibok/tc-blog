@@ -23,7 +23,7 @@ class ConnexionController extends Controller
     {
         if ($request->method() == 'POST')
         {
-            $user = new User(['pseudo' => $request->postData('pseudo'), 'email' => $request->postData('email'), 'password' => $request->postData('password')]);
+            $user = new User(['pseudo' => $request->postData('pseudo'), 'email' => $request->postData('email'), 'password' => $request->postData('password'), 'captcha' => $request->postData('g-recaptcha-response')]);
         }
         
         else

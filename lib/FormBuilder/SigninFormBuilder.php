@@ -29,8 +29,8 @@ class SigninFormBuilder extends FormBuilder
             'validators' => [
                 new MinLengthValidator('Longueur minimum : '.$emailMinCharacter.' caractères minimum', $emailMinCharacter),
                 new MaxLengthValidator('Longueur maximum : '.$emailMaxCharacter.' caractères', $emailMaxCharacter),
-                new UserExistsValidator('L\'email saisis n\'existe pas', 'email'),
                 new StructureValidator('Votre adresse email doit être valide', '#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#'),
+                new UserExistsValidator('L\'email saisis n\'existe pas', 'email')
                 ]
             ]));
         

@@ -3,8 +3,11 @@ namespace Components;
 
 class CaptchaValidator extends Validator
 {
-    public function __construct()
+    private $privateKey;
+    
+    public function __construct($errorMessage)
     {
+        parent::__construct($errorMessage);
         $config = new Config(__DIR__.'/../../App/Config/config.xml');
         $this->privateKey = $config->get('private_captcha_key');
     }
@@ -16,6 +19,7 @@ class CaptchaValidator extends Validator
 
         if ($resp->isSuccess()) 
         {
+            $_SESSION['captcha'] = true;
             return true;
         } 
 

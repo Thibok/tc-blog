@@ -28,6 +28,11 @@ class Request
 		return $_SERVER['REQUEST_URI'];
 	}
 
+	public function ip()
+	{
+		return $_SERVER['REMOTE_ADDR'];
+	}
+
 	public function method()
   	{
     	return $_SERVER['REQUEST_METHOD'];
