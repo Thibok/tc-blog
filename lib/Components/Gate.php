@@ -1,6 +1,8 @@
 <?php
 namespace Components;
 
+use \Model\ConnexionManager;
+
 class Gate
 {
     private $maxAttempt;
@@ -21,7 +23,7 @@ class Gate
     {
         $numberOfAttempt = $this->manager->countAttempt($ip);
 
-        if ($numberOfAttempt < $this->$maxAttempt)
+        if ($numberOfAttempt < $this->maxAttempt)
         {
             return true;
         }

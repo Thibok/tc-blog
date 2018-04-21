@@ -19,4 +19,5 @@
     <define var="allowed_img_extensions" value="jpg,png,jpeg"/>
     <define var="max_img_size" value="1000000"/>
     <define var="public_captcha_key" value="6LdshFQUAAAAAPR6t2uKRUqik2f-SwDA2V7w0Lm4"/>
+    <define var="number_max_attempt" value="10"/>
 </definitions>

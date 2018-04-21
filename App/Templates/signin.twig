@@ -3,6 +3,16 @@
 {% block content %}
 
         <div id="wrap">
+
+            {% if user.hasFlash %}
+                
+            <div class="alert alert-info alert-dismissible text-center mt-4">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
+            </div>
+
+            {% endif %}
+
             <div id="vertical_alignement">
                 <section id="main" class="container">
                     <div class="row">

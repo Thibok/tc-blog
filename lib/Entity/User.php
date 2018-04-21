@@ -13,7 +13,6 @@ class User extends Entity
 	private $registerDate;
 	private $role;
 	private $token;
-	private $captcha;
 
 	public function getFlash()
 	{
@@ -56,11 +55,6 @@ class User extends Entity
 		$_SESSION['auth'] = (bool) $authenticated;
 	}
 
-	public function getCaptcha()
-	{
-		return $this->captcha;
-	}
-
 	public function getPseudo()
 	{
 		return $this->pseudo;
@@ -89,14 +83,6 @@ class User extends Entity
 	public function getRole()
 	{
 		return $this->role;
-	}
-
-	public function setCaptcha($captcha)
-	{
-		if (!empty($captcha))
-		{
-			$this->captcha = $captcha;
-		}
 	}
 
 	public function setToken($token)
