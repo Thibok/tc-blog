@@ -4,6 +4,8 @@ namespace Components;
 class TextField extends Field
 {
 	private $maxLength;
+	private $rows;
+	private $cols;
 
 	public function buildField()
 	{
@@ -19,6 +21,15 @@ class TextField extends Field
 			$field .= ' maxlength="'.$this->maxLength.'"';
 		}
 
+		if (!empty($this->rows))
+		{
+			$field .= ' rows="'.$this->rows.'"';
+		}
+
+		if (!empty($this->cols))
+		{
+			$field .= ' cols="'.$this->cols.'"';
+		}
 
 		if (!empty($this->required) && $this->required === true)
 		{
@@ -54,6 +65,37 @@ class TextField extends Field
 	public function getMaxLength()
 	{
 		return $this->maxLength;
+	}
+
+	public function setRows($rows)
+	{
+		$rows = (int) $rows;
+
+		if ($rows > 0)
+		{
+			$this->rows = $rows;
+		}
+
+		else
+		{
+			throw new \RuntimeException('Le nombre de lignes doit être supérieur à 0 !');
+		}
+	}
+
+	public function setCols($cols)
+	{
+		$cols = (int) $cols;
+
+		if ($cols > 0)
+		{
+			$this->cols = $cols;
+		}
+
+		else
+		{
+			throw new \RuntimeException('Le nombre de colonnes doit être supérieur à 0 !');
+			
+		}
 	}
 
 	public function setMaxLength($maxLength)

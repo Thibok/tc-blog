@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <definitions>
-    <define var="total_news_main_page" value="3" />
-    <define var="total_news_list_page" value="10" />
-    <define var="total_comments_show_page" value="10" />
+    <define var="total_news_main_page" value="3"/>
+    <define var="total_news_list_page" value="10"/>
+    <define var="total_comments_show_page" value="10"/>
     <define var="total_news_admin_page" value="10" />
-    <define var="total_comments_no_valid_admin" value="10" />
+    <define var="total_comments_no_valid_admin" value="10"/>
     <define var="total_users_admin_page" value="10" />
-    <define var="user_pseudo_max_character" value="20" />
-	<define var="user_pseudo_min_character" value="4" />
-    <define var="user_email_max_character" value="70" />
-	<define var="user_email_min_character" value="6" />
-    <define var="user_password_max_character" value="40" />
-	<define var="user_password_min_character" value="8" />
-    <define var="comment_content_max_character" value="500" />
-    <define var="news_title_max_character" value="70" />
-	<define var="news_chapo_max_character" value="250" />
+    <define var="user_pseudo_max_character" value="20"/>
+	<define var="user_pseudo_min_character" value="4"/>
+    <define var="user_email_max_character" value="70"/>
+	<define var="user_email_min_character" value="6"/>
+    <define var="user_password_max_character" value="40"/>
+	<define var="user_password_min_character" value="8"/>
+    <define var="contact_name_max_character" value="20"/>
+    <define var="contact_firstName_max_character" value="20"/>
+    <define var="contact_email_max_character" value="70"/>
+    <define var="contact_message_max_character" value="3000"/>
+    <define var="comment_content_max_character" value="500"/>
+    <define var="news_title_max_character" value="70"/>
+	<define var="news_chapo_max_character" value="250"/>
 	<define var="news_content_max_character" value="4000" />
     <define var="allowed_img_extensions" value="jpg,png,jpeg"/>
     <define var="max_img_size" value="1000000"/>
-    <define var="public_captcha_key" value="6LdshFQUAAAAAPR6t2uKRUqik2f-SwDA2V7w0Lm4"/>
+    <define var="public_captcha_key" value="6LcM3lQUAAAAALRqKWLlt9w0bujCJJc-HxqccQFo"/>
     <define var="number_max_attempt" value="10"/>
 </definitions>
