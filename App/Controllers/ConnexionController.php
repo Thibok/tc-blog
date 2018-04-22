@@ -56,9 +56,10 @@ class ConnexionController extends Controller
                     $manager = new UserManager;
                     $user = $manager->getInfosByEmail($user);
                     $user->setAuthenticated(true);
-                    $user->setToken(bin2hex(random_bytes(32)));
                     $user->setFlash('Vous êtes maintenant connecté !');
-                        $_SESSION['user'] = $user;
+                    $user->getToken()->create();
+                    $user->getTicket()->generate();
+                    $_SESSION['user'] = $user;
 
                     $this->response->redirect('.');
                 }
@@ -111,8 +112,9 @@ class ConnexionController extends Controller
             
             $user->setId($userId);
             $user->setRole('Membre');
-            $user->setToken(bin2hex(random_bytes(32)));
             $user->setAuthenticated(true);
+            $user->getToken()->create();
+            $user->getTicket()->generate();
             $_SESSION['user'] = $user;
 
             $user->setFlash('Vous êtes maintenant connecté !');

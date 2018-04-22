@@ -6,6 +6,7 @@ use \Components\OptionsExistsValidator;
 use \Components\NotNullValidator;
 use \Components\SelectField;
 use \Model\UserManager;
+use \Components\NoSqlValidator;
 
 class ManageUsersFormBuilder extends FormBuilder
 {
@@ -20,7 +21,8 @@ class ManageUsersFormBuilder extends FormBuilder
             'options' => $options,
             'validators' => [
                 new NotNullValidator('Une option doit être sélectionné !'),
-                new OptionsExistsValidator('Cette option n\'existe pas !', $options)
+                new NoSqlValidator('Certains mots saisit ne sont pas autorisés !'),
+                new OptionsExistsValidator('Cette option n\'existe pas !', $options),
                 ]
             ]));
 	}

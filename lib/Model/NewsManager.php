@@ -32,9 +32,9 @@ class NewsManager extends Manager
 	public function update(News $news)
 	{
 		$request = $this->db->prepare('UPDATE news SET title = :title, chapo = :chapo, content = :content, user_id = :userId, update_at = NOW() WHERE id = :id');
-		$request->bindValue(':title', $news->getTitle());
-        $request->bindValue(':chapo', $news->getChapo());
-        $request->bindValue(':content', $news->getContent());
+		$request->bindValue(':title', $news->getTitle(), \PDO::PARAM_STR);
+        $request->bindValue(':chapo', $news->getChapo(), \PDO::PARAM_STR);
+        $request->bindValue(':content', $news->getContent(), \PDO::PARAM_STR);
 		$request->bindValue(':userId', $news->getUserId(), \PDO::PARAM_INT);
 		$request->bindValue(':id', $news->getId(), \PDO::PARAM_INT);
 		$request->execute();
@@ -50,9 +50,9 @@ class NewsManager extends Manager
 	public function add(News $news)
 	{
 		$request = $this->db->prepare('INSERT INTO news SET title = :title, chapo = :chapo, content = :content, user_id = :userId, add_at = NOW(), update_at = NOW()');
-        $request->bindValue(':title', $news->getTitle());
-        $request->bindValue(':chapo', $news->getChapo());
-        $request->bindValue(':content', $news->getContent());
+        $request->bindValue(':title', $news->getTitle(), \PDO::PARAM_STR);
+        $request->bindValue(':chapo', $news->getChapo(), \PDO::PARAM_STR);
+        $request->bindValue(':content', $news->getContent(), \PDO::PARAM_STR);
         $request->bindValue(':userId', $news->getUserId(), \PDO::PARAM_INT);
 
         $request->execute();

@@ -5,6 +5,7 @@ use \Components\FormBuilder;
 use \Components\MaxLengthValidator;
 use \Components\NotNullValidator;
 use \Components\TextField;
+use \Components\NoSqlValidator;
 
 class CommentFormBuilder extends FormBuilder
 {
@@ -19,7 +20,8 @@ class CommentFormBuilder extends FormBuilder
             'required' => true,
             'validators' => [
                 new MaxLengthValidator('Longueur maximum : '.$commentMaxCharacter.' caractères', $commentMaxCharacter),
-                new NotNullValidator('Le commentaire ne peut pas être vide !')
+                new NotNullValidator('Le commentaire ne peut pas être vide !'),
+                new NoSqlValidator('Certains mots saisit ne sont pas autorisés !')
                 ]
             ]));
 	}
