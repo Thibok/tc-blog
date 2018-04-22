@@ -47,7 +47,7 @@ class UserManager extends Manager
     {
         $request = $this->db->prepare('UPDATE user SET role = :role WHERE id = :userId');
         $request->bindValue(':role', $role, \PDO::PARAM_STR );
-        $request->bindValue(':userId', $userId, \PDO::PARAM_INT);
+        $request->bindValue(':userId', (int) $userId, \PDO::PARAM_INT);
         $request->execute();
 
         $request->closeCursor();
@@ -82,7 +82,7 @@ class UserManager extends Manager
     public function countWhereId($id)
     {
         $request = $this->db->prepare('SELECT COUNT(*) FROM user WHERE id = :id');
-        $request->bindValue(':id', $id, \PDO::PARAM_INT);
+        $request->bindValue(':id', (int) $id, \PDO::PARAM_INT);
         $request->execute();
 
         $exists = $request->fetchColumn();

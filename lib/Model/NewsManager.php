@@ -35,8 +35,8 @@ class NewsManager extends Manager
 		$request->bindValue(':title', $news->getTitle(), \PDO::PARAM_STR);
         $request->bindValue(':chapo', $news->getChapo(), \PDO::PARAM_STR);
         $request->bindValue(':content', $news->getContent(), \PDO::PARAM_STR);
-		$request->bindValue(':userId', $news->getUserId(), \PDO::PARAM_INT);
-		$request->bindValue(':id', $news->getId(), \PDO::PARAM_INT);
+		$request->bindValue(':userId', (int) $news->getUserId(), \PDO::PARAM_INT);
+		$request->bindValue(':id', (int) $news->getId(), \PDO::PARAM_INT);
 		$request->execute();
 
 		$request->closeCursor();
@@ -53,7 +53,7 @@ class NewsManager extends Manager
         $request->bindValue(':title', $news->getTitle(), \PDO::PARAM_STR);
         $request->bindValue(':chapo', $news->getChapo(), \PDO::PARAM_STR);
         $request->bindValue(':content', $news->getContent(), \PDO::PARAM_STR);
-        $request->bindValue(':userId', $news->getUserId(), \PDO::PARAM_INT);
+        $request->bindValue(':userId', (int) $news->getUserId(), \PDO::PARAM_INT);
 
         $request->execute();
 
@@ -87,7 +87,7 @@ class NewsManager extends Manager
 	public function newsExists($newsId)
 	{
 		$request = $this->db->prepare('SELECT COUNT(*) FROM news WHERE id = :newsId');
-        $request->bindValue(':newsId', $newsId, \PDO::PARAM_INT);
+        $request->bindValue(':newsId', (int) $newsId, \PDO::PARAM_INT);
         $request->execute();
 
         $exists = $request->fetchColumn();
