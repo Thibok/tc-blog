@@ -9,6 +9,7 @@ class Contact extends Entity
     private $firstName;
     private $email;
     private $message;
+    private $captcha;
 
     public function setName($name)
     {
@@ -18,6 +19,13 @@ class Contact extends Entity
         }
     }
 
+    public function setCaptcha($captcha)
+    {
+        if (!empty($captcha))
+        {
+            $this->captcha = $captcha;
+        }
+    }
     public function setFirstName($firstName)
     {
         if (is_string($firstName) && !empty($firstName))
@@ -44,6 +52,11 @@ class Contact extends Entity
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getCaptcha()
+    {
+        return $this->captcha;
     }
 
     public function getFirstName()

@@ -43,6 +43,7 @@
                                         <td class="text-center">
                                         <form action="" method="post">
                                             <input type="hidden" name="id" value="{{ userInfos.getId }}"/>
+                                            <input type="hidden" name="token" value="{{ user.getToken.getValue }}"/>
                                             {{ form | raw }}
                                             <button type="submit" class="d-inline-block btn btn-primary">Ok</button>                                       
                                         </form>

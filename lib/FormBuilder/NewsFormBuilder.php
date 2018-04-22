@@ -12,8 +12,8 @@ use \Components\FileSendValidator;
 use \Components\FileSizeValidator;
 use \Components\FileExtensionValidator;
 use \Components\OptionsExistsValidator;
-use \Components\FileAuthenticityValidator;
 use \Components\UploadField;
+use \Components\NoSqlValidator;
 
 class NewsFormBuilder extends FormBuilder
 {
@@ -39,7 +39,8 @@ class NewsFormBuilder extends FormBuilder
             'options' => $options,
             'validators' => [
                 new NotNullValidator('Un auteur doit être sélectionné !'),
-                new OptionsExistsValidator('Cet auteur n\'existe pas !', $options)
+                new NoSqlValidator('Certains mots saisit ne sont pas autorisés !'),
+                new OptionsExistsValidator('Cet auteur n\'existe pas !', $options),
                 ]
             ]));
 
@@ -53,7 +54,8 @@ class NewsFormBuilder extends FormBuilder
             'required' => true,
             'validators' => [
                 new MaxLengthValidator('Longueur maximum : '.$titleMaxCharacter.' caractères', $titleMaxCharacter),
-                new NotNullValidator('Le titre ne peut pas être vide !')
+                new NotNullValidator('Le titre ne peut pas être vide !'),
+                new NoSqlValidator('Certains mots saisit ne sont pas autorisés !')
                 ]
             ]));
 
@@ -65,7 +67,8 @@ class NewsFormBuilder extends FormBuilder
             'required' => true,
             'validators' => [
                 new MaxLengthValidator('Longueur maximum : '.$chapoMaxCharacter.' caractères', $chapoMaxCharacter),
-                new NotNullValidator('Le chapo ne peut pas être vide !')
+                new NotNullValidator('Le chapo ne peut pas être vide !'),
+                new NoSqlValidator('Certains mots saisit ne sont pas autorisés !')
                 ]
             ]));
                     
@@ -77,7 +80,8 @@ class NewsFormBuilder extends FormBuilder
             'required' => true,
             'validators' => [
                 new MaxLengthValidator('Longueur maximum : '.$contentMaxCharacter.' caractères', $contentMaxCharacter),
-                new NotNullValidator('Le contenu ne peut pas être vide !')
+                new NotNullValidator('Le contenu ne peut pas être vide !'),
+                new NoSqlValidator('Certains mots saisit ne sont pas autorisés !')
                 ]
             ]));
         
@@ -89,7 +93,7 @@ class NewsFormBuilder extends FormBuilder
             'validators' => [
                 new FileSendValidator('Erreur d\'envoi, Réessayez'),
                 new FileExtensionValidator('Extensions autorisées : jpg, jpeg, png', $allowedExtensions),
-                new FileSizeValidator('Taille maximum : '.$maxImgSize / $maxImgSize.'mo', $maxImgSize)
+                new FileSizeValidator('Taille maximum : '.$maxImgSize / $maxImgSize.'mo', $maxImgSize),
                 ]
             ]));
 	}

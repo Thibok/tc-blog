@@ -9,7 +9,7 @@ class UserManager extends Manager
     public function getInfosByEmail(User $user)
     {
         $request = $this->db->prepare('SELECT id, role FROM user WHERE email = :email');
-        $request->bindValue(':email', $user->getEmail());
+        $request->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
         $request->execute();
 
         $data = $request->fetch(\PDO::FETCH_ASSOC);
@@ -24,7 +24,7 @@ class UserManager extends Manager
     public function getPasswordOf($email)
     {
         $request = $this->db->prepare('SELECT password FROM user WHERE email = :email');
-        $request->bindValue(':email', $email);
+        $request->bindValue(':email', $email, \PDO::PARAM_STR);
         $request->execute();
 
         $pass = $request->fetchColumn();
@@ -35,7 +35,7 @@ class UserManager extends Manager
     public function getId($pseudo)
     {
         $request = $this->db->prepare('SELECT id FROM user WHERE pseudo = :pseudo');
-        $request->bindValue(':pseudo', $pseudo);
+        $request->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
         $request->execute();
 
         $userId = $request->fetchColumn();
@@ -46,7 +46,7 @@ class UserManager extends Manager
     public function updateRole($userId, $role)
     {
         $request = $this->db->prepare('UPDATE user SET role = :role WHERE id = :userId');
-        $request->bindValue(':role', $role);
+        $request->bindValue(':role', $role, \PDO::PARAM_STR );
         $request->bindValue(':userId', $userId, \PDO::PARAM_INT);
         $request->execute();
 
@@ -56,7 +56,7 @@ class UserManager extends Manager
     public function countWherePseudo($pseudo)
     {
         $request = $this->db->prepare('SELECT COUNT(*) FROM user WHERE pseudo = :pseudo');
-        $request->bindValue(':pseudo', $pseudo);
+        $request->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
         $request->execute();
 
         $exists = $request->fetchColumn();
@@ -69,7 +69,7 @@ class UserManager extends Manager
     public function countWhereEmail($email)
     {
         $request = $this->db->prepare('SELECT COUNT(*) FROM user WHERE email = :email');
-        $request->bindValue(':email', $email);
+        $request->bindValue(':email', $email, \PDO::PARAM_STR);
         $request->execute();
 
         $exists = $request->fetchColumn();
@@ -95,9 +95,9 @@ class UserManager extends Manager
     public function save(User $user)
     {
         $request = $this->db->prepare('INSERT INTO user SET pseudo = :pseudo, email = :email, password = :password, register_date = NOW(), role = "Membre"');
-        $request->bindValue(':pseudo', $user->getPseudo());
-        $request->bindValue(':email', $user->getEmail());
-        $request->bindValue(':password', $user->getPassword());
+        $request->bindValue(':pseudo', $user->getPseudo(), \PDO::PARAM_STR);
+        $request->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
+        $request->bindValue(':password', $user->getPassword(), \PDO::PARAM_STR);
 
         $request->execute();
 

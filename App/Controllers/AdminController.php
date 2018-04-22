@@ -23,8 +23,19 @@ class AdminController extends Controller
         {
             $user = $request->sessionData('user');
 
+            if ($user->getTicket()->isValid())
+			{
+				$user->getTicket()->generate();
+			}
+
+			else
+			{
+				$this->response->redirect('/deconnexion');
+			}
+
             if ($user->isAuthenticated() && $user->isAdmin())
             {
+
                 $totalNewsPerPage = $this->config->get('total_news_admin_page');
                 $newsManager = new NewsManager;
                 $totalNews = $newsManager->count();
@@ -80,6 +91,16 @@ class AdminController extends Controller
 
             if ($user->isAuthenticated() && $user->isAdmin())
             {
+                if ($user->getTicket()->isValid())
+                {
+                    $user->getTicket()->generate();
+                }
+
+                else
+                {
+                    $this->response->redirect('/deconnexion');
+                }
+
                 $totalCommentsPerPage = $this->config->get('total_comments_no_valid_admin');
                 $commentManager = new CommentManager;
                 $totalComments = $commentManager->count(false);
@@ -133,6 +154,16 @@ class AdminController extends Controller
 
             if ($user->isAuthenticated() && $user->isAdmin())
             {
+                if ($user->getTicket()->isValid())
+                {
+                    $user->getTicket()->generate();
+                }
+
+                else
+                {
+                    $this->response->redirect('/deconnexion');
+                }
+
                 $commentManager = new CommentManager;
                 $comment = $commentManager->getUnique($request->getData('id'), false);
                 
@@ -167,14 +198,27 @@ class AdminController extends Controller
 
             if ($user->isAuthenticated() && $user->isAdmin())
             {
+                if ($user->getTicket()->isValid())
+                {
+                    $user->getTicket()->generate();
+                }
+
+                else
+                {
+                    $this->response->redirect('/deconnexion');
+                }
+
                 $commentManager = new CommentManager;
                 $exists = $commentManager->commentExists($request->getData('id'));
 
                 if ($exists)
                 {
-                    $commentManager->validComment($request->getData('id'));
-                    $user->setFlash('Commentaire validé !');
-                    $this->response->redirect('/admin/commentaires_a_valider');
+                    if ($user->getToken()->isValid($request->getData('token')))
+                    {
+                        $commentManager->validComment($request->getData('id'));
+                        $user->setFlash('Commentaire validé !');
+                        $this->response->redirect('/admin/commentaires_a_valider');
+                    }
                 }
 
                 else
@@ -203,6 +247,16 @@ class AdminController extends Controller
 
             if ($user->isAuthenticated() && $user->isAdmin())
             {
+                if ($user->getTicket()->isValid())
+                {
+                    $user->getTicket()->generate();
+                }
+
+                else
+                {
+                    $this->response->redirect('/deconnexion');
+                }
+
                 $totalUsersPerPage = $this->config->get('total_users_admin_page');
                 $userManager = new UserManager;
                 $totalUsers = $userManager->count();
@@ -254,8 +308,11 @@ class AdminController extends Controller
 
                     if ($exists)
                     {
-                        $userManager->updateRole($request->postData('id'), $userForForm->getRole());
-                        $user->setFlash('Modifications validé !');
+                        if ($user->getToken()->isValid($request->postData('token')))
+                        {
+                            $userManager->updateRole($request->postData('id'), $userForForm->getRole());
+                            $user->setFlash('Modifications validé !');
+                        }
                     }
 
                     else
@@ -287,6 +344,16 @@ class AdminController extends Controller
 
             if ($user->isAuthenticated() && $user->isAdmin())
             {
+                if ($user->getTicket()->isValid())
+                {
+                    $user->getTicket()->generate();
+                }
+
+                else
+                {
+                    $this->response->redirect('/deconnexion');
+                }
+
                 if ($request->method() == 'POST')
                 {
                     $news = new News(['title' => $request->postData('title'), 'user' => $request->postData('user'), 'chapo' => $request->postData('chapo'), 'content' => $request->postData('content'), 'picture' => $request->filesData('picture')]);
@@ -304,20 +371,23 @@ class AdminController extends Controller
 
                 if ($request->method() == 'POST' && $newsForm->isValid())
                 {
-                    $userManager = new UserManager;
-                    $newsManager = new NewsManager;
-                    $userId = $userManager->getId($news->getUser());
-                    $news->setUserId($userId);
-                    $newsId = $newsManager->add($news);
-                    $user->setFlash('La news a bien était ajouté !');
-
-                    $picture = $request->filesData('picture');
-
-                    if (!empty($picture['tmp_name']) && $picture['size'] != 0)
+                    if ($user->getToken()->isValid($request->postData('token')))
                     {
-                        $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
-                        $gallery = new Gallery('pictures/upload', $allowedExtensions);
-                        $gallery->savePicture('news-'.$newsId, $picture, 750, 300);
+                        $userManager = new UserManager;
+                        $newsManager = new NewsManager;
+                        $userId = $userManager->getId($news->getUser());
+                        $news->setUserId($userId);
+                        $newsId = $newsManager->add($news);
+                        $user->setFlash('La news a bien était ajouté !');
+
+                        $picture = $request->filesData('picture');
+
+                        if (!empty($picture['tmp_name']) && $picture['size'] != 0)
+                        {
+                            $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
+                            $gallery = new Gallery('pictures/upload', $allowedExtensions);
+                            $gallery->savePicture('news-'.$newsId, $picture, 750, 300);
+                        }
                     }
                 }
     
@@ -344,6 +414,16 @@ class AdminController extends Controller
 
             if ($user->isAuthenticated() && $user->isAdmin())
             {
+                if ($user->getTicket()->isValid())
+                {
+                    $user->getTicket()->generate();
+                }
+
+                else
+                {
+                    $this->response->redirect('/deconnexion');
+                }
+
                 $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
                 $newsManager = new NewsManager;
                 $gallery = new Gallery('pictures/upload', $allowedExtensions);
@@ -382,14 +462,27 @@ class AdminController extends Controller
 
             if ($user->isAuthenticated() && $user->isAdmin())
             {
+                if ($user->getTicket()->isValid())
+                {
+                    $user->getTicket()->generate();
+                }
+
+                else
+                {
+                    $this->response->redirect('/deconnexion');
+                }
+
                 $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
                 $newsManager = new NewsManager;
                 $gallery = new Gallery('pictures/upload', $allowedExtensions);
-                
-                $newsManager->delete($request->getData('id'));
-                $gallery->deletePicture('news-'.$request->getData('id'));
-                $user->setFlash('La news a bien été supprimé !');
-                $this->response->redirect('/admin');
+
+                if ($user->getToken()->isValid($request->getData('token')))
+                {
+                    $newsManager->delete($request->getData('id'));
+                    $gallery->deletePicture('news-'.$request->getData('id'));
+                    $user->setFlash('La news a bien été supprimé !');
+                    $this->response->redirect('/admin');
+                }
             }
 
             else
@@ -412,6 +505,16 @@ class AdminController extends Controller
 
             if ($user->isAuthenticated() && $user->isAdmin())
             {
+                if ($user->getTicket()->isValid())
+                {
+                    $user->getTicket()->generate();
+                }
+
+                else
+                {
+                    $this->response->redirect('/deconnexion');
+                }
+
                 $newsManager = new NewsManager;
                 $userManager = new UserManager;
                 $allowedExtensions = explode(',',$this->config->get('allowed_img_extensions'));
@@ -439,26 +542,29 @@ class AdminController extends Controller
 
                 if ($request->method() == 'POST' && $form->isValid())
                 {
-                    $exists = $newsManager->newsExists($request->getData('id'));
-
-                    if (!$exists)
+                    if ($user->getToken()->isValid($request->postData('token')))
                     {
-                        $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                        $exists = $newsManager->newsExists($request->getData('id'));
+
+                        if (!$exists)
+                        {
+                            $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                        }
+
+                        $picture = $request->filesData('picture');
+
+                        if (!empty($picture['tmp_name']) && $picture['size'] != 0)
+                        {
+                            $gallery->deletePicture('news-'.$request->getData('id'));
+                            $gallery->savePicture('news-'.$request->getData('id'), $picture, 750, 300);
+                        }
+
+                        $userId = $userManager->getId($news->getUser());
+                        $news->setUserId($userId);
+                        $newsManager->update($news);
+                        $user->setFlash('La news a bien été modifié !');
+                        $this->response->redirect('/admin');
                     }
-
-                    $picture = $request->filesData('picture');
-
-                    if (!empty($picture['tmp_name']) && $picture['size'] != 0)
-                    {
-                        $gallery->deletePicture('news-'.$request->getData('id'));
-                        $gallery->savePicture('news-'.$request->getData('id'), $picture, 750, 300);
-                    }
-
-                    $userId = $userManager->getId($news->getUser());
-                    $news->setUserId($userId);
-                    $newsManager->update($news);
-                    $user->setFlash('La news a bien été modifié !');
-                    $this->response->redirect('/admin');
                 }
 
                 $this->response->render('update_news.twig', ['title' => $news->getTitle(), 'form' => $form->generate(), 'user' => $user, 'news' => $news]);

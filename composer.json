@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-        "twig/twig": "~2.0"
+        "twig/twig": "~2.0",
+        "google/recaptcha": "~1.1"
     },
     "autoload": {
         "psr-4": {

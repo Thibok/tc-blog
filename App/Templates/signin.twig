@@ -3,6 +3,16 @@
 {% block content %}
 
         <div id="wrap">
+
+            {% if user.hasFlash %}
+                
+            <div class="alert alert-info alert-dismissible text-center mt-4">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
+            </div>
+
+            {% endif %}
+
             <div id="vertical_alignement">
                 <section id="main" class="container">
                     <div class="row">
@@ -12,7 +22,7 @@
                                     <h2 class="text-white"><img id="ico_blue" src="/pictures/ico_blue.png" alt="icon"/>Connexion</h2>
                                     {{ form | raw }}
                                     <div class="form-group d-inline-flex align-items-end pl-3">
-                                        <button name="signin" type="submit" class="btn btn-primary mt-2">Se connecter</button>
+                                        <button name="signin" type="submit" class="btn btn-primary">Se connecter</button>
                                         <a href="/inscription.html" role="button" class="ml-3 text-primary">Pas encore inscrit ?</a>
                                     </div>
                                 </fieldset>
