@@ -92,7 +92,7 @@ class CommentManager extends Manager
 	public function save(Comment $comment)
 	{
 		$request = $this->db->prepare('INSERT INTO comment SET content = :content, add_at = NOW(), valid = :valid, user_id = :user_id, news_id = :news_id');
-		$request->bindValue(':content', $comment->getContent());
+		$request->bindValue(':content', $comment->getContent(), \PDO::PARAM_STR);
 		$request->bindValue(':valid', $comment->getValid(), \PDO::PARAM_INT);
 		$request->bindValue(':user_id', $comment->getUserId(), \PDO::PARAM_INT);
 		$request->bindValue(':news_id', $comment->getNewsId(), \PDO::PARAM_INT);

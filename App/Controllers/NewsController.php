@@ -19,6 +19,16 @@ class NewsController extends Controller
 		if ($request->sessionExists('user'))
 		{
 			$user = $_SESSION['user'];
+			
+			if ($user->getTicket()->isValid())
+			{
+				$user->getTicket()->generate();
+			}
+
+			else
+			{
+				$this->response->redirect('/deconnexion');
+			}
 		}
 
 		else
@@ -49,6 +59,16 @@ class NewsController extends Controller
 		if ($request->sessionExists('user'))
 		{
 			$user = $_SESSION['user'];
+
+			if ($user->getTicket()->isValid())
+			{
+				$user->getTicket()->generate();
+			}
+
+			else
+			{
+				$this->response->redirect('/deconnexion');
+			}
 		}
 
 		else
@@ -101,6 +121,16 @@ class NewsController extends Controller
 		if ($request->sessionExists('user'))
 		{
 			$user = $_SESSION['user'];
+
+			if ($user->getTicket()->isValid())
+			{
+				$user->getTicket()->generate();
+			}
+
+			else
+			{
+				$this->response->redirect('/deconnexion');
+			}
 		}
 
 		else
@@ -145,8 +175,11 @@ class NewsController extends Controller
 
 		if ($request->method() == 'POST' && $commentForm->isValid())
 		{
-			$commentManager->save($comment);
-			$user->setFlash('Le commentaire à bien était ajouté ! Il doit maintenant être valider !');
+			if ($user->getToken()->isValid($request->postData('token')))
+			{
+				$commentManager->save($comment);
+				$user->setFlash('Le commentaire à bien était ajouté ! Il doit maintenant être valider !');
+			}
 		}
 
 		if ($request->getExists('page'))

@@ -2,6 +2,8 @@
 namespace Entity;
 
 use \Components\Entity;
+use \Components\Ticket;
+use \Components\Token;
 
 class User extends Entity
 {
@@ -11,7 +13,16 @@ class User extends Entity
 	private $email;
 	private $password;
 	private $registerDate;
-    private $role;
+	private $role;
+	private $token;
+	private $ticket;
+
+	public function __construct(array $data = [])
+	{
+		parent::__construct($data);
+		$this->ticket = new Ticket;
+		$this->token = new Token;
+	}
 
 	public function getFlash()
 	{
@@ -31,7 +42,7 @@ class User extends Entity
 
 	public function __sleep()
 	{
-		return ['id', 'role'];
+		return ['id', 'role', 'token', 'ticket'];
 	}
 	
 	public function hasFlash()
@@ -59,6 +70,16 @@ class User extends Entity
 		return $this->pseudo;
 	}
 
+	public function getTicket()
+	{
+		return $this->ticket;
+	}
+
+	public function getToken()
+	{
+		return $this->token;
+	}
+
 	public function getEmail()
 	{
 		return $this->email;
@@ -77,7 +98,7 @@ class User extends Entity
 	public function getRole()
 	{
 		return $this->role;
-	}
+	}	
 
 	public function setPseudo($pseudo)
 	{
