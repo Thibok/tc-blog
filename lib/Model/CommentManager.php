@@ -93,9 +93,9 @@ class CommentManager extends Manager
 	{
 		$request = $this->db->prepare('INSERT INTO comment SET content = :content, add_at = NOW(), valid = :valid, user_id = :user_id, news_id = :news_id');
 		$request->bindValue(':content', $comment->getContent(), \PDO::PARAM_STR);
-		$request->bindValue(':valid', $comment->getValid(), \PDO::PARAM_INT);
-		$request->bindValue(':user_id', $comment->getUserId(), \PDO::PARAM_INT);
-		$request->bindValue(':news_id', $comment->getNewsId(), \PDO::PARAM_INT);
+		$request->bindValue(':valid', (bool) $comment->getValid(), \PDO::PARAM_BOOL);
+		$request->bindValue(':user_id', (int) $comment->getUserId(), \PDO::PARAM_INT);
+		$request->bindValue(':news_id', (int) $comment->getNewsId(), \PDO::PARAM_INT);
 
 		$request->execute();
 
@@ -105,8 +105,8 @@ class CommentManager extends Manager
 	public function commentExists($commentId, $valid = 0)
 	{
 		$request = $this->db->prepare('SELECT COUNT(*) FROM comment WHERE id = :commentId AND valid = :valid');
-        $request->bindValue(':commentId', $commentId, \PDO::PARAM_INT);
-        $request->bindValue(':valid', $valid, \PDO::PARAM_BOOL);
+        $request->bindValue(':commentId', (int) $commentId, \PDO::PARAM_INT);
+        $request->bindValue(':valid', (bool) $valid, \PDO::PARAM_BOOL);
         $request->execute();
 
         $exists = $request->fetchColumn();
@@ -119,7 +119,7 @@ class CommentManager extends Manager
 	public function validComment($commentId)
 	{
 		$request = $this->db->prepare('UPDATE comment SET valid = true WHERE id = :commentId');
-		$request->bindValue(':commentId', $commentId, \PDO::PARAM_INT);
+		$request->bindValue(':commentId', (int) $commentId, \PDO::PARAM_INT);
 		$request->execute();
 
 		$request->closeCursor();
