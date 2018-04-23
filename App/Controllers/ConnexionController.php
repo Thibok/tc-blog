@@ -105,7 +105,7 @@ class ConnexionController extends Controller
 
         if ($request->method() == 'POST' && $form->isValid())
         {
-            $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
+            $user->setPassword(password_hash($user->getPassword(), PASSWORD_BCRYPT));
             
             $manager = new UserManager;
             $userId = $manager->save($user);

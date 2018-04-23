@@ -4,14 +4,7 @@
         <div id="wrap">
             <div id="main" class="container pt-4">
                 <section class="row">
-                    <nav class="col-lg-3 mx-4 my-5" id="admin_menu">
-                        <div class="list-group my-3">
-                            <a href="/admin" role="button" class="bg-dark list-group-item text-center text-white">Tableau de bord</a>
-                            <a href="/admin/ajouter_une_news" role="button" class="bg-dark list-group-item text-center text-white">Ajouter une news</a>
-                            <a href="/admin/gestion_des_utilisateurs" role="button" class="bg-dark list-group-item text-center text-white">Gestion des utilisateurs</a>
-                            <a href="/admin/commentaires_a_valider" role="button" class="bg-dark list-group-item text-white text-center">Commentaires à valider</a>
-                        </div>
-                    </nav>
+                    {% include 'admin_menu.twig' %}
                     <div class="col-lg-8 col-sm-12 my-5" id="admin_block">
 
                     {% if user.hasFlash %}
