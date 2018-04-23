@@ -10,7 +10,10 @@ use \Entity\Comment;
 use \Components\Pagination;
 use \Entity\User;
 use \FormBuilder\CommentFormBuilder;
+use \Entity\Contact;
+use \FormBuilder\ContactFormBuilder;
 use \Components\Gallery;
+use \Components\Mailer;
 
 class NewsController extends Controller
 {
@@ -35,6 +38,20 @@ class NewsController extends Controller
 		{
 			$user = new User;
 		}
+
+		if ($request->method() == 'POST')
+		{
+			$contact = new Contact(['name' => $request->postData('name'), 'firstName' => $request->postData('firstName'), 'email' => $request->postData('email'), 'message' => $request->postData('message'), 'captcha' => $request->postData('g-recaptcha-response')]);
+		}
+
+		else
+		{
+			$contact = new Contact;
+		}
+
+		$contactFormBuilder = new ContactFormBuilder($contact);
+		$contactFormBuilder->build();
+		$contactForm = $contactFormBuilder->getForm();
 		
 		$manager = new NewsManager;
         
@@ -51,7 +68,24 @@ class NewsController extends Controller
 			$news->setPicture($gallery->getPicture('news-'.$news->getId()));
 		}
 
-		$this->response->render('index.twig', ['title' => 'Tc-blog', 'listNews' => $listNews, 'user' => $user]);
+		if ($request->method() == 'POST' && $contactForm->isValid())
+		{
+			$mailer = new Mailer;
+			$mailer->createMessage($contact->getFirstName().' '.$contact->getName(), $contact->getEmail(), $contact->getMessage());
+			$result = $mailer->send();
+
+			if ($result)
+			{
+				$user->setFlash('Votre message a bien été envoyé !');
+			}
+
+			else
+			{
+				$user->setFlash('Une erreur c\'est produite, réessayez !');
+			}
+		}
+
+		$this->response->render('index.twig', ['title' => 'Tc-blog', 'listNews' => $listNews, 'user' => $user, 'contactForm' => $contactForm->generate()]);
 	}
 	
 	public function executeList(Request $request)
@@ -167,11 +201,24 @@ class NewsController extends Controller
 			$comment = new Comment;
 		}
 
+		if ($request->method() == 'POST' && $request->postExists('message'))
+		{
+			$contact = new Contact(['name' => $request->postData('name'), 'firstName' => $request->postData('firstName'), 'email' => $request->postData('email'), 'message' => $request->postData('message'), 'captcha' => $request->postData('g-recaptcha-response')]);
+		}
+
+		else
+		{
+			$contact = new Contact;
+		}
+
 		$commentFormBuilder = new CommentFormBuilder($comment);
+		$contactFormBuilder = new ContactFormBuilder($contact);
 
 		$commentFormBuilder->build();
+		$contactFormBuilder->build();
 
 		$commentForm = $commentFormBuilder->getForm();
+		$contactForm = $contactFormBuilder->getForm();
 
 		if ($request->method() == 'POST' && $commentForm->isValid())
 		{
@@ -179,6 +226,23 @@ class NewsController extends Controller
 			{
 				$commentManager->save($comment);
 				$user->setFlash('Le commentaire à bien était ajouté ! Il doit maintenant être valider !');
+			}
+		}
+
+		if ($request->method() == 'POST' && $contactForm->isValid())
+		{
+			$mailer = new Mailer;
+			$mailer->createMessage($contact->getFirstName().' '.$contact->getName(), $contact->getEmail(), $contact->getMessage());
+			$result = $mailer->send();
+
+			if ($result)
+			{
+				$user->setFlash('Votre message a bien été envoyé !');
+			}
+
+			else
+			{
+				$user->setFlash('Une erreur c\'est produite, réessayez !');
 			}
 		}
 
@@ -211,6 +275,6 @@ class NewsController extends Controller
 		$gallery = new Gallery('pictures/upload', $allowedExtensions);
 		$news->setPicture($gallery->getPicture('news-'.$news->getId()));
 
-		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination, 'user' => $user, 'commentForm' => $commentForm->generate()]);
+		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination, 'user' => $user, 'commentForm' => $commentForm->generate(), 'contactForm' => $contactForm->generate()]);
 	}
 }
