@@ -11,7 +11,7 @@ class Mailer
     {
         $this->config = new Config(__DIR__.'/../../App/Config/config.xml');
 
-        $userName = $this->config->get('contact_email');
+        $userName = $this->config->get('username_smtp');
         $password = $this->config->get('password_smtp');
         $domainSmtp = $this->config->get('domain_smtp');
         $portSmtp = $this->config->get('port_smtp');
@@ -28,10 +28,10 @@ class Mailer
     {
         $receveirEmail = $this->config->get('contact_email');
         
-        $this->message = (new \Swift_Message('Contact'))
+        $this->message = (new \Swift_Message('Tc-blog Contact'))
             ->setFrom([$userEmail => $userEmail])
-            ->setTo([ $receveirEmail => 'tc-blog'])
-            ->setBody($message);
+            ->setTo(['tcblog@tc-dev.ovh' => 'Tc-blog'])
+            ->setBody(nl2br('<em>Envoyé par :</em><strong> '.$fullName.'</strong><p>'.$message.'</p>'), 'text/html')
         ;
     }
 
