@@ -73,6 +73,11 @@ class CommentManager extends Manager
 		return $totalComments;
 	}
 
+	public function delete($commentId)
+	{
+		$this->db->exec('DELETE FROM comment WHERE id = '.(int) $commentId);
+	}
+
 	public function getUnique($commentId, $valid = false)
 	{
 		$request = $this->db->prepare('SELECT comment.id, content, add_at, valid, user_id, news_id, pseudo FROM comment JOIN user ON user.id = comment.user_id WHERE comment.id = :commentId AND valid = :valid');

@@ -19,7 +19,7 @@
                         <p class="p-2 text-white">{{ comment.getContent }}</p>
                         <div class="text-center my-5">
                             <a href="/admin/validation_commentaire_{{ comment.getId }}" role="button" class="btn btn-success mr-2"><img class="mr-1 mb-1"src="/pictures/valid.png" alt="valid icon"/>Valider</a>
-                            <a href="#" role="button" class="btn btn-danger ml-2"><img class="mr-1" src="/pictures/delete.png" alt="delete icon"/>Supprimer</a>
+                            <a href="/admin/supprimer_commentaire_{{ comment.getId }}?token={{ user.getToken.getValue }}" role="button" class="btn btn-danger ml-2"><img class="mr-1" src="/pictures/delete.png" alt="delete icon"/>Supprimer</a>
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,7 @@ class NewsManager extends Manager
 {
 	public function getList($start = -1, $number = -1)
   	{
-	    $sql = 'SELECT news.id, title, chapo, content, add_at, update_at, pseudo FROM news JOIN user ON user.id = news.user_id ORDER BY id DESC';
+	    $sql = 'SELECT news.id, title, chapo, content, add_at, update_at, pseudo FROM news JOIN user ON user.id = news.user_id ORDER BY update_at DESC';
 	 
 	    if ($start != -1 || $number != -1)
 	    {
