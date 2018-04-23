@@ -239,6 +239,55 @@ class AdminController extends Controller
         }
     }
 
+    public function executeDeleteNoValidComment(Request $request)
+    {
+        if ($request->sessionExists('user'))
+        {
+            $user = $request->sessionData('user');
+
+            if ($user->isAuthenticated() && $user->isAdmin())
+            {
+                if ($user->getTicket()->isValid())
+                {
+                    $user->getTicket()->generate();
+                }
+
+                else
+                {
+                    $this->response->redirect('/deconnexion');
+                }
+
+                $commentManager = new CommentManager;
+                $exists = $commentManager->commentExists($request->getData('id'));
+
+                if ($exists)
+                {
+                    if ($user->getToken()->isValid($request->getData('token')))
+                    {
+                        $commentManager->delete($request->getData('id'));
+                        $user->setFlash('Commentaire supprimé !');
+                        $this->response->redirect('/admin/commentaires_a_valider');
+                    }
+                }
+
+                else
+                {
+                    $this->response->render('404.twig', ['title' => '404 Not Found']);
+                }
+            }
+
+            else
+            {
+                $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+            }
+        }
+
+        else
+        {
+            $this->response->redirect('/connexion.html');
+        }
+    }
+
     public function executeListUsers(Request $request)
     {
         if ($request->sessionExists('user'))
