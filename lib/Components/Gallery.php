@@ -3,17 +3,47 @@ namespace Components;
 
 class Gallery
 {
+    /**
+	 * 
+	 * @var string
+	 * @access private
+	 */
     private $dirName;
+
+    /**
+	 * 
+	 * @var array
+	 * @access private
+	 */
     private $allowedExtension = [];
+
+    /**
+	 * 
+	 * @var string
+	 * @access private
+	 */
     private $pictureExtension;
 
+    /**
+	 * @access public
+	 * @param string $dirName
+	 * @param array $allowedExtension
+	 */
     public function __construct($dirName, array $allowedExtension)
     {
         $this->setDirName($dirName);
         $this->setAllowedExtension($allowedExtension);
     }
 
-    public function savePicture($pictureName, $varFile, $width, $height)
+    /**
+	 * @access public
+	 * @param string $pictureName
+	 * @param array $varFile
+	 * @param int $width
+	 * @param int $height
+	 * @return void
+	 */
+    public function savePicture($pictureName, array $varFile, $width, $height)
     {
         $actualName = $varFile['tmp_name'];
 
@@ -97,47 +127,67 @@ class Gallery
         }
     }
 
-        public function getPicture($pictureName)
+    /**
+	 * @access public
+	 * @param string $pictureName
+	 * @return string
+	 */
+    public function getPicture($pictureName)
+    {
+        foreach ($this->allowedExtension as $key => $extension) 
         {
-            foreach ($this->allowedExtension as $key => $extension) 
-            {
-                $picture = $this->dirName.'/'.$pictureName.'.'.$extension;
+            $picture = $this->dirName.'/'.$pictureName.'.'.$extension;
 
-                if (file_exists($picture))
-                {
-                    $picture = '/'.$picture;
-                    return $picture;
-                }
+            if (file_exists($picture))
+            {
+                $picture = '/'.$picture;
+                return $picture;
             }
         }
+    }
 
-        public function deletePicture($pictureName)
+    /**
+	 * @access public
+	 * @param string $pictureName
+	 * @return void
+	 */
+    public function deletePicture($pictureName)
+    {
+        foreach ($this->allowedExtension as $key => $extension) 
         {
-            foreach ($this->allowedExtension as $key => $extension) 
-            {
-                $picture = $this->dirName.'/'.$pictureName.'.'.$extension;
+            $picture = $this->dirName.'/'.$pictureName.'.'.$extension;
 
-                if (file_exists($picture))
-                {
-                    unlink($picture);
-                }
+            if (file_exists($picture))
+            {
+                unlink($picture);
             }
         }
+    }
 
-        public function setAllowedExtension(array $allowedExtension)
+    /**
+	 * @access public
+	 * @param array $allowedExtension
+	 * @return void
+	 */
+    public function setAllowedExtension(array $allowedExtension)
+    {
+        if (!empty($allowedExtension))
         {
-            if (!empty($allowedExtension))
-            {
-                $this->allowedExtension = $allowedExtension;
-            }
+            $this->allowedExtension = $allowedExtension;
         }
+    }
 
-        public function setDirName($dirName)
+    /**
+	 * @access public
+	 * @param string $dirName
+	 * @return void
+	 */
+    public function setDirName($dirName)
+    {
+        if (!empty($dirName) && is_string($dirName))
         {
-            if (!empty($dirName) && is_string($dirName))
-            {
-                $this->dirName = $dirName;
-            }
+            $this->dirName = $dirName;
         }
+    }
 }
 

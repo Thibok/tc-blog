@@ -3,10 +3,30 @@ namespace Components;
 
 class Mailer
 {
+    /**
+	 * 
+	 * @var Swift_Mailer
+	 * @access private
+	 */
     private $swiftMailer;
+
+    /**
+	 * 
+	 * @var string
+	 * @access private
+	 */
     private $message;
+
+    /**
+	 * 
+	 * @var Config
+	 * @access private
+	 */
     private $config;
     
+    /**
+	 * @access public
+	 */
     public function __construct()
     {
         $this->config = new Config(__DIR__.'/../../App/Config/config.xml');
@@ -24,6 +44,13 @@ class Mailer
         $this->swiftMailer = new \Swift_Mailer($transport);
     }
 
+    /**
+	 * @access public
+     * @param string $fullName
+     * @param string $userEmail
+     * @param string $message
+	 * @return void
+	 */
     public function createMessage($fullName, $userEmail, $message)
     {
         $receveirEmail = $this->config->get('contact_email');
@@ -35,6 +62,10 @@ class Mailer
         ;
     }
 
+    /**
+	 * @access public
+	 * @return int
+	 */
     public function send()
     {
         $result = $this->swiftMailer->send($this->message);

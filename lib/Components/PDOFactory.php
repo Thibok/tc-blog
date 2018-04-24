@@ -3,6 +3,11 @@ namespace Components;
 
 class PDOFactory
 {
+	/**
+	 * @access public
+	 * @static
+	 * @return PDO
+	 */
 	public static function getMySqlConnexion()
 	{
 		$config = new Config(__DIR__.'/../../App/Config/config.xml');

@@ -12,7 +12,11 @@ use \Components\NoSqlValidator;
 
 class SignupFormBuilder extends FormBuilder
 {
-	public function build()
+    /**
+	 * {@inheritDoc}
+	 * @return void
+	 */
+    public function build()
 	{
         $pseudoMinCharacter = $this->config->get('user_pseudo_min_character');
         $pseudoMaxCharacter = $this->config->get('user_pseudo_max_character');

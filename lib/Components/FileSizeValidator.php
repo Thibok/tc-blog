@@ -3,14 +3,27 @@ namespace Components;
 
 class FileSizeValidator extends Validator
 {
+    /**
+	 * 
+	 * @var int
+	 * @access private
+	 */
     private $maxSize;
 
+    /**
+	 * {@inheritDoc}
+	 * @param int $maxSize
+	 */
     public function __construct($errorMessage, $maxSize)
     {
         parent::__construct($errorMessage);
         $this->setMaxSize($maxSize);
     }
 
+    /**
+	 * {@inheritDoc}
+	 * @return bool
+	 */
     public function isValid($value)
     {
         if ($value['size'] == 0 && empty($value['tmp_name']))
@@ -29,6 +42,12 @@ class FileSizeValidator extends Validator
         }
     }
 
+    /**
+	 * @access public
+	 * @param int $maxSize
+	 * @return void
+     * @throws RuntimeException If $maxSize < 1 OR $maxSize > 8000000
+	 */
     public function setMaxSize($maxSize)
     {
         $maxSize = (int) $maxSize;

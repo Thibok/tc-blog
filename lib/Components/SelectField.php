@@ -3,8 +3,17 @@ namespace Components;
 
 class SelectField extends Field
 {
-    private $options = [];
+	/**
+	 * 
+	 * @var array
+	 * @access private
+	 */
+	private $options = [];
 
+	/**
+	 * {@inheritDoc}
+	 * @return string
+	 */
     public function buildField()
 	{
 		if (!empty($this->label))
@@ -59,11 +68,20 @@ class SelectField extends Field
 		return $field;
 	}
 
+	/**
+	 * @access public
+	 * @param array $options
+	 * @return void
+	 */
     public function setOptions(array $options)
     {
         $this->options = $options;
     }
 
+	/**
+	 * @access public
+	 * @return array
+	 */
     public function getOptions()
     {
         return $this->options;

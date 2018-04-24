@@ -3,7 +3,10 @@ namespace Components;
 
 class UploadField extends Field
 {
-	
+	/**
+	 * {@inheritDoc}
+     * @return string
+	 */
 	public function buildField()
 	{
 		$label = '<label class="control-label text-white" for="'.$this->name.'">'.$this->label.'</label>';

@@ -17,7 +17,11 @@ use \Components\NoSqlValidator;
 
 class NewsFormBuilder extends FormBuilder
 {
-	public function build()
+    /**
+	 * {@inheritDoc}
+	 * @return void
+	 */
+    public function build()
 	{
         $titleMaxCharacter = $this->config->get('news_title_max_character');
         $chapoMaxCharacter = $this->config->get('news_chapo_max_character');

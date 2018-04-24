@@ -7,16 +7,60 @@ use \Components\Token;
 
 class User extends Entity
 {
-    use \Components\UserRoleEnum;
+	use \Components\UserRoleEnum;
 
-    private $pseudo;
+	/**
+	 * 
+	 * @var string
+	 * @access private
+	 */
+	private $pseudo;
+	
+	/**
+	 * 
+	 * @var string
+	 * @access private
+	 */
 	private $email;
+
+	/**
+	 * 
+	 * @var string
+	 * @access private
+	 */
 	private $password;
+	
+	/**
+	 * 
+	 * @var DateTime
+	 * @access private
+	 */
 	private $registerDate;
+	
+	/**
+	 * 
+	 * @var string
+	 * @access private
+	 */
 	private $role;
+	
+	/**
+	 * 
+	 * @var string
+	 * @access private
+	 */
 	private $token;
+
+	/**
+	 * 
+	 * @var string
+	 * @access private
+	 */
 	private $ticket;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function __construct(array $data = [])
 	{
 		parent::__construct($data);
@@ -24,6 +68,10 @@ class User extends Entity
 		$this->token = new Token;
 	}
 
+	/**
+	 * @access public
+	 * @return string
+	 */
 	public function getFlash()
 	{
 		$flash = $_SESSION['flash'];
@@ -32,6 +80,11 @@ class User extends Entity
 		return $flash;
 	}
 
+	/**
+	 * @access public
+	 * @param string $flash
+	 * @return void
+	 */
 	public function setFlash($flash)
 	{
 		if (is_string($flash) && !empty($flash))
@@ -40,66 +93,120 @@ class User extends Entity
 		}
 	}
 
+	/**
+	 * @access public
+	 * @return array
+	 */
 	public function __sleep()
 	{
 		return ['id', 'role', 'token', 'ticket'];
 	}
 	
+	/**
+	 * @access public
+	 * @return bool
+	 */
 	public function hasFlash()
 	{
 		return isset($_SESSION['flash']);
 	}
 
+	/**
+	 * @access public
+	 * @return bool
+	 */
 	public function isAdmin()
 	{
 		return $this->role == 'Administrateur';
 	}
 
+	/**
+	 * @access public
+	 * @return bool
+	 */
 	public function isAuthenticated()
 	{
 		return isset($_SESSION['auth']) && $_SESSION['auth'] === true;
 	}
 
+	/**
+	 * @access public
+	 * @param bool $authenticated
+	 * @return void
+	 */
 	public function setAuthenticated($authenticated = true)
 	{
 		$_SESSION['auth'] = (bool) $authenticated;
 	}
 
+	/**
+	 * @access public
+	 * @return string
+	 */
 	public function getPseudo()
 	{
 		return $this->pseudo;
 	}
 
+	/**
+	 * @access public
+	 * @return string
+	 */
 	public function getTicket()
 	{
 		return $this->ticket;
 	}
 
+	/**
+	 * @access public
+	 * @return string
+	 */
 	public function getToken()
 	{
 		return $this->token;
 	}
 
+	/**
+	 * @access public
+	 * @return string
+	 */
 	public function getEmail()
 	{
 		return $this->email;
 	}
 
+	/**
+	 * @access public
+	 * @return string
+	 */
 	public function getPassword()
 	{
 		return $this->password;
 	}
 
+	/**
+	 * @access public
+	 * @return DateTime
+	 */
 	public function getRegisterDate()
 	{
 		return $this->registerDate;
 	}
 
+	/**
+	 * @access public
+	 * @return string
+	 */
 	public function getRole()
 	{
 		return $this->role;
 	}	
 
+	/**
+	 * @access public
+	 * @param string $pseudo
+	 * @return void
+	 */
 	public function setPseudo($pseudo)
 	{
 		if (is_string($pseudo) && !empty($pseudo))
@@ -108,6 +215,11 @@ class User extends Entity
 		}
 	}
 
+	/**
+	 * @access public
+	 * @param string $email
+	 * @return void
+	 */
 	public function setEmail($email)
 	{
 		if (is_string($email) && !empty($email))
@@ -116,6 +228,11 @@ class User extends Entity
 		}
 	}
 
+	/**
+	 * @access public
+	 * @param string $password
+	 * @return void
+	 */
 	public function setPassword($password)
 	{
 		if (is_string($password) && !empty($password))
@@ -124,11 +241,21 @@ class User extends Entity
 		}
 	}
 
+	/**
+	 * @access public
+	 * @param DateTime $registerDate
+	 * @return void
+	 */
 	public function setRegisterDate(\DateTime $registerDate)
 	{
 		$this->registerDate = $registerDate;
 	}
 
+	/**
+	 * @access public
+	 * @param string $role
+	 * @return void
+	 */
 	public function setRole($role)
 	{
 		if (is_string($role) && !empty($role))

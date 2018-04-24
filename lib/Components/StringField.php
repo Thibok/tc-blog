@@ -3,10 +3,31 @@ namespace Components;
 
 class StringField extends Field
 {
+	/**
+	 * 
+	 * @var int
+	 * @access private
+	 */
 	private $maxLength;
+
+	/**
+	 * 
+	 * @var string
+	 * @access private
+	 */
 	private $placeHolder;
+
+	/**
+	 * 
+	 * @var string
+	 * @access private
+	 */
 	private $type;
 
+	/**
+	 * {@inheritDoc}
+	 * @return string
+	 */
 	public function buildField()
 	{
 		$label = '<label class="control-label text-white" for="'.$this->name.'">'.$this->label.'</label>';
@@ -45,21 +66,38 @@ class StringField extends Field
 		return $field;
 	}
 
+	/**
+	 * @access public
+	 * @return int
+	 */
 	public function getMaxLength()
 	{
 		return $this->maxLength;
 	}
 	
+	/**
+	 * @access public
+	 * @return string
+	 */
 	public function getType()
 	{
 		return $this->type;
 	}
 
-	public function getPlaceHolder($placeHolder)
+	/**
+	 * @access public
+	 * @return string
+	 */
+	public function getPlaceHolder()
 	{
 		return $this->placeHolder;
 	}
 
+	/**
+	 * @access public
+	 * @param string $type
+	 * @return void
+	 */
 	public function setType($type)
 	{
 		if (is_string($type))
@@ -68,6 +106,11 @@ class StringField extends Field
 		}
 	}
 
+	/**
+	 * @access public
+	 * @param string $placeHolder
+	 * @return void
+	 */
 	public function setPlaceHolder($placeHolder)
 	{
 		if (is_string($placeHolder))
@@ -76,6 +119,12 @@ class StringField extends Field
 		}
 	}
 
+	/**
+	 * @access public
+	 * @param int $maxLength
+	 * @return void
+	 * @throws RuntimeException If maxLength < 1
+	 */
 	public function setMaxLength($maxLength)
 	{
 		$maxLength = (int) $maxLength;

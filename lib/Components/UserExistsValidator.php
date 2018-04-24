@@ -5,13 +5,28 @@ use \Model\UserManager;
 
 class UserExistsValidator extends Validator
 {
+    /**
+     * 
+     * @var string
+     * @access private
+     */
     private $fieldName;
 
+    /**
+	 * {@inheritDoc}
+     * @param string $fieldName
+	 */
     public function __construct($errorMessage, $fieldName)
     {
         parent::__construct($errorMessage);
         $this->setFieldName($fieldName);
     }
+
+    /**
+	 * {@inheritDoc}
+     * @return bool
+     * @throws RuntimeException If method no exists in UserManager class
+	 */
     public function isValid($value)
     {
         $userManager = new UserManager;
@@ -40,6 +55,11 @@ class UserExistsValidator extends Validator
         }
     }
 
+    /**
+	 * @access public
+     * @param string $fieldName
+     * @return void
+	 */
     public function setFieldName($fieldName)
     {
         if (is_string($fieldName) && !empty($fieldName))

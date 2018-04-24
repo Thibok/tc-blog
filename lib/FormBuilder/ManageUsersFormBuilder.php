@@ -10,7 +10,11 @@ use \Components\NoSqlValidator;
 
 class ManageUsersFormBuilder extends FormBuilder
 {
-	public function build()
+    /**
+	 * {@inheritDoc}
+	 * @return void
+	 */
+    public function build()
 	{
        $options = $this->form->getEntity()->getRoleEnum();
         

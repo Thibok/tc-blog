@@ -3,47 +3,73 @@ namespace Components;
  
 class Config
 {
-  private $vars = [];
-  private $pathConfig;
+    /**
+     * 
+     * @var array
+     * @access private
+     */
+    private $vars = [];
 
-  public function __construct($pathConfig)
-  {
-    $this->setPathConfig($pathConfig);
-  }
- 
-  public function get($var)
-  {
-    if (!$this->vars)
-    {
-      $xml = new \DOMDocument;
-      $xml->load($this->pathConfig);
- 
-      $elements = $xml->getElementsByTagName('define');
- 
-      foreach ($elements as $element)
-      {
-        $this->vars[$element->getAttribute('var')] = $element->getAttribute('value');
-      }
-    }
- 
-    if (isset($this->vars[$var]))
-    {
-      return $this->vars[$var];
-    }
- 
-    return null;
-  }
+    /**
+     * 
+     * @var string
+     * @access private
+     */
+    private $pathConfig;
 
-  public function setPathConfig($pathConfig)
-  {
-    if (file_exists($pathConfig))
+    /**
+     * @access public
+	 * @param string $pathConfig
+     */
+    public function __construct($pathConfig)
     {
-      $this->pathConfig = $pathConfig;
+        $this->setPathConfig($pathConfig);
     }
+    
+    /**
+     * @access public
+	 * @param string $var
+     * @return mixed
+     */
+    public function get($var)
+    {
+        if (!$this->vars)
+        {
+          $xml = new \DOMDocument;
+          $xml->load($this->pathConfig);
+    
+          $elements = $xml->getElementsByTagName('define');
+    
+          foreach ($elements as $element)
+          {
+            $this->vars[$element->getAttribute('var')] = $element->getAttribute('value');
+          }
+        }
+  
+        if (isset($this->vars[$var]))
+        {
+          return $this->vars[$var];
+        }
+    
+        return null;
+	}
+	
+	/**
+	 * @access public
+	 * @param string $pathConfig
+	 * @return void
+	 * @throws RuntimeException If the path of file doesn't exists.
+	 */
+    public function setPathConfig($pathConfig)
+    {
+		if (file_exists($pathConfig))
+		{
+			$this->pathConfig = $pathConfig;
+		}
 
-    else
-    {
-      throw new RuntimeException('Le chemin d\'accès au fichier est invalide !');
+		else
+		{
+			throw new RuntimeException('Le chemin d\'accès au fichier est invalide !');
+		}
     }
-  }
 }

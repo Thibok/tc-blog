@@ -6,6 +6,12 @@ use \Entity\News;
 
 class NewsManager extends Manager
 {
+	/**
+	 * @access public
+	 * @param int $start
+	 * @param int $number
+	 * @return array
+	 */
 	public function getList($start = -1, $number = -1)
   	{
 	    $sql = 'SELECT news.id, title, chapo, content, add_at, update_at, pseudo FROM news JOIN user ON user.id = news.user_id ORDER BY update_at DESC';
@@ -29,6 +35,11 @@ class NewsManager extends Manager
 		return $listNews;
 	}
 
+	/**
+	 * @access public
+	 * @param News $news
+	 * @return void
+	 */
 	public function update(News $news)
 	{
 		$request = $this->db->prepare('UPDATE news SET title = :title, chapo = :chapo, content = :content, user_id = :userId, update_at = NOW() WHERE id = :id');
@@ -42,11 +53,21 @@ class NewsManager extends Manager
 		$request->closeCursor();
 	}
 
+	/**
+	 * @access public
+	 * @param int $newsId
+	 * @return void
+	 */
 	public function delete($newsId)
 	{
 		$this->db->exec('DELETE FROM news WHERE id = '.(int) $newsId);
 	}
 
+	/**
+	 * @access public
+	 * @param News $news
+	 * @return int
+	 */
 	public function add(News $news)
 	{
 		$request = $this->db->prepare('INSERT INTO news SET title = :title, chapo = :chapo, content = :content, user_id = :userId, add_at = NOW(), update_at = NOW()');
@@ -64,6 +85,11 @@ class NewsManager extends Manager
         return $newsId;
 	}
 
+	/**
+	 * @access public
+	 * @param int $newsId
+	 * @return News
+	 */
 	public function getUnique($newsId)
 	{
 		$request = $this->db->prepare('SELECT news.id, title, chapo, content, add_at, update_at, pseudo FROM news JOIN user ON user.id = news.user_id WHERE news.id = :newsId');
@@ -79,11 +105,20 @@ class NewsManager extends Manager
 		return $news;
 	}
   
+	/**
+	 * @access public
+	 * @return int
+	 */
 	public function count()
 	{
 		return $this->db->query('SELECT COUNT(*) FROM news')->fetchColumn();
 	}
 
+	/**
+	 * @access public
+	 * @param int $newsId
+	 * @return bool
+	 */
 	public function newsExists($newsId)
 	{
 		$request = $this->db->prepare('SELECT COUNT(*) FROM news WHERE id = :newsId');

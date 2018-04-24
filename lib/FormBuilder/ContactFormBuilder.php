@@ -12,7 +12,11 @@ use \Components\CaptchaValidator;
 
 class ContactFormBuilder extends FormBuilder
 {
-	public function build()
+    /**
+	 * {@inheritDoc}
+	 * @return void
+	 */
+    public function build()
 	{
         $nameMaxCharacter = $this->config->get('contact_name_max_character');
         $firstNameMaxCharacter = $this->config->get('contact_firstName_max_character');

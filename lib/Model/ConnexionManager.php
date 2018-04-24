@@ -5,6 +5,11 @@ use \Components\Manager;
 
 class ConnexionManager extends Manager
 {
+    /**
+	 * @access public
+	 * @param string $ip
+	 * @return int
+	 */
     public function countAttempt($ip)
     {
         $request = $this->db->prepare('SELECT * FROM connexion WHERE ip = :ip');
@@ -18,7 +23,12 @@ class ConnexionManager extends Manager
         return $numberOfAttempt;
     }
 
-    public function add($ip)
+    /**
+	 * @access public
+	 * @param string $ip
+	 * @return void
+	 */
+	public function add($ip)
     {
         $request = $this->db->prepare('INSERT INTO connexion SET ip = :ip');
         $request->bindValue(':ip', $ip, \PDO::PARAM_STR);

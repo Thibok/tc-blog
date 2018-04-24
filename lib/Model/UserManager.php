@@ -6,6 +6,11 @@ use \Entity\User;
 
 class UserManager extends Manager
 {
+    /**
+	 * @access public
+	 * @param User $user
+	 * @return User
+	 */
     public function getInfosByEmail(User $user)
     {
         $request = $this->db->prepare('SELECT id, role FROM user WHERE email = :email');
@@ -21,6 +26,11 @@ class UserManager extends Manager
         return $user;
     }
 
+    /**
+	 * @access public
+	 * @param string $email
+	 * @return string
+	 */
     public function getPasswordOf($email)
     {
         $request = $this->db->prepare('SELECT password FROM user WHERE email = :email');
@@ -32,6 +42,11 @@ class UserManager extends Manager
         return $pass;
     }
 
+    /**
+	 * @access public
+	 * @param string $pseudo
+	 * @return int
+	 */
     public function getId($pseudo)
     {
         $request = $this->db->prepare('SELECT id FROM user WHERE pseudo = :pseudo');
@@ -43,6 +58,12 @@ class UserManager extends Manager
         return $userId;
     }
 
+    /**
+	 * @access public
+	 * @param int $userId
+	 * @param string $role
+	 * @return void
+	 */
     public function updateRole($userId, $role)
     {
         $request = $this->db->prepare('UPDATE user SET role = :role WHERE id = :userId');
@@ -53,6 +74,11 @@ class UserManager extends Manager
         $request->closeCursor();
     }
 
+    /**
+	 * @access public
+	 * @param string $pseudo
+	 * @return bool
+	 */
     public function countWherePseudo($pseudo)
     {
         $request = $this->db->prepare('SELECT COUNT(*) FROM user WHERE pseudo = :pseudo');
@@ -66,6 +92,11 @@ class UserManager extends Manager
         return $exists;
     }
 
+    /**
+	 * @access public
+	 * @param string $email
+	 * @return bool
+	 */
     public function countWhereEmail($email)
     {
         $request = $this->db->prepare('SELECT COUNT(*) FROM user WHERE email = :email');
@@ -79,6 +110,11 @@ class UserManager extends Manager
         return $exists;
     }
 
+    /**
+	 * @access public
+	 * @param int $id
+	 * @return bool
+	 */
     public function countWhereId($id)
     {
         $request = $this->db->prepare('SELECT COUNT(*) FROM user WHERE id = :id');
@@ -92,6 +128,11 @@ class UserManager extends Manager
         return $exists;
     }
 
+    /**
+	 * @access public
+	 * @param User $user
+	 * @return int
+	 */
     public function save(User $user)
     {
         $request = $this->db->prepare('INSERT INTO user SET pseudo = :pseudo, email = :email, password = :password, register_date = NOW(), role = "Membre"');
@@ -108,6 +149,10 @@ class UserManager extends Manager
         return $userId;
     }
 
+    /**
+	 * @access public
+	 * @return array
+	 */
     public function getListPseudo()
     {
         $request = $this->db->query('SELECT pseudo FROM user');
@@ -124,11 +169,21 @@ class UserManager extends Manager
         return $listPseudo;
     }
   
+    /**
+	 * @access public
+	 * @return int
+	 */
     public function count()
 	{
 		return $this->db->query('SELECT COUNT(*) FROM user')->fetchColumn();
     }
     
+    /**
+	 * @access public
+	 * @param int $start
+	 * @param int $number
+	 * @return array
+	 */
     public function getList($start = -1, $number = -1)
   	{
 	    $sql = 'SELECT id, pseudo, email, register_date, role FROM user ORDER BY pseudo';

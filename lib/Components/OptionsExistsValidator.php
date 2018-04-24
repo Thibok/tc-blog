@@ -3,32 +3,50 @@ namespace Components;
 
 class OptionsExistsValidator extends Validator
 {
-  private $options;
+	/**
+	 * 
+	 * @var array
+	 * @access private
+	 */
+	private $options;
 
-  public function __construct($errorMessage, array $options)
-  {
-    parent::__construct($errorMessage);
-    $this->setOptions($options);
-  }
+	/**
+	 * {@inheritDoc}
+	 * @param array $options
+	 */
+	public function __construct($errorMessage, array $options)
+	{
+		parent::__construct($errorMessage);
+		$this->setOptions($options);
+	}
 
-  public function isValid($value)
-  {
-    if (in_array($value, $this->options))
-    {
-        return true;
-    }
+	/**
+	 * {@inheritDoc}
+	 * @return bool
+	 */
+	public function isValid($value)
+	{
+		if (in_array($value, $this->options))
+		{
+			return true;
+		}
 
-    else
-    {
-        return false;
-    }
-  }
+		else
+		{
+			return false;
+		}
+	}
 
-  public function setOptions(array $options)
-  {
-    if (!empty($options))
-    {
-        $this->options = $options;
-    }
-  }
+	/**
+	 * @access public
+	 * @param array $options
+	 * @return void
+	 */
+	public function setOptions(array $options)
+	{
+		if (!empty($options))
+		{
+			$this->options = $options;
+		}
+	}
 }

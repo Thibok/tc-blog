@@ -360,7 +360,7 @@ class AdminController extends Controller
                         if ($user->getToken()->isValid($request->postData('token')))
                         {
                             $userManager->updateRole($request->postData('id'), $userForForm->getRole());
-                            $user->setFlash('Modifications validé !');
+                            $user->setFlash('Modification validée !');
                         }
                     }
 
@@ -427,7 +427,7 @@ class AdminController extends Controller
                         $userId = $userManager->getId($news->getUser());
                         $news->setUserId($userId);
                         $newsId = $newsManager->add($news);
-                        $user->setFlash('La news a bien était ajouté !');
+                        $user->setFlash('La news a bien été ajoutée !');
 
                         $picture = $request->filesData('picture');
 
@@ -529,7 +529,7 @@ class AdminController extends Controller
                 {
                     $newsManager->delete($request->getData('id'));
                     $gallery->deletePicture('news-'.$request->getData('id'));
-                    $user->setFlash('La news a bien été supprimé !');
+                    $user->setFlash('La news a bien été supprimée !');
                     $this->response->redirect('/admin');
                 }
             }
@@ -611,7 +611,7 @@ class AdminController extends Controller
                         $userId = $userManager->getId($news->getUser());
                         $news->setUserId($userId);
                         $newsManager->update($news);
-                        $user->setFlash('La news a bien été modifié !');
+                        $user->setFlash('La news a bien été modifiée !');
                         $this->response->redirect('/admin');
                     }
                 }

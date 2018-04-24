@@ -3,8 +3,16 @@ namespace Components;
 
 class CaptchaValidator extends Validator
 {
+    /**
+     * 
+     * @var string
+     * @access private
+     */
     private $privateKey;
     
+    /**
+	 * {@inheritDoc}
+	 */
     public function __construct($errorMessage)
     {
         parent::__construct($errorMessage);
@@ -12,6 +20,10 @@ class CaptchaValidator extends Validator
         $this->privateKey = $config->get('private_captcha_key');
     }
 
+    /**
+	 * {@inheritDoc}
+	 * @return bool
+	 */
     public function isValid($value)
     {
         $recaptcha = new \ReCaptcha\ReCaptcha($this->privateKey);

@@ -3,14 +3,34 @@ namespace Components;
 
 class Form
 {
+	/**
+	 * 
+	 * @var Entity
+	 * @access private
+	 */
 	private $entity;
+
+	/**
+	 * 
+	 * @var array
+	 * @access private
+	 */
 	private $fields = [];
 
+	/**
+	 * @access public
+	 * @param Entity $entity
+	 */
 	public function __construct(Entity $entity)
 	{
 		$this->setEntity($entity);
 	}
 
+	/**
+	 * @access public
+	 * @param Field $field
+	 * @return void
+	 */
 	public function add(Field $field)
 	{
 
@@ -20,16 +40,29 @@ class Form
 		$this->fields[] = $field;
 	}
 
+	/**
+	 * @access public
+	 * @param Entity $entity
+	 * @return void
+	 */
 	public function setEntity(Entity $entity)
 	{
 		$this->entity = $entity;
 	}
 
+	/**
+	 * @access public
+	 * @return Entity
+	 */
 	public function getEntity()
 	{
 		return $this->entity;
 	}
 
+	/**
+	 * @access public
+	 * @return bool
+	 */
 	public function isValid()
 	{
 		$valid = true;
@@ -45,6 +78,10 @@ class Form
 		return $valid;
 	}
 
+	/**
+	 * @access public
+	 * @return string
+	 */
 	public function generate()
 	{
 		$form = '';

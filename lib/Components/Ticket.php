@@ -3,6 +3,10 @@ namespace Components;
 
 class Ticket
 {
+    /**
+	 * @access public
+	 * @return void
+	 */
     public function generate()
     {
         $cookie_name = 'kw_g';
@@ -13,6 +17,10 @@ class Ticket
         $_SESSION['ticket'] = $ticket;
     }
 
+    /**
+	 * @access public
+	 * @return bool
+	 */
     public function isValid()
     {
             if ($_COOKIE['kw_g'] == $_SESSION['ticket'])

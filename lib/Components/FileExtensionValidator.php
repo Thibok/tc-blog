@@ -3,14 +3,27 @@ namespace Components;
 
 class FileExtensionValidator extends Validator
 {
+    /**
+	 * 
+	 * @var array
+	 * @access private
+	 */
     private $allowedExtensions;
 
+    /**
+	 * {@inheritDoc}
+     * @param array $allowedExtensions
+	 */
     public function __construct($errorMessage, $allowedExtensions)
     {
         parent::__construct($errorMessage);
         $this->setAllowedExtensions($allowedExtensions);
     }
 
+    /**
+	 * {@inheritDoc}
+	 * @return bool
+	 */
     public function isValid($value)
     {
         if ($value['size'] == 0 && empty($value['tmp_name']))
@@ -31,6 +44,12 @@ class FileExtensionValidator extends Validator
         }
     }
 
+    /**
+	 * @access public
+	 * @param array $allowedExtensions
+	 * @return void
+     * @throws RuntimeException If $allowedExtensions is empty
+	 */
     public function setAllowedExtensions(array $allowedExtensions)
     {
         if (!empty($allowedExtensions))

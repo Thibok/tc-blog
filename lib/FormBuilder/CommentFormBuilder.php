@@ -9,7 +9,11 @@ use \Components\NoSqlValidator;
 
 class CommentFormBuilder extends FormBuilder
 {
-	public function build()
+    /**
+	 * {@inheritDoc}
+	 * @return void
+	 */
+    public function build()
 	{
         $commentMaxCharacter = $this->config->get('comment_content_max_character');
 

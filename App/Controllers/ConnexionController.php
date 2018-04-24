@@ -72,7 +72,7 @@ class ConnexionController extends Controller
 
             else
             {
-                $user->setFlash('Vous avez atteint le maximum de tentatives autorisée, réessayez ultérieurement');
+                $user->setFlash('Vous avez atteint le maximum de tentatives autorisées, réessayez ultérieurement');
             }
         }
 

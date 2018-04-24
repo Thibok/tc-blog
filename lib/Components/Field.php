@@ -3,14 +3,59 @@ namespace Components;
 
 abstract class Field
 {
-	protected $name;
-	protected $value;
-	protected $label;
-	protected $errorMessage;
-	protected $class;
+    /**
+	 * 
+	 * @var string
+	 * @access protected
+	 */
+    protected $name;
+
+    /**
+	 * 
+	 * @var mixed
+	 * @access protected
+	 */
+    protected $value;
+    
+    /**
+	 * 
+	 * @var string
+	 * @access protected
+	 */
+    protected $label;
+    
+    /**
+	 * 
+	 * @var string
+	 * @access protected
+	 */
+    protected $errorMessage;
+    
+    /**
+	 * 
+	 * @var string
+	 * @access protected
+	 */
+    protected $class;
+    
+    /**
+	 * 
+	 * @var bool
+	 * @access protected
+	 */
     protected $required;
+
+    /**
+	 * 
+	 * @var array
+	 * @access protected
+	 */
     protected $validators = [];
 
+    /**
+	 * @access public
+	 * @param array $options
+	 */
 	public function __construct(array $options = [])
 	{
 		if (!empty($options))
@@ -19,6 +64,10 @@ abstract class Field
 		}
 	}
 
+    /**
+	 * @access public
+	 * @return bool
+	 */
 	public function isValid()
     {
         foreach ($this->validators as $validator)
@@ -33,9 +82,14 @@ abstract class Field
         return true;
     }
 
-	public function hydrate($data)
+    /**
+	 * @access public
+	 * @param array $options
+	 * @return void
+	 */
+	public function hydrate(array $options)
   	{
-		foreach ($data as $key => $value)
+		foreach ($options as $key => $value)
 	    {
 	      $method = 'set'.ucfirst($key);
 	      
@@ -46,8 +100,17 @@ abstract class Field
 	    }
     }
 
+    /**
+	 * @access public
+	 * @abstract
+	 */
     abstract public function buildField();
 
+    /**
+	 * @access public
+	 * @param string $name
+	 * @return void
+	 */
     public function setName($name)
     {
     	if (is_string($name))
@@ -56,6 +119,11 @@ abstract class Field
     	}
     }
 
+    /**
+	 * @access public
+	 * @param string $class
+	 * @return void
+	 */
     public function setClass($class)
     {
     	if (is_string($class))
@@ -64,6 +132,11 @@ abstract class Field
     	}
     }
 
+    /**
+	 * @access public
+	 * @param bool $required
+	 * @return void
+	 */
     public function setRequired($required)
     {
         if (is_bool($required))
@@ -72,11 +145,21 @@ abstract class Field
         }
     }
 
+    /**
+	 * @access public
+	 * @param mixed $data
+	 * @return void
+	 */
     public function setValue($value)
     {   	
     	$this->value = $value; 	
     }
 
+    /**
+	 * @access public
+	 * @param array $validators
+	 * @return void
+	 */
     public function setValidators(array $validators)
     {
         foreach ($validators as $validator)
@@ -88,6 +171,11 @@ abstract class Field
         }
     }
 
+    /**
+	 * @access public
+	 * @param string $label
+	 * @return void
+	 */
     public function setLabel($label)
     {
     	if (is_string($label))
@@ -96,25 +184,46 @@ abstract class Field
     	}
     }
 
+    /**
+	 * @access public
+	 * @return string
+	 */
     public function getName()
     {
     	return $this->name;
     }
 
+    /**
+	 * @access public
+	 * @return string
+	 */
     public function getClass()
     {
     	return $this->class;
     }
 
+    /**
+	 * @access public
+	 * @return mixed
+	 */
     public function getValue()
     {
     	return $this->value;
     }
+
+    /**
+	 * @access public
+	 * @return string
+	 */
     public function getLabel()
     {
     	return $this->label;
     }
 
+    /**
+	 * @access public
+	 * @return array
+	 */
     public function getValidators()
     {
         return $this->validators;

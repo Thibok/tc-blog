@@ -12,7 +12,11 @@ use \Components\NoSqlValidator;
 
 class SigninFormBuilder extends FormBuilder
 {
-	public function build()
+    /**
+	 * {@inheritDoc}
+	 * @return void
+	 */
+    public function build()
 	{
         $emailMinCharacter = $this->config->get('user_email_min_character');
         $emailMaxCharacter = $this->config->get('user_email_max_character');
