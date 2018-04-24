@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 use \Model\UserManager;
@@ -23,26 +32,19 @@ class CanConnectValidator extends Validator
     }
 
     /**
+     * Verify is good password with email.
+     * 
 	 * {@inheritDoc}
 	 * @return bool
 	 */
     public function isValid($value)
     {
         $manager = new UserManager;
+        $pass = $manager->getPasswordOf($this->email);
 
-        if (is_string($this->email) && !empty($this->email))
+        if (password_verify($value, $pass))
         {
-            $pass = $manager->getPasswordOf($this->email);
-
-            if (password_verify($value, $pass))
-            {
-                return true;
-            }
-
-            else
-            {
-                return false;
-            }
+            return true;
         }
 
         else

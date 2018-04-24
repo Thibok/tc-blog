@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Controllers;
 
 use \Components\Controller;
@@ -11,6 +20,11 @@ use \FormBuilder\SigninFormBuilder;
 
 class ConnexionController extends Controller
 {   
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeDisconect(Request $request)
     {
        
@@ -20,6 +34,11 @@ class ConnexionController extends Controller
         
     }
 
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeSignin(Request $request)
     {
         if ($request->method() == 'POST')
@@ -79,6 +98,11 @@ class ConnexionController extends Controller
         $this->response->render('signin.twig', ['title' => 'Connexion', 'form' => $form->generate(), 'user' => $user]);
     }
 
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeSignup(Request $request)
     {
 

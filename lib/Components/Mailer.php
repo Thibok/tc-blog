@@ -1,10 +1,19 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 class Mailer
 {
     /**
-	 * 
+	 * Use Swift Mailer of Symfony
 	 * @var Swift_Mailer
 	 * @access private
 	 */
@@ -25,6 +34,8 @@ class Mailer
     private $config;
     
     /**
+     * Create Smpt Transport
+     * 
 	 * @access public
 	 */
     public function __construct()
@@ -45,6 +56,8 @@ class Mailer
     }
 
     /**
+     * Create the mail
+     * 
 	 * @access public
      * @param string $fullName
      * @param string $userEmail
@@ -63,6 +76,7 @@ class Mailer
     }
 
     /**
+     * Send message and return success/fail
 	 * @access public
 	 * @return int
 	 */

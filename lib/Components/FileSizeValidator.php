@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 class FileSizeValidator extends Validator
@@ -21,6 +30,8 @@ class FileSizeValidator extends Validator
     }
 
     /**
+     * Verify the file size.
+     * 
 	 * {@inheritDoc}
 	 * @return bool
 	 */

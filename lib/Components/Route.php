@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
  
 class Route
@@ -33,6 +42,7 @@ class Route
 
 	/**
 	 * 
+	 * 
 	 * @var array
 	 * @access private
 	 */
@@ -63,6 +73,8 @@ class Route
 	}
 	
 	/**
+	 * Verify if url match of route url
+	 * 
 	 * @access public
 	 * @param string $url
 	 * @return mixed

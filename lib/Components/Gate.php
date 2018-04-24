@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 use \Model\ConnexionManager;
@@ -6,7 +15,8 @@ use \Model\ConnexionManager;
 class Gate
 {
     /**
-	 * 
+	 * Max connect attempt
+     * 
 	 * @var int
 	 * @access private
 	 */
@@ -30,6 +40,8 @@ class Gate
     }
 
     /**
+     * Add ip in fails auth list
+     * 
 	 * @access public
 	 * @param string $ip
      * @return void
@@ -40,6 +52,7 @@ class Gate
     }
 
     /**
+     * Verify if ip can connect
 	 * @access public
 	 * @param string $ip
      * @return bool

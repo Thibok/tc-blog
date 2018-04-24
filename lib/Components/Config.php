@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
  
 class Config
@@ -11,7 +20,8 @@ class Config
     private $vars = [];
 
     /**
-     * 
+     * Path to xml config document
+	 * 
      * @var string
      * @access private
      */
@@ -27,6 +37,8 @@ class Config
     }
     
     /**
+	 * Get in xml document config value of var
+	 * 
      * @access public
 	 * @param string $var
      * @return mixed

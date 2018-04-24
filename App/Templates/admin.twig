@@ -5,7 +5,7 @@
     <div id="wrap">
         <div id="main" class="container pt-4">
             <section class="row">
-                {% include 'admin_menu.twig' %}
+            {% include 'admin_menu.twig' %}
                 <div id="admin_block" class="col-lg-8 col-sm-12 my-5">
 
                 
@@ -16,7 +16,7 @@
                         <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
                     </div>
 
-                    {% endif %}
+                {% endif %}
 
                     <h1 class="pt-3 pl-1 text-white"><img id="ico_blue" src="/pictures/ico_blue.png" alt="icon"/>Tableau de bord</h1>
                     <p class="text-center text-white">Il y a actuellement {{ pagination.getTotal }} news</p>

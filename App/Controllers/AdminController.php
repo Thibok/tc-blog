@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Controllers;
 
 use \Components\Controller;
@@ -17,6 +26,11 @@ use \FormBuilder\CommentFormBuilder;
 
 class AdminController extends Controller
 {
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeAdmin(Request $request)
     {
         if ($request->sessionExists('user'))
@@ -83,6 +97,11 @@ class AdminController extends Controller
         }
     }
 
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeListNoValidComments(Request $request)
     {
         if ($request->sessionExists('user'))
@@ -146,6 +165,11 @@ class AdminController extends Controller
         }
     }
 
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeShowNoValidComment(Request $request)
     {
         if ($request->sessionExists('user'))
@@ -190,6 +214,11 @@ class AdminController extends Controller
         }
     }
     
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeValidComment(Request $request)
     {
         if ($request->sessionExists('user'))
@@ -239,6 +268,11 @@ class AdminController extends Controller
         }
     }
 
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeDeleteNoValidComment(Request $request)
     {
         if ($request->sessionExists('user'))
@@ -288,6 +322,11 @@ class AdminController extends Controller
         }
     }
 
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeListUsers(Request $request)
     {
         if ($request->sessionExists('user'))
@@ -385,6 +424,11 @@ class AdminController extends Controller
         }
     }
 
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeAddNews(Request $request)
     {
         if ($request->sessionExists('user'))
@@ -455,6 +499,11 @@ class AdminController extends Controller
         }
     }
 
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeShow(Request $request)
     {
         if ($request->sessionExists('user'))
@@ -503,6 +552,11 @@ class AdminController extends Controller
         }
     }
 
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeDeleteNews(Request $request)
     {
         if ($request->sessionExists('user'))
@@ -546,6 +600,11 @@ class AdminController extends Controller
         }
     }
 
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
     public function executeUpdateNews(Request $request)
     {
         if ($request->sessionExists('user'))

@@ -1,4 +1,13 @@
 <?php   
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 class CaptchaField extends Field
@@ -20,7 +29,7 @@ class CaptchaField extends Field
         
         if (!empty($this->errorMessage))
         {
-            $field .= '<small style="color:red;">Le captcha doit être valide !</small>';
+            $field .= '<small style="color:red;">'.$this->errorMessage.'</small>';
         }
 
         $field = '<div class="'.$this->class.'">'.$field.'</div>';

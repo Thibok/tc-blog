@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 class OptionsExistsValidator extends Validator
@@ -21,6 +30,8 @@ class OptionsExistsValidator extends Validator
 	}
 
 	/**
+	 * Verify if $value is in options list
+	 * 
 	 * {@inheritDoc}
 	 * @return bool
 	 */

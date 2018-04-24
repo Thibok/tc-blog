@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 class MaxLengthValidator extends Validator
@@ -21,6 +30,8 @@ class MaxLengthValidator extends Validator
 	}
 
 	/**
+	 * Verify if value is not too longer
+	 * 
 	 * {@inheritDoc}
 	 * @return bool
 	 */

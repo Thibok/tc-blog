@@ -1,9 +1,20 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 class FileSendValidator extends Validator
 {
     /**
+     * Verify if file has been send.
+     * 
 	 * {@inheritDoc}
 	 * @return bool
 	 */

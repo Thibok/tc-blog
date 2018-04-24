@@ -1,33 +1,35 @@
 {% extends 'layout.twig' %}
-{% block content %}
-        <div id="wrap">
-            <div id="main" class="container pt-4">
-                <section class="row">
-                    {% include 'admin_menu.twig' %}
-                     <div id ="admin_block" class="col-lg-8 my-5">
 
-                     {% if user.hasFlash %}
+{% block content %}
+
+    <div id="wrap">
+        <div id="main" class="container pt-4">
+            <section class="row">
+            {% include 'admin_menu.twig' %}
+                <div id ="admin_block" class="col-lg-8 my-5">
+
+                {% if user.hasFlash %}
 
                     <div class="alert alert-info alert-dismissible text-center mt-4">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
+                        <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
                     </div>
 
-                    {% endif %}
+                {% endif %}
                     
-                        <h1 class="pt-3 pl-1 text-white"><img src="/pictures/ico_blue.png" id="ico_blue" alt="icon"/>Ajouter une news</h1>
-                        <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
-                            <fieldset>
-                                <input type="hidden" name="token" value="{{ user.getToken.getValue }}"/>
-                                {{ form | raw }}
-                                <div class="col-md-4 mb-4">
-                                    <button type="submit" name="publish" class="btn btn-primary">Publier</button>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </section>
-            </div>
+                    <h1 class="pt-3 pl-1 text-white"><img src="/pictures/ico_blue.png" id="ico_blue" alt="icon"/>Ajouter une news</h1>
+                    <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+                        <fieldset>
+                            <input type="hidden" name="token" value="{{ user.getToken.getValue }}"/>
+                            {{ form | raw }}
+                            <div class="col-md-4 mb-4">
+                                <button type="submit" name="publish" class="btn btn-primary">Publier</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
         </div>
+    </div>
             
 {% endblock %}

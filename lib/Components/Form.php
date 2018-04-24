@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 class Form
@@ -27,13 +36,14 @@ class Form
 	}
 
 	/**
+	 * Add field in form and set field value with entity getter.
+	 * 
 	 * @access public
 	 * @param Field $field
 	 * @return void
 	 */
 	public function add(Field $field)
 	{
-
 		$method = 'get'.ucfirst($field->getName());
 		$field->setValue($this->entity->$method());
 
@@ -60,6 +70,8 @@ class Form
 	}
 
 	/**
+	 * Verify if all fields are valid with validators.
+	 * 
 	 * @access public
 	 * @return bool
 	 */
@@ -79,6 +91,7 @@ class Form
 	}
 
 	/**
+	 * Generate form in HTML.
 	 * @access public
 	 * @return string
 	 */

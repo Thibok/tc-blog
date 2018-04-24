@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 class Gallery
@@ -36,6 +45,7 @@ class Gallery
     }
 
     /**
+     * Save upload picture and resize this
 	 * @access public
 	 * @param string $pictureName
 	 * @param array $varFile
@@ -47,12 +57,14 @@ class Gallery
     {
         $actualName = $varFile['tmp_name'];
 
+        // Get MIME of file
         $upload_mime_type = mime_content_type($actualName);
 
         if (in_array($upload_mime_type, ['image/jpeg', 'image/pjpeg', 'image/png']))
         {
             $extension = pathinfo($varFile['name'], PATHINFO_EXTENSION);
 
+            // New tmp name of file
             $name = bin2hex(random_bytes(16));
 
             $file = $this->dirName.'/'.$name.'.'.$extension;
@@ -63,6 +75,7 @@ class Gallery
 
             $error = 0;
 
+            // Verify the file is not a script
             while (!feof($handle) AND $error == 0) 
             {
                 $buffer = fgets($handle);
@@ -81,11 +94,13 @@ class Gallery
 
             fclose($handle);
 
+            // Destroy file if not a picture 
             if ($error == 1 | !getimagesize($file))
             {
                 unlink($file);
             }
 
+            // Else create new picture
             else
             {
                 if ($upload_mime_type == 'image/jpeg' || $upload_mime_type == 'image/pjpeg')
@@ -102,8 +117,10 @@ class Gallery
                     }
                 }
 
+                // For resize picture
                 $destination = imagecreatetruecolor($width, $height);
 
+                // Get dimensions of picture
                 $width_source = imagesx($source);
                 $height_source = imagesy($source);
                 $width_destination = imagesx($destination);
@@ -111,6 +128,7 @@ class Gallery
 
                 imagecopyresampled($destination, $source, 0, 0, 0, 0, $width_destination, $height_destination, $width_source, $height_source);
 
+                // Save new resize picture
                 if ($extension == 'jpg' || $extension == 'jpeg')
                 {
                     unlink($file);
@@ -128,6 +146,8 @@ class Gallery
     }
 
     /**
+     * Get the path of picture with name
+     * 
 	 * @access public
 	 * @param string $pictureName
 	 * @return string
@@ -147,6 +167,8 @@ class Gallery
     }
 
     /**
+     * Delete picture with name
+     * 
 	 * @access public
 	 * @param string $pictureName
 	 * @return void

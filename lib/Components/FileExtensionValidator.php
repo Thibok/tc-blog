@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 class FileExtensionValidator extends Validator
@@ -21,6 +30,8 @@ class FileExtensionValidator extends Validator
     }
 
     /**
+     * Verify if extension of $value is in allowedExtensions
+     * 
 	 * {@inheritDoc}
 	 * @return bool
 	 */

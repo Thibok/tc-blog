@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Controllers;
 
 use \Components\Controller;
@@ -17,6 +26,11 @@ use \Components\Mailer;
 
 class NewsController extends Controller
 {
+	/**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
 	public function executeIndex(Request $request)
 	{
 		if ($request->sessionExists('user'))
@@ -88,6 +102,11 @@ class NewsController extends Controller
 		$this->response->render('index.twig', ['title' => 'Tc-blog', 'listNews' => $listNews, 'user' => $user, 'contactForm' => $contactForm->generate()]);
 	}
 	
+	/**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
 	public function executeList(Request $request)
 	{
 		if ($request->sessionExists('user'))
@@ -150,6 +169,11 @@ class NewsController extends Controller
 		$this->response->render('list.twig', ['title' => 'Toutes les news', 'listNews' => $listNews, 'pagination' => $pagination, 'user' => $user]);
 	}
 
+	/**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
 	public function executeShow(Request $request)
 	{
 		if ($request->sessionExists('user'))

@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 abstract class FormBuilder
@@ -28,6 +37,8 @@ abstract class FormBuilder
 	}
 
 	/**
+	 * Use this to build form.
+	 * 
 	 * @access public
 	 * @abstract
 	 */

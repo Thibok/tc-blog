@@ -1,9 +1,19 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 class Response
 {
     /**
+	 * Use Twig of Symfony for render template
 	 * 
 	 * @var Twig_Environment
 	 * @access private
@@ -31,6 +41,8 @@ class Response
     }
     
     /**
+	 * Use function Twig render
+	 * 
 	 * @access public
 	 * @param string $page
 	 * @param array $data

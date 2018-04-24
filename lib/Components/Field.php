@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 abstract class Field
@@ -65,6 +74,8 @@ abstract class Field
 	}
 
     /**
+	 * Verify value set in field and get a error message if not valid
+	 * 
 	 * @access public
 	 * @return bool
 	 */
@@ -101,6 +112,8 @@ abstract class Field
     }
 
     /**
+	 * Build the field in HTML with $options
+	 * 
 	 * @access public
 	 * @abstract
 	 */
