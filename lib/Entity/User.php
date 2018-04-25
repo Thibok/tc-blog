@@ -96,8 +96,8 @@ class User extends Entity
 	 */
 	public function setFlash($flash)
 	{
-		if (is_string($flash) && !empty($flash))
-		{
+		if (is_string($flash) && !empty($flash)) {
+
 			$_SESSION['flash'] = $flash;
 		}
 	}
@@ -218,8 +218,8 @@ class User extends Entity
 	 */
 	public function setPseudo($pseudo)
 	{
-		if (is_string($pseudo) && !empty($pseudo))
-		{
+		if (is_string($pseudo) && !empty($pseudo)) {
+
 			$this->pseudo = htmlspecialchars($pseudo);
 		}
 	}
@@ -231,8 +231,8 @@ class User extends Entity
 	 */
 	public function setEmail($email)
 	{
-		if (is_string($email) && !empty($email))
-		{
+		if (is_string($email) && !empty($email)) {
+
 			$this->email = htmlspecialchars($email);
 		}
 	}
@@ -244,8 +244,8 @@ class User extends Entity
 	 */
 	public function setPassword($password)
 	{
-		if (is_string($password) && !empty($password))
-		{
+		if (is_string($password) && !empty($password)) {
+
 			$this->password = htmlspecialchars($password);
 		}
 	}
@@ -267,13 +267,13 @@ class User extends Entity
 	 */
 	public function setRole($role)
 	{
-		if (is_string($role) && !empty($role))
-		{
+		if (is_string($role) && !empty($role)) {
+
             $role = htmlspecialchars($role);
             $roleEnum = $this->getRoleEnum();
 
-            if (in_array($role, $roleEnum))
-            {
+            if (in_array($role, $roleEnum)) {
+				
                 $this->role = $role;
             }
 		}

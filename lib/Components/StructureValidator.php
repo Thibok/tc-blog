@@ -30,6 +30,8 @@ class StructureValidator extends Validator
 	}
 	
 	/**
+	 * Verify structure of $value.
+	 * 
 	 * {@inheritDoc}
 	 * @return bool
 	 */
@@ -46,14 +48,15 @@ class StructureValidator extends Validator
 	 */
 	public function setPattern($pattern)
 	{
-		if (is_string($pattern) && !empty($pattern))
-		{
-			$this->pattern = $pattern;
-		}
+		if (is_string($pattern) && !empty($pattern)) {
 
-		else
-		{
-			throw new RuntimeException('Le pattern dois être une chaine de caractère non vide !');
+			$this->pattern = $pattern;
+
+		} else {
+
+			throw new RuntimeException(
+				'Le pattern dois être une chaine de caractère non vide !'
+			);
 			
 		}
 	}

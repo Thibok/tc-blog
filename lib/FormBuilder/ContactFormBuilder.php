@@ -43,9 +43,12 @@ class ContactFormBuilder extends FormBuilder
             'required' => true,
             'validators' => [
                 new NotNullValidator('Le nom ne peut pas être vide !'),
-                new MaxLengthValidator('Longueur maximum : '.$nameMaxCharacter.' caractères', $nameMaxCharacter)
-                ]
-            ]));
+                new MaxLengthValidator(
+                    'Longueur maximum : '.$nameMaxCharacter.' caractères',
+                    $nameMaxCharacter
+                )
+            ]
+        ]));
 
         $this->form->add(new StringField([
             'name' => 'firstName',
@@ -57,9 +60,12 @@ class ContactFormBuilder extends FormBuilder
             'required' => true,
             'validators' => [
                 new NotNullValidator('Le prénom ne peut pas être vide !'),
-                new MaxLengthValidator('Longueur maximum : '.$firstNameMaxCharacter.' caractères', $firstNameMaxCharacter),
-                ]
-            ]));
+                new MaxLengthValidator(
+                    'Longueur maximum : '.$firstNameMaxCharacter.' caractères',
+                    $firstNameMaxCharacter
+                ),
+            ]
+        ]));
 
         $this->form->add(new StringField([
             'name' => 'email',
@@ -71,10 +77,16 @@ class ContactFormBuilder extends FormBuilder
             'required' => true,
             'validators' => [
                 new NotNullValidator('L\'email ne peut pas être vide !'),
-                new MaxLengthValidator('Longueur maximum : '.$emailMaxCharacter.' caractères', $emailMaxCharacter),
-                new StructureValidator('Votre adresse email doit être valide', '#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#')
-                ]
-            ]));
+                new MaxLengthValidator(
+                    'Longueur maximum : '.$emailMaxCharacter.' caractères',
+                    $emailMaxCharacter
+                ),
+                new StructureValidator(
+                    'Votre adresse email doit être valide',
+                    '#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#'
+                )
+            ]
+        ]));
 
         $this->form->add(new TextField([
             'name' => 'message',
@@ -85,9 +97,12 @@ class ContactFormBuilder extends FormBuilder
             'required' => true,
             'validators' => [
                 new NotNullValidator('Le message ne peut pas être vide !'),
-                new MaxLengthValidator('Longueur maximum : '.$messageMaxCharacter.' caractères', $messageMaxCharacter)
-                ]
-            ]));
+                new MaxLengthValidator(
+                    'Longueur maximum : '.$messageMaxCharacter.' caractères',
+                    $messageMaxCharacter
+                )
+            ]
+        ]));
         
         $this->form->add(new CaptchaField([
             'name' => 'captcha',
@@ -95,7 +110,7 @@ class ContactFormBuilder extends FormBuilder
             'class' => 'form-group',
             'validators' => [
                 new CaptchaValidator('Le captcha doit être valide !')
-                ]
-            ]));
+            ]
+        ]));
 	}
 }

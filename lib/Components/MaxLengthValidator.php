@@ -50,14 +50,15 @@ class MaxLengthValidator extends Validator
 	{
 		$maxLength = (int) $maxLength;
 
-		if ($maxLength > 0)
-		{
-			$this->maxLength = $maxLength;
-		}
+		if ($maxLength > 0) {
 
-		else
-		{
-			throw new \RuntimeException('La longueur maximale doit être un nombre supérieur à 0');
+			$this->maxLength = $maxLength;
+
+		} else {
+
+			throw new \RuntimeException(
+				'La longueur maximale doit être un nombre supérieur à 0'
+			);
 		}
 	}
 }

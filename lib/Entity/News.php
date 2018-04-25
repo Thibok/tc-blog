@@ -86,8 +86,8 @@ class News extends Entity
 	 */
 	public function setUser($user)
 	{
-		if (is_string($user) && !empty($user))
-		{
+		if (is_string($user) && !empty($user)) {
+
 			$this->user = htmlspecialchars($user);
 		}
 	}
@@ -99,8 +99,8 @@ class News extends Entity
 	 */
 	public function setTitle($title)
 	{
-		if (is_string($title) && !empty($title))
-		{
+		if (is_string($title) && !empty($title)) {
+
 			$this->title = htmlspecialchars($title);
 		}
 	}
@@ -112,8 +112,8 @@ class News extends Entity
 	 */
 	public function setChapo($chapo)
 	{
-		if (is_string($chapo) && !empty($chapo))
-		{
+		if (is_string($chapo) && !empty($chapo)) {
+
 			$this->chapo = htmlspecialchars($chapo);
 		}
 	}
@@ -125,8 +125,8 @@ class News extends Entity
 	 */
 	public function setContent($content)
 	{
-		if (is_string($content) && !empty($content))
-		{
+		if (is_string($content) && !empty($content)) {
+
 			$this->content = htmlspecialchars($content);
 		}
 	}
@@ -168,8 +168,8 @@ class News extends Entity
 	 */
 	public function setPicture($picture)
 	{
-		if (!empty($picture))
-		{
+		if (!empty($picture)) {
+			
 			$this->picture = $picture;
 		}		
 	}

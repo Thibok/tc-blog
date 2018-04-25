@@ -37,13 +37,12 @@ class OptionsExistsValidator extends Validator
 	 */
 	public function isValid($value)
 	{
-		if (in_array($value, $this->options))
-		{
-			return true;
-		}
+		if (in_array($value, $this->options)) {
 
-		else
-		{
+			return true;
+
+		} else {
+
 			return false;
 		}
 	}
@@ -55,8 +54,8 @@ class OptionsExistsValidator extends Validator
 	 */
 	public function setOptions(array $options)
 	{
-		if (!empty($options))
-		{
+		if (!empty($options)) {
+			
 			$this->options = $options;
 		}
 	}

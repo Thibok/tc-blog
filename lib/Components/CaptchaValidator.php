@@ -40,14 +40,13 @@ class CaptchaValidator extends Validator
         $recaptcha = new \ReCaptcha\ReCaptcha($this->privateKey);
         $resp = $recaptcha->verify($value);
 
-        if ($resp->isSuccess()) 
-        {
+        if ($resp->isSuccess()) {
+
             $_SESSION['captcha'] = true;
             return true;
-        } 
 
-        else 
-        {
+        } else {
+            
             return false;
         }
     }

@@ -25,8 +25,8 @@ abstract class Entity
 	 */
 	public function __construct(array $data = [])
 	{
-		if (!empty($data))
-		{
+		if (!empty($data)) {
+
 			$this->hydrate($data);
 		}
 	}
@@ -38,17 +38,17 @@ abstract class Entity
 	 */
 	public function hydrate(array $data)
 	{
-		foreach ($data as $key => $value) 
-		{
+		foreach ($data as $key => $value) {
+
 			$action = 'set'.ucfirst($key);
 
-			if (is_callable([$this, $action]))
-			{
+		    if (is_callable([$this, $action])) {
+                
 				$this->$action($value);
 			}
 		}
 	}
-	
+
 	/**
 	 * @access public
 	 * @return int

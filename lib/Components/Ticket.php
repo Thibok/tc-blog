@@ -32,14 +32,13 @@ class Ticket
 	 */
     public function isValid()
     {
-            if ($_COOKIE['kw_g'] == $_SESSION['ticket'])
-            {    
-                return true;
-            }
+        if ($_COOKIE['kw_g'] == $_SESSION['ticket']) {    
 
-            else
-            {
-                return false;
-            }
+            return true;
+
+        } else {
+            
+            return false;
+        }
     }
 }

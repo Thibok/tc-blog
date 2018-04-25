@@ -26,7 +26,9 @@ class PDOFactory
 		$username = $config->get('db_username');
 		$password = $config->get('db_password');
 
-		$db = new \PDO('mysql:host='.$host.';dbname='.$name.';charset=utf8', $username, $password);
+		$db = new \PDO('mysql:host='.$host.';dbname='.$name.';charset=utf8',
+						$username, $password);
+		
 		$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
 		return $db;

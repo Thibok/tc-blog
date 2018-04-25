@@ -32,10 +32,13 @@ class CommentFormBuilder extends FormBuilder
             'maxLength' => $commentMaxCharacter, 
             'required' => true,
             'validators' => [
-                new MaxLengthValidator('Longueur maximum : '.$commentMaxCharacter.' caractères', $commentMaxCharacter),
+                new MaxLengthValidator(
+                    'Longueur maximum : '.$commentMaxCharacter.' caractères',
+                    $commentMaxCharacter
+                ),
                 new NotNullValidator('Le commentaire ne peut pas être vide !'),
                 new NoSqlValidator('Certains mots saisit ne sont pas autorisés !')
-                ]
-            ]));
+            ]
+        ]));
 	}
 }

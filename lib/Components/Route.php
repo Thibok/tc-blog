@@ -81,13 +81,12 @@ class Route
 	 */
 	public function match($url)
 	{
-		if (preg_match('`^'.$this->url.'$`', $url, $matches))
-		{
-			return $matches;
-		}
+		if (preg_match('`^'.$this->url.'$`', $url, $matches)) {
 
-		else
-		{
+			return $matches;
+
+		} else {
+
 			return false;
 		}
 	}
@@ -99,8 +98,8 @@ class Route
 	 */
 	public function setAction($action)
 	{
-		if (is_string($action))
-		{
+		if (is_string($action)) {
+
 			$this->action = $action;
 		}
 	}
@@ -112,8 +111,8 @@ class Route
 	 */
 	public function setModule($module)
 	{
-		if (is_string($module))
-		{
+		if (is_string($module)) {
+
 			$this->module = $module;
 		}
 	}
@@ -125,8 +124,8 @@ class Route
 	 */
 	public function setUrl($url)
 	{
-		if (is_string($url))
-		{
+		if (is_string($url)) {
+			
 			$this->url = $url;
 		}
 	}

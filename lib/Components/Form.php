@@ -79,10 +79,10 @@ class Form
 	{
 		$valid = true;
 
-		foreach ($this->fields as $field) 
-		{
-			if (!$field->isValid())
-			{
+		foreach ($this->fields as $field)  {
+
+			if (!$field->isValid()) {
+
 				$valid = false;
 			}
 		}
@@ -99,8 +99,8 @@ class Form
 	{
 		$form = '';
 
-		foreach ($this->fields as $field) 
-		{
+		foreach ($this->fields as $field)  {
+			
 			$form .= $field->buildField();
 		}
 

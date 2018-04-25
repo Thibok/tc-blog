@@ -41,19 +41,24 @@ class ConnexionController extends Controller
 	 */
     public function executeSignin(Request $request)
     {
-        if ($request->method() == 'POST')
-        {
-            sleep(1);
-            $user = new User(['pseudo' => $request->postData('pseudo'), 'email' => $request->postData('email'), 'password' => $request->postData('password')]);
-        }
-        
-        else
-        {
-            $user = new User;
-        }
+        if ($request->method() == 'POST') {
 
-        if ($user->isAuthenticated())
-        {
+            sleep(1);
+
+            $user = new User([
+                'pseudo' => $request->postData('pseudo'),
+                'email' => $request->postData('email'),
+                'password' => $request->postData('password')
+            ]);
+
+        } else {
+            
+            $user = new User;
+
+        } 
+
+        if ($user->isAuthenticated()) {
+
             $this->response->redirect('.');
         }
 
@@ -63,39 +68,45 @@ class ConnexionController extends Controller
 
         $form = $formBuilder->getForm();
 
-        if ($request->method() == 'POST')
-        {
+        if ($request->method() == 'POST') {
+
             $maxAttempt = $this->config->get('number_max_attempt');
             $gate = new Gate($maxAttempt);
 
-            if ($gate->control($request->ip()))
-            {
-                if ($form->isValid())
-                {
+            if ($gate->control($request->ip())) {
+
+                if ($form->isValid()) {
+
                     $manager = new UserManager;
                     $user = $manager->getInfosByEmail($user);
                     $user->setAuthenticated(true);
                     $user->setFlash('Vous êtes maintenant connecté !');
+                    
+                    // Create unique random token
                     $user->getToken()->create();
+
+                    // Create random ticket
                     $user->getTicket()->generate();
+
                     $_SESSION['user'] = $user;
 
                     $this->response->redirect('.');
-                }
 
-                else
-                {
+                } else {
+                   
                     $gate->addToJail($request->ip());
                 }
-            }
 
-            else
-            {
+            } else {
+
                 $user->setFlash('Vous avez atteint le maximum de tentatives autorisées, réessayez ultérieurement');
             }
         }
 
-        $this->response->render('signin.twig', ['title' => 'Connexion', 'form' => $form->generate(), 'user' => $user]);
+        $this->response->render(
+            'signin.twig',
+            ['title' => 'Connexion','form' => $form->generate(), 'user' => $user]
+        );
     }
 
     /**
@@ -106,18 +117,21 @@ class ConnexionController extends Controller
     public function executeSignup(Request $request)
     {
 
-        if ($request->method() == 'POST')
-        {
-            $user = new User(['pseudo' => $request->postData('pseudo'), 'email' => $request->postData('email'), 'password' => $request->postData('password')]);
-        }
-        
-        else
-        {
+        if ($request->method() == 'POST') {
+
+            $user = new User([
+                'pseudo' => $request->postData('pseudo'),
+                'email' => $request->postData('email'),
+                'password' => $request->postData('password')
+            ]);
+
+        } else {
+
             $user = new User;
         }
 
-        if ($user->isAuthenticated())
-        {
+        if ($user->isAuthenticated()) {
+
             $this->response->redirect('.');
         }
 
@@ -127,8 +141,8 @@ class ConnexionController extends Controller
 
         $form = $formBuilder->getForm();
 
-        if ($request->method() == 'POST' && $form->isValid())
-        {
+        if ($request->method() == 'POST' && $form->isValid()) {
+
             $user->setPassword(password_hash($user->getPassword(), PASSWORD_BCRYPT));
             
             $manager = new UserManager;
@@ -137,8 +151,13 @@ class ConnexionController extends Controller
             $user->setId($userId);
             $user->setRole('Membre');
             $user->setAuthenticated(true);
+
+            // Create unique random token
             $user->getToken()->create();
+
+            // Create random ticket
             $user->getTicket()->generate();
+
             $_SESSION['user'] = $user;
 
             $user->setFlash('Vous êtes maintenant connecté !');
@@ -146,6 +165,9 @@ class ConnexionController extends Controller
             $this->response->redirect('.');
         }
 
-        $this->response->render('signup.twig', ['title' => 'Inscription', 'form' => $form->generate()]);
+        $this->response->render(
+            'signup.twig',
+            ['title' => 'Inscription', 'form' => $form->generate()]
+        );
     }
 }

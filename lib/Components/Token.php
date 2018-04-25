@@ -28,13 +28,12 @@ class Token
 	 */
     public function isValid($token)
     {
-        if ($_SESSION['token'] == $token)
-        {
-            return true;
-        }
+        if ($_SESSION['token'] == $token) {
 
-        else
-        {
+            return true;
+
+        } else {
+
             return false;
         }
     }

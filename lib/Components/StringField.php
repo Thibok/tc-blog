@@ -39,34 +39,36 @@ class StringField extends Field
 	 */
 	public function buildField()
 	{
-		$label = '<label class="control-label text-white" for="'.$this->name.'">'.$this->label.'</label>';
+		$label = '<label class="control-label text-white" for="'
+			.$this->name.'">'.$this->label.'</label>';
 
-		$field = '<input type="'.$this->type.'" class="form-control" id="'.$this->name.'" name="'.$this->name.'"';
+		$field = '<input type="'.$this->type.'" class="form-control" id="'
+			.$this->name.'" name="'.$this->name.'"';
 
-		if (!empty($this->value))
-		{
+		if (!empty($this->value)) {
+
 			$field .= ' value="'.htmlspecialchars($this->value).'"';
 		}
 
-		if (!empty($this->maxLength))
-		{
+		if (!empty($this->maxLength)) {
+
 			$field .= ' maxlength="'.$this->maxLength.'"';
 		}
 
-		if (!empty($this->placeHolder))
-		{
+		if (!empty($this->placeHolder)) {
+
 			$field .= ' placeholder="'.$this->placeHolder.'"';
 		}
 
-		if (!empty($this->required) && $this->required === true)
-		{
+		if (!empty($this->required) && $this->required === true) {
+
 			$field .= ' required';
 		}
 
 		$field .= ' />';
 
-		if (!empty($this->errorMessage))
-		{
+		if (!empty($this->errorMessage)) {
+
 			$field = '<div class="alert alert-danger">'.$this->errorMessage.$field.'</div>';
 		}
 
@@ -109,8 +111,8 @@ class StringField extends Field
 	 */
 	public function setType($type)
 	{
-		if (is_string($type))
-		{
+		if (is_string($type)) {
+
 			$this->type = $type;
 		}
 	}
@@ -122,8 +124,8 @@ class StringField extends Field
 	 */
 	public function setPlaceHolder($placeHolder)
 	{
-		if (is_string($placeHolder))
-		{
+		if (is_string($placeHolder)) {
+
 			$this->placeHolder = $placeHolder;
 		}
 	}
@@ -138,13 +140,12 @@ class StringField extends Field
 	{
 		$maxLength = (int) $maxLength;
 
-		if ($maxLength > 0)
-		{
-			$this->maxLength = $maxLength;
-		}
+		if ($maxLength > 0) {
 
-		else
-		{
+			$this->maxLength = $maxLength;
+
+		} else {
+			
 			throw new \RuntimeException('La longueur maximale doit être supérieur à 0 !');
 		}
 	}

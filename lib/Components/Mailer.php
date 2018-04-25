@@ -71,7 +71,10 @@ class Mailer
         $this->message = (new \Swift_Message('Tc-blog Contact'))
             ->setFrom([$userEmail => $userEmail])
             ->setTo(['tcblog@tc-dev.ovh' => 'Tc-blog'])
-            ->setBody(nl2br('<em>Envoyé par :</em><strong> '.$fullName.'</strong><p>'.$message.'</p>'), 'text/html')
+            ->setBody(
+                nl2br('<em>Envoyé par :</em><strong> '.$fullName.'</strong><p>'.$message.'</p>'),
+                'text/html'
+            )
         ;
     }
 

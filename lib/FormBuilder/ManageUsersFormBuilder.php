@@ -36,7 +36,7 @@ class ManageUsersFormBuilder extends FormBuilder
                 new NotNullValidator('Une option doit être sélectionné !'),
                 new NoSqlValidator('Certains mots saisit ne sont pas autorisés !'),
                 new OptionsExistsValidator('Cette option n\'existe pas !', $options),
-                ]
-            ]));
+            ]
+        ]));
 	}
 }

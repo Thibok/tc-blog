@@ -37,20 +37,19 @@ class FileExtensionValidator extends Validator
 	 */
     public function isValid($value)
     {
-        if ($value['size'] == 0 && empty($value['tmp_name']))
-        {
+        if ($value['size'] == 0 && empty($value['tmp_name'])) {
+
             return true;
         }
         
         $uploadExtension = pathinfo($value['name'], PATHINFO_EXTENSION);
 
-        if (in_array($uploadExtension, $this->allowedExtensions))
-        {
-            return true;
-        }
+        if (in_array($uploadExtension, $this->allowedExtensions)) {
 
-        else
-        {
+            return true;
+
+        } else {
+
             return false;
         }
     }
@@ -63,14 +62,15 @@ class FileExtensionValidator extends Validator
 	 */
     public function setAllowedExtensions(array $allowedExtensions)
     {
-        if (!empty($allowedExtensions))
-        {
-            $this->allowedExtensions = $allowedExtensions;
-        }
+        if (!empty($allowedExtensions)) {
 
-        else
-        {
-            throw new RuntimeException('Le tableau des extensions autorisées ne peut pas être vide !');
+            $this->allowedExtensions = $allowedExtensions;
+
+        } else {
+
+            throw new RuntimeException(
+                'Le tableau des extensions autorisées ne peut pas être vide !'
+            );
         }
     }
 }

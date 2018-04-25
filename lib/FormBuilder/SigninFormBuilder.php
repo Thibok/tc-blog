@@ -41,13 +41,22 @@ class SigninFormBuilder extends FormBuilder
             'placeHolder' => 'Email', 
             'required' => true,
             'validators' => [
-                new MinLengthValidator('Longueur minimum : '.$emailMinCharacter.' caractères minimum', $emailMinCharacter),
-                new MaxLengthValidator('Longueur maximum : '.$emailMaxCharacter.' caractères', $emailMaxCharacter),
-                new StructureValidator('Votre adresse email doit être valide', '#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#'),
+                new MinLengthValidator(
+                    'Longueur minimum : '.$emailMinCharacter.' caractères minimum',
+                    $emailMinCharacter
+                ),
+                new MaxLengthValidator(
+                    'Longueur maximum : '.$emailMaxCharacter.' caractères',
+                    $emailMaxCharacter
+                ),
+                new StructureValidator(
+                    'Votre adresse email doit être valide',
+                    '#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#'
+                ),
                 new NoSqlValidator('Certains mots saisit ne sont pas autorisés !'),
                 new UserExistsValidator('L\'email saisis n\'existe pas', 'email'),
-                ]
-            ]));
+            ]
+        ]));
         
         $this->form->add(new StringField([
             'name' => 'password',
@@ -58,12 +67,21 @@ class SigninFormBuilder extends FormBuilder
             'placeHolder' => 'Mot de passe', 
             'required' => true,
             'validators' => [
-                new MinLengthValidator('Longueur minimum : '.$passwordMinCharacter.' caractères', $passwordMinCharacter),
-                new MaxLengthValidator('Longueur maximum : '.$passwordMaxCharacter.' caractères', $passwordMaxCharacter),
+                new MinLengthValidator(
+                    'Longueur minimum : '.$passwordMinCharacter.' caractères',
+                    $passwordMinCharacter
+                ),
+                new MaxLengthValidator(
+                    'Longueur maximum : '.$passwordMaxCharacter.' caractères',
+                    $passwordMaxCharacter
+                ),
                 new StructureValidator('Au moins 1 lettre et 1 chiffre', '#[a-zA-Z]+[0-9]+#'),
                 new NoSqlValidator('Certains mots saisit ne sont pas autorisés !'),
-                new CanConnectValidator('Mot de passe incorrect !', $this->form->getEntity()->getEmail())
-                ]
-            ]));
+                new CanConnectValidator(
+                    'Mot de passe incorrect !',
+                    $this->form->getEntity()->getEmail()
+                )
+            ]
+        ]));
 	}
 }

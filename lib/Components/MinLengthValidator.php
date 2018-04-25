@@ -50,14 +50,15 @@ class MinLengthValidator extends Validator
 	{
 		$minLength = (int) $minLength;
 
-		if ($minLength > 0)
-		{
-		$this->minLength = $minLength;
-		}
+		if ($minLength > 0) {
 
-		else
-		{
-		throw new RuntimeException('La longueur minimum doit être un nombre supérieur à 0');
+			$this->minLength = $minLength;
+
+		} else {
+			
+			throw new RuntimeException(
+				'La longueur minimum doit être un nombre supérieur à 0'
+			);
 		}
 	}
 }

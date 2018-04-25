@@ -25,10 +25,13 @@ class CaptchaField extends Field
 	 */
 	public function buildField()
 	{
-        $field = '<div style="transform:scale(0.77);-webkit-transform:scale(0.87);transform-origin:0 0;-webkit-transform-origin:0 0;" class="g-recaptcha" data-sitekey="'.$this->publicKey.'"></div>';
+        $field = '<div style="transform:scale(0.77);-webkit-transform:scale(0.87);
+            transform-origin:0 0;-webkit-transform-origin:0 0;" 
+            class="g-recaptcha" data-sitekey="'.$this->publicKey.'"></div>'
+            ;
         
-        if (!empty($this->errorMessage))
-        {
+        if (!empty($this->errorMessage)) {
+
             $field .= '<small style="color:red;">'.$this->errorMessage.'</small>';
         }
 
@@ -53,8 +56,8 @@ class CaptchaField extends Field
 	 */
     public function setPublicKey($publicKey)
     {
-        if (is_string($publicKey) && !empty($publicKey))
-        {
+        if (is_string($publicKey) && !empty($publicKey)) {
+            
             $this->publicKey = $publicKey;
         }
     }

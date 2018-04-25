@@ -20,13 +20,12 @@ class NoSqlValidator extends Validator
 	 */
     public function isValid($value)
     {
-        if (preg_match("#drop|delete|update|insert|union|select|where|like|create|set|join#i", $value))
-        {
-            return false;
-        }
+        if (preg_match("#drop|delete|update|insert|union|select|where|like|create|set|join#i", $value)) {
 
-        else
-        {
+            return false;
+
+        } else {
+            
             return true;
         }
     }

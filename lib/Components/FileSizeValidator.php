@@ -37,18 +37,17 @@ class FileSizeValidator extends Validator
 	 */
     public function isValid($value)
     {
-        if ($value['size'] == 0 && empty($value['tmp_name']))
-        {
+        if ($value['size'] == 0 && empty($value['tmp_name'])) {
+
             return true;
         }
 
-        if ($value['size'] <= $this->maxSize)
-        {
-            return true;
-        }
+        if ($value['size'] <= $this->maxSize) {
 
-        else
-        {
+            return true;
+
+        } else {
+            
             return false;
         }
     }
@@ -63,15 +62,15 @@ class FileSizeValidator extends Validator
     {
         $maxSize = (int) $maxSize;
 
-        if ($maxSize > 0 && $maxSize <= 8000000)
-        {
-            $this->maxSize = $maxSize;
-        }
+        if ($maxSize > 0 && $maxSize <= 8000000) {
 
-        else
-        {
-            throw new RuntimeException('La taille maximal d\'un fichier doit être supérieur à 0 et inférieur à 8 000 000 d\'octets !');
-            
+            $this->maxSize = $maxSize;
+
+        } else {
+
+            throw new RuntimeException(
+                'La taille maximal d\'un fichier doit être supérieur à 0 et inférieur à 8 000 000 d\'octets !'
+            );      
         }
     }
 }

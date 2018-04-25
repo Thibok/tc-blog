@@ -36,8 +36,8 @@ class Router
 	 */
 	public function addRoute(Route $route)
 	{
-		if (!in_array($route, $this->routes))
-		{
+		if (!in_array($route, $this->routes)) {
+
 			$this->routes[] = $route;
 		}
 	}
@@ -52,22 +52,23 @@ class Router
 	 */
 	public function getRoute($url)
 	{
-		foreach ($this->routes as $route)
-		{
+		foreach ($this->routes as $route) {
+
 			// If url match with Route url
-			if (($varsValues = $route->match($url)) !== false)
-			{
+			if (($varsValues = $route->match($url)) !== false) {
+
 				// If route has vars, example : id
-				if ($route->hasVars())
-				{
+				if ($route->hasVars()) {
+
+					// Get vars names
 					$varsNames = $route->varsNames();
 					$listVars = [];
 
-					foreach ($varsValues as $key => $match)
-					{
+					foreach ($varsValues as $key => $match) {
+
 						// 0 contains complete url
-						if ($key !== 0)
-						{
+						if ($key !== 0) {
+
 							// Set array with names/values of vars
 							$listVars[$varsNames[$key - 1]] = $match;
 						}
@@ -80,6 +81,8 @@ class Router
 			}
 		}
 	
-		throw new \RuntimeException('Aucune route ne correspond à l\'URL', self::NO_ROUTE);
+		throw new \RuntimeException(
+			'Aucune route ne correspond à l\'URL', self::NO_ROUTE
+		);
 	}
 }

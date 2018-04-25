@@ -144,7 +144,9 @@ class UserManager extends Manager
 	 */
     public function save(User $user)
     {
-        $request = $this->db->prepare('INSERT INTO user SET pseudo = :pseudo, email = :email, password = :password, register_date = NOW(), role = "Membre"');
+        $request = $this->db->prepare('INSERT INTO user SET pseudo = :pseudo,
+            email = :email, password = :password, register_date = NOW(), role = "Membre"'
+        );
         $request->bindValue(':pseudo', $user->getPseudo(), \PDO::PARAM_STR);
         $request->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
         $request->bindValue(':password', $user->getPassword(), \PDO::PARAM_STR);
@@ -168,8 +170,8 @@ class UserManager extends Manager
 
         $listPseudo = [];
 
-        while ($raw = $request->fetch()) 
-        {
+        while ($raw = $request->fetch()) {
+
             $listPseudo[] = $raw['pseudo'];
         }
 
@@ -197,8 +199,8 @@ class UserManager extends Manager
   	{
 	    $sql = 'SELECT id, pseudo, email, register_date, role FROM user ORDER BY pseudo';
 	 
-	    if ($start != -1 || $number != -1)
-	    {
+	    if ($start != -1 || $number != -1) {
+
 	      $sql .= ' LIMIT '.(int) $start.', '.(int) $number;
 	    }
 
@@ -206,9 +208,15 @@ class UserManager extends Manager
         
         $listUsers = [];
 
-	    while ($data = $request->fetch(\PDO::FETCH_ASSOC))
-		{
-  			$listUsers[] = new User(['id' => $data['id'], 'pseudo' => $data['pseudo'], 'email' => $data['email'], 'registerDate' => new \DateTime($data['register_date']), 'role' => $data['role']]);
+	    while ($data = $request->fetch(\PDO::FETCH_ASSOC)) {
+
+  			$listUsers[] = new User([
+                  'id' => $data['id'],
+                  'pseudo' => $data['pseudo'],
+                  'email' => $data['email'],
+                  'registerDate' => new \DateTime($data['register_date']),
+                  'role' => $data['role']
+            ]);
 		}
 
 		$request->closeCursor();

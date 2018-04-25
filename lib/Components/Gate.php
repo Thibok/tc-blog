@@ -61,13 +61,12 @@ class Gate
     {
         $numberOfAttempt = $this->manager->countAttempt($ip);
 
-        if ($numberOfAttempt < $this->maxAttempt)
-        {
-            return true;
-        }
+        if ($numberOfAttempt < $this->maxAttempt) {
 
-        else
-        {
+            return true;
+
+        } else {
+            
             return false;
         }
     }
@@ -82,14 +81,15 @@ class Gate
     {
         $maxAttempt = (int) $maxAttempt;
 
-        if ($maxAttempt > 0)
-        {
-            $this->maxAttempt = $maxAttempt;
-        }
+        if ($maxAttempt > 0) {
 
-        else
-        {
-            throw new \RuntimeException('Le nombre max de tentative doit être supêrieur à 0 !');
+            $this->maxAttempt = $maxAttempt;
+
+        } else {
+
+            throw new \RuntimeException(
+                'Le nombre max de tentative doit être supêrieur à 0 !'
+            );
             
         }
     }

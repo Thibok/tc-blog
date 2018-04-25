@@ -67,8 +67,8 @@ abstract class Field
 	 */
 	public function __construct(array $options = [])
 	{
-		if (!empty($options))
-		{
+		if (!empty($options)) {
+
 			$this->hydrate($options);
 		}
 	}
@@ -81,10 +81,10 @@ abstract class Field
 	 */
 	public function isValid()
     {
-        foreach ($this->validators as $validator)
-        {
-            if (!$validator->isValid($this->value))
-            {
+        foreach ($this->validators as $validator) {
+
+            if (!$validator->isValid($this->value)) {
+
                 $this->errorMessage = $validator->getErrorMessage();
                 return false;
             }
@@ -100,12 +100,12 @@ abstract class Field
 	 */
 	public function hydrate(array $options)
   	{
-		foreach ($options as $key => $value)
-	    {
+		foreach ($options as $key => $value) {
+
 	      $method = 'set'.ucfirst($key);
 	      
-	      if (is_callable([$this, $method]))
-	      {
+	      if (is_callable([$this, $method])) {
+
 	        $this->$method($value);
 	      }
 	    }
@@ -126,8 +126,8 @@ abstract class Field
 	 */
     public function setName($name)
     {
-    	if (is_string($name))
-    	{
+    	if (is_string($name)) {
+
     		$this->name = $name;
     	}
     }
@@ -139,8 +139,8 @@ abstract class Field
 	 */
     public function setClass($class)
     {
-    	if (is_string($class))
-    	{
+    	if (is_string($class)) {
+
     		$this->class = $class;
     	}
     }
@@ -152,8 +152,8 @@ abstract class Field
 	 */
     public function setRequired($required)
     {
-        if (is_bool($required))
-        {
+        if (is_bool($required)) {
+
             $this->required = $required;
         }
     }
@@ -175,11 +175,12 @@ abstract class Field
 	 */
     public function setValidators(array $validators)
     {
-        foreach ($validators as $validator)
-        {
-          if ($validator instanceof Validator && !in_array($validator, $this->validators))
-          {
-            $this->validators[] = $validator;
+        foreach ($validators as $validator) {
+
+          if ($validator instanceof Validator && !in_array($validator, $this->validators)) {
+
+			$this->validators[] = $validator;
+			
           }
         }
     }
@@ -191,8 +192,8 @@ abstract class Field
 	 */
     public function setLabel($label)
     {
-    	if (is_string($label))
-    	{
+    	if (is_string($label)) {
+			
     		$this->label = $label;
     	}
     }

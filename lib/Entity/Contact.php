@@ -56,8 +56,8 @@ class Contact extends Entity
 	 */
     public function setName($name)
     {
-        if (is_string($name) && !empty($name))
-        {
+        if (is_string($name) && !empty($name)) {
+
             $this->name = htmlspecialchars($name);
         }
     }
@@ -69,8 +69,8 @@ class Contact extends Entity
 	 */
     public function setCaptcha($captcha)
     {
-        if (!empty($captcha))
-        {
+        if (!empty($captcha)) {
+
             $this->captcha = $captcha;
         }
     }
@@ -82,8 +82,8 @@ class Contact extends Entity
 	 */
     public function setFirstName($firstName)
     {
-        if (is_string($firstName) && !empty($firstName))
-        {
+        if (is_string($firstName) && !empty($firstName)) {
+
             $this->firstName = htmlspecialchars($firstName);
         }
     }
@@ -95,8 +95,8 @@ class Contact extends Entity
 	 */
     public function setEmail($email)
     {
-        if (is_string($email) && !empty($email))
-        {
+        if (is_string($email) && !empty($email)) {
+
             $this->email = htmlspecialchars($email);
         }
     }
@@ -108,8 +108,8 @@ class Contact extends Entity
 	 */
     public function setMessage($message)
     {
-        if (is_string($message) && !empty($message))
-        {
+        if (is_string($message) && !empty($message)) {
+            
             $this->message = htmlspecialchars($message);
         }
     }

@@ -64,8 +64,8 @@ class Comment extends Entity
 	 */
 	public function setUser($user)
 	{
-		if (is_string($user) && !empty($user))
-		{
+		if (is_string($user) && !empty($user)) {
+
 			$this->user = htmlspecialchars($user);
 		}
 	}
@@ -77,8 +77,8 @@ class Comment extends Entity
 	 */
 	public function setContent($content)
 	{
-		if (is_string($content) && !empty($content))
-		{
+		if (is_string($content) && !empty($content)) {
+			
 			$this->content = htmlspecialchars($content);
 		}
 	}

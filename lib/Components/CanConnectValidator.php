@@ -42,13 +42,12 @@ class CanConnectValidator extends Validator
         $manager = new UserManager;
         $pass = $manager->getPasswordOf($this->email);
 
-        if (password_verify($value, $pass))
-        {
-            return true;
-        }
+        if (password_verify($value, $pass)) {
 
-        else
-        {
+            return true;
+
+        } else {
+            
             return false;
         }
     }

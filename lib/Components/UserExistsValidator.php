@@ -32,6 +32,8 @@ class UserExistsValidator extends Validator
     }
 
     /**
+     * Verify if user exists in db.
+     * 
 	 * {@inheritDoc}
      * @return bool
      * @throws RuntimeException If method no exists in UserManager class
@@ -40,26 +42,28 @@ class UserExistsValidator extends Validator
     {
         $userManager = new UserManager;
         $value = htmlspecialchars($value);
+
+        // UserManager method
         $method = 'countWhere'.ucfirst($this->fieldName);
 
-        if (is_callable([$userManager, $method]))
-        {
+        if (is_callable([$userManager, $method])) {
+
             $exists = $userManager->$method($value);
 
-            if ($exists == true)
-            {
-                return true;
-            }
+            if ($exists == true) {
 
-            else
-            {
+                return true;
+
+            } else {
+
                 return false;
             }
-        }
 
-        else
-        {
-            throw new \RuntimeException('La méthode pour vérifier l\'existence en bdd n\'existe pas !');
+        } else {
+
+            throw new \RuntimeException(
+                'La méthode pour vérifier l\'existence en bdd n\'existe pas !'
+            );
             
         }
     }
@@ -71,8 +75,8 @@ class UserExistsValidator extends Validator
 	 */
     public function setFieldName($fieldName)
     {
-        if (is_string($fieldName) && !empty($fieldName))
-        {
+        if (is_string($fieldName) && !empty($fieldName)) {
+            
             $this->fieldName = $fieldName;
         }
     }

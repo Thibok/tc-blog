@@ -60,8 +60,8 @@ class Gallery
         // Get MIME of file
         $upload_mime_type = mime_content_type($actualName);
 
-        if (in_array($upload_mime_type, ['image/jpeg', 'image/pjpeg', 'image/png']))
-        {
+        if (in_array($upload_mime_type, ['image/jpeg', 'image/pjpeg', 'image/png'])) {
+
             $extension = pathinfo($varFile['name'], PATHINFO_EXTENSION);
 
             // New tmp name of file
@@ -76,12 +76,12 @@ class Gallery
             $error = 0;
 
             // Verify the file is not a script
-            while (!feof($handle) AND $error == 0) 
-            {
+            while (!feof($handle) AND $error == 0) {
+
                 $buffer = fgets($handle);
 
-                switch (true) 
-                {
+                switch (true) {
+
                     case strstr($buffer,'<?php'):
                     $error = 1;
                     break;
@@ -95,23 +95,21 @@ class Gallery
             fclose($handle);
 
             // Destroy file if not a picture 
-            if ($error == 1 | !getimagesize($file))
-            {
+            if ($error == 1 | !getimagesize($file)) {
+
                 unlink($file);
-            }
 
             // Else create new picture
-            else
-            {
-                if ($upload_mime_type == 'image/jpeg' || $upload_mime_type == 'image/pjpeg')
-                {
+            } else {
+
+                if ($upload_mime_type == 'image/jpeg' || $upload_mime_type == 'image/pjpeg') {
+
                     $source = imagecreatefromjpeg($file);
-                }
-                        
-                else
-                {
-                    if ($upload_mime_type != 'image/jpeg' && $upload_mime_type != 'image/pjpeg')
-                    {
+
+                } else {
+
+                    if ($upload_mime_type != 'image/jpeg' && $upload_mime_type != 'image/pjpeg') {
+
                         $method = 'imagecreatefrom'.$extension;
                         $source = $method($file);
                     }
@@ -126,17 +124,17 @@ class Gallery
                 $width_destination = imagesx($destination);
                 $height_destination = imagesy($destination);
 
-                imagecopyresampled($destination, $source, 0, 0, 0, 0, $width_destination, $height_destination, $width_source, $height_source);
+                imagecopyresampled($destination, $source, 0, 0, 0, 0, $width_destination, 
+                                    $height_destination, $width_source, $height_source);
 
                 // Save new resize picture
-                if ($extension == 'jpg' || $extension == 'jpeg')
-                {
+                if ($extension == 'jpg' || $extension == 'jpeg') {
+
                     unlink($file);
                     imagejpeg($destination, $this->dirName.'/'.$pictureName.'.'.$extension);
-                }
 
-                else
-                {
+                } else {
+                    
                     unlink($file);
                     $imageSave = 'image'.$extension;
                     $imageSave($destination, $this->dirName.'/'.$pictureName.'.'.$extension);
@@ -154,12 +152,12 @@ class Gallery
 	 */
     public function getPicture($pictureName)
     {
-        foreach ($this->allowedExtension as $key => $extension) 
-        {
+        foreach ($this->allowedExtension as $key => $extension) {
+
             $picture = $this->dirName.'/'.$pictureName.'.'.$extension;
 
-            if (file_exists($picture))
-            {
+            if (file_exists($picture)) {
+
                 $picture = '/'.$picture;
                 return $picture;
             }
@@ -175,12 +173,12 @@ class Gallery
 	 */
     public function deletePicture($pictureName)
     {
-        foreach ($this->allowedExtension as $key => $extension) 
-        {
+        foreach ($this->allowedExtension as $key => $extension) {
+
             $picture = $this->dirName.'/'.$pictureName.'.'.$extension;
 
-            if (file_exists($picture))
-            {
+            if (file_exists($picture)) {
+
                 unlink($picture);
             }
         }
@@ -193,8 +191,8 @@ class Gallery
 	 */
     public function setAllowedExtension(array $allowedExtension)
     {
-        if (!empty($allowedExtension))
-        {
+        if (!empty($allowedExtension)) {
+
             $this->allowedExtension = $allowedExtension;
         }
     }
@@ -206,8 +204,8 @@ class Gallery
 	 */
     public function setDirName($dirName)
     {
-        if (!empty($dirName) && is_string($dirName))
-        {
+        if (!empty($dirName) && is_string($dirName)) {
+
             $this->dirName = $dirName;
         }
     }

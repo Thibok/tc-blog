@@ -45,21 +45,22 @@ class Config
      */
     public function get($var)
     {
-        if (!$this->vars)
-        {
+        if (!$this->vars) {
+
           $xml = new \DOMDocument;
           $xml->load($this->pathConfig);
     
           $elements = $xml->getElementsByTagName('define');
     
-          foreach ($elements as $element)
-          {
+          foreach ($elements as $element) {
+
             $this->vars[$element->getAttribute('var')] = $element->getAttribute('value');
-          }
-        }
-  
-        if (isset($this->vars[$var]))
-        {
+		  }
+		  
+		} 
+		
+		if (isset($this->vars[$var])) {
+
           return $this->vars[$var];
         }
     
@@ -74,13 +75,12 @@ class Config
 	 */
     public function setPathConfig($pathConfig)
     {
-		if (file_exists($pathConfig))
-		{
-			$this->pathConfig = $pathConfig;
-		}
+		if (file_exists($pathConfig)) {
 
-		else
-		{
+			$this->pathConfig = $pathConfig;
+
+		} else {
+			
 			throw new RuntimeException('Le chemin d\'accès au fichier est invalide !');
 		}
     }

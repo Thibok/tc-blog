@@ -39,51 +39,53 @@ class TextField extends Field
 	 */
 	public function buildField()
 	{
-		if (!empty($this->label))
-		{
-			$label = '<label class="control-label text-white" for="'.$this->name.'">'.$this->label.'</label>';
+		if (!empty($this->label)) {
+
+			$label = '<label class="control-label text-white" for="'
+				.$this->name.'">'.$this->label.'</label>';
 		}
 
-		$field = '<textarea class="form-control" id="'.$this->name.'" name="'.$this->name.'"';
+		$field = '<textarea class="form-control" id="'
+			.$this->name.'" name="'.$this->name.'"';
 
-		if (!empty($this->maxLength))
-		{
+		if (!empty($this->maxLength)) {
+
 			$field .= ' maxlength="'.$this->maxLength.'"';
 		}
 
-		if (!empty($this->rows))
-		{
+		if (!empty($this->rows)) {
+
 			$field .= ' rows="'.$this->rows.'"';
 		}
 
-		if (!empty($this->cols))
-		{
+		if (!empty($this->cols)) {
+
 			$field .= ' cols="'.$this->cols.'"';
 		}
 
-		if (!empty($this->required) && $this->required === true)
-		{
+		if (!empty($this->required) && $this->required === true) {
+
 			$field .= ' required';
 		}
 
 		$field .= '>';
 
-		if (!empty($this->value))
-		{
+		if (!empty($this->value)) {
+
 			$field .= htmlspecialchars($this->value);
 		}
 
 		$field .= '</textarea>';
 
-		if (!empty($this->errorMessage))
-		{
+		if (!empty($this->errorMessage)) {
+
 			$field = '<div class="alert alert-danger">'.$this->errorMessage.$field.'</div>';
 		}
 
 		$container = '<div class="'.$this->class.'">';
 
-		if (isset($label))
-		{
+		if (isset($label)) {
+
 			$container .= $label;
 		}
 
@@ -120,13 +122,12 @@ class TextField extends Field
 	{
 		$rows = (int) $rows;
 
-		if ($rows > 0)
-		{
-			$this->rows = $rows;
-		}
+		if ($rows > 0) {
 
-		else
-		{
+			$this->rows = $rows;
+
+		} else {
+
 			throw new \RuntimeException('Le nombre de lignes doit être supérieur à 0 !');
 		}
 	}
@@ -141,15 +142,13 @@ class TextField extends Field
 	{
 		$cols = (int) $cols;
 
-		if ($cols > 0)
-		{
-			$this->cols = $cols;
-		}
+		if ($cols > 0) {
 
-		else
-		{
-			throw new \RuntimeException('Le nombre de colonnes doit être supérieur à 0 !');
+			$this->cols = $cols;
+
+		} else {
 			
+			throw new \RuntimeException('Le nombre de colonnes doit être supérieur à 0 !');
 		}
 	}
 
@@ -163,13 +162,12 @@ class TextField extends Field
 	{
 		$maxLength = (int) $maxLength;
 
-		if ($maxLength > 0)
-		{
-			$this->maxLength = $maxLength;
-		}
+		if ($maxLength > 0) {
 
-		else
-		{
+			$this->maxLength = $maxLength;
+
+		} else {
+			
 			throw new \RuntimeException('La longueur maximale doit être supérieur à 0 !');
 		}
 	}
