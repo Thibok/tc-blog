@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace FormBuilder;
 
 use \Components\FormBuilder;
@@ -9,7 +18,11 @@ use \Components\NoSqlValidator;
 
 class CommentFormBuilder extends FormBuilder
 {
-	public function build()
+    /**
+	 * {@inheritDoc}
+	 * @return void
+	 */
+    public function build()
 	{
         $commentMaxCharacter = $this->config->get('comment_content_max_character');
 
@@ -19,10 +32,13 @@ class CommentFormBuilder extends FormBuilder
             'maxLength' => $commentMaxCharacter, 
             'required' => true,
             'validators' => [
-                new MaxLengthValidator('Longueur maximum : '.$commentMaxCharacter.' caractères', $commentMaxCharacter),
+                new MaxLengthValidator(
+                    'Longueur maximum : '.$commentMaxCharacter.' caractères',
+                    $commentMaxCharacter
+                ),
                 new NotNullValidator('Le commentaire ne peut pas être vide !'),
                 new NoSqlValidator('Certains mots saisit ne sont pas autorisés !')
-                ]
-            ]));
+            ]
+        ]));
 	}
 }
