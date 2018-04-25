@@ -28,8 +28,7 @@ class ConnexionController extends Controller
     public function executeDisconect(Request $request)
     {
        
-        $_SESSION = array();
-        session_destroy();
+        $this->response->endSession();
         $this->response->redirect('.');
         
     }

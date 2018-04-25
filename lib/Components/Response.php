@@ -52,5 +52,11 @@ class Response
     {
         echo $this->twig->render($page, $data);
         exit;
-    }
+	}
+	
+	public function endSession()
+	{
+		$_SESSION = array();
+        session_destroy();
+	}
 }

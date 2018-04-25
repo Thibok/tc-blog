@@ -27,13 +27,6 @@ class Gallery
     private $allowedExtension = [];
 
     /**
-	 * 
-	 * @var string
-	 * @access private
-	 */
-    private $pictureExtension;
-
-    /**
 	 * @access public
 	 * @param string $dirName
 	 * @param array $allowedExtension
@@ -134,7 +127,7 @@ class Gallery
                     imagejpeg($destination, $this->dirName.'/'.$pictureName.'.'.$extension);
 
                 } else {
-                    
+
                     unlink($file);
                     $imageSave = 'image'.$extension;
                     $imageSave($destination, $this->dirName.'/'.$pictureName.'.'.$extension);
