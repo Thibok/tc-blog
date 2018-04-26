@@ -1,82 +1,49 @@
 <?php
-
-/*
- * This file is part of the Tc-blog project.
- *
- * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
- *
- * First blog in PHP
- */
-
 namespace Components;
 
 use \Model\UserManager;
 
 class UserExistsValidator extends Validator
 {
-    /**
-     * 
-     * @var string
-     * @access private
-     */
     private $fieldName;
 
-    /**
-	 * {@inheritDoc}
-     * @param string $fieldName
-	 */
     public function __construct($errorMessage, $fieldName)
     {
         parent::__construct($errorMessage);
         $this->setFieldName($fieldName);
     }
-
-    /**
-     * Verify if user exists in db.
-     * 
-	 * {@inheritDoc}
-     * @return bool
-     * @throws RuntimeException If method no exists in UserManager class
-	 */
     public function isValid($value)
     {
         $userManager = new UserManager;
         $value = htmlspecialchars($value);
-
-        // UserManager method
         $method = 'countWhere'.ucfirst($this->fieldName);
 
-        if (is_callable([$userManager, $method])) {
-
+        if (is_callable([$userManager, $method]))
+        {
             $exists = $userManager->$method($value);
 
-            if ($exists == true) {
-
+            if ($exists == true)
+            {
                 return true;
-
-            } else {
-
-                return false;
             }
 
-        } else {
+            else
+            {
+                return false;
+            }
+        }
 
-            throw new \RuntimeException(
-                'La méthode pour vérifier l\'existence en bdd n\'existe pas !'
-            );
+        else
+        {
+            throw new \RuntimeException('La méthode pour vérifier l\'existence en bdd n\'existe pas !');
             
         }
     }
 
-    /**
-	 * @access public
-     * @param string $fieldName
-     * @return void
-	 */
     public function setFieldName($fieldName)
     {
-        if (is_string($fieldName) && !empty($fieldName)) {
-            
+        if (is_string($fieldName) && !empty($fieldName))
+        {
             $this->fieldName = $fieldName;
         }
     }
