@@ -1,21 +1,8 @@
 <?php
-
-/*
- * This file is part of the Tc-blog project.
- *
- * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
- *
- * First blog in PHP
- */
-
 namespace Components;
 
 class Ticket
 {
-    /**
-	 * @access public
-	 * @return void
-	 */
     public function generate()
     {
         $cookie_name = 'kw_g';
@@ -26,19 +13,16 @@ class Ticket
         $_SESSION['ticket'] = $ticket;
     }
 
-    /**
-	 * @access public
-	 * @return bool
-	 */
     public function isValid()
     {
-        if ($_COOKIE['kw_g'] == $_SESSION['ticket']) {    
+            if ($_COOKIE['kw_g'] == $_SESSION['ticket'])
+            {    
+                return true;
+            }
 
-            return true;
-
-        } else {
-            
-            return false;
-        }
+            else
+            {
+                return false;
+            }
     }
 }

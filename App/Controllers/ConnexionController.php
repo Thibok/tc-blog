@@ -1,13 +1,4 @@
 <?php
-
-/*
- * This file is part of the Tc-blog project.
- *
- * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
- *
- * First blog in PHP
- */
-
 namespace Controllers;
 
 use \Components\Controller;
@@ -20,11 +11,6 @@ use \FormBuilder\SigninFormBuilder;
 
 class ConnexionController extends Controller
 {   
-    /**
-	 * @access public
-	 * @param Request $request
-	 * @return void
-	 */
     public function executeDisconect(Request $request)
     {
        
@@ -33,31 +19,21 @@ class ConnexionController extends Controller
         
     }
 
-    /**
-	 * @access public
-	 * @param Request $request
-	 * @return void
-	 */
     public function executeSignin(Request $request)
     {
-        if ($request->method() == 'POST') {
-
+        if ($request->method() == 'POST')
+        {
             sleep(1);
-
-            $user = new User([
-                'pseudo' => $request->postData('pseudo'),
-                'email' => $request->postData('email'),
-                'password' => $request->postData('password')
-            ]);
-
-        } else {
-            
+            $user = new User(['pseudo' => $request->postData('pseudo'), 'email' => $request->postData('email'), 'password' => $request->postData('password')]);
+        }
+        
+        else
+        {
             $user = new User;
+        }
 
-        } 
-
-        if ($user->isAuthenticated()) {
-
+        if ($user->isAuthenticated())
+        {
             $this->response->redirect('.');
         }
 
@@ -67,70 +43,56 @@ class ConnexionController extends Controller
 
         $form = $formBuilder->getForm();
 
-        if ($request->method() == 'POST') {
-
+        if ($request->method() == 'POST')
+        {
             $maxAttempt = $this->config->get('number_max_attempt');
             $gate = new Gate($maxAttempt);
 
-            if ($gate->control($request->ip())) {
-
-                if ($form->isValid()) {
-
+            if ($gate->control($request->ip()))
+            {
+                if ($form->isValid())
+                {
                     $manager = new UserManager;
                     $user = $manager->getInfosByEmail($user);
                     $user->setAuthenticated(true);
                     $user->setFlash('Vous êtes maintenant connecté !');
-                    
-                    // Create unique random token
                     $user->getToken()->create();
-
-                    // Create random ticket
                     $user->getTicket()->generate();
-
                     $_SESSION['user'] = $user;
 
                     $this->response->redirect('.');
-
-                } else {
-                   
-                    $gate->addToJail($request->ip());
                 }
 
-            } else {
+                else
+                {
+                    $gate->addToJail($request->ip());
+                }
+            }
 
-                $user->setFlash('Vous avez atteint le maximum de tentatives autorisées, réessayez ultérieurement');
+            else
+            {
+                $user->setFlash('Vous avez atteint le maximum de tentatives autorisée, réessayez ultérieurement');
             }
         }
 
-        $this->response->render(
-            'signin.twig',
-            ['title' => 'Connexion','form' => $form->generate(), 'user' => $user]
-        );
+        $this->response->render('signin.twig', ['title' => 'Connexion', 'form' => $form->generate(), 'user' => $user]);
     }
 
-    /**
-	 * @access public
-	 * @param Request $request
-	 * @return void
-	 */
     public function executeSignup(Request $request)
     {
 
-        if ($request->method() == 'POST') {
-
-            $user = new User([
-                'pseudo' => $request->postData('pseudo'),
-                'email' => $request->postData('email'),
-                'password' => $request->postData('password')
-            ]);
-
-        } else {
-
+        if ($request->method() == 'POST')
+        {
+            $user = new User(['pseudo' => $request->postData('pseudo'), 'email' => $request->postData('email'), 'password' => $request->postData('password')]);
+        }
+        
+        else
+        {
             $user = new User;
         }
 
-        if ($user->isAuthenticated()) {
-
+        if ($user->isAuthenticated())
+        {
             $this->response->redirect('.');
         }
 
@@ -140,9 +102,9 @@ class ConnexionController extends Controller
 
         $form = $formBuilder->getForm();
 
-        if ($request->method() == 'POST' && $form->isValid()) {
-
-            $user->setPassword(password_hash($user->getPassword(), PASSWORD_BCRYPT));
+        if ($request->method() == 'POST' && $form->isValid())
+        {
+            $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
             
             $manager = new UserManager;
             $userId = $manager->save($user);
@@ -150,13 +112,8 @@ class ConnexionController extends Controller
             $user->setId($userId);
             $user->setRole('Membre');
             $user->setAuthenticated(true);
-
-            // Create unique random token
             $user->getToken()->create();
-
-            // Create random ticket
             $user->getTicket()->generate();
-
             $_SESSION['user'] = $user;
 
             $user->setFlash('Vous êtes maintenant connecté !');
@@ -164,9 +121,6 @@ class ConnexionController extends Controller
             $this->response->redirect('.');
         }
 
-        $this->response->render(
-            'signup.twig',
-            ['title' => 'Inscription', 'form' => $form->generate()]
-        );
+        $this->response->render('signup.twig', ['title' => 'Inscription', 'form' => $form->generate()]);
     }
 }

@@ -1,35 +1,41 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
+        <div id="wrap">
+            <div id="main" class="container">
+                <section class="row">
+                    <nav class="col-lg-3 mx-4 my-5" id="admin_menu">
+                        <div class="list-group my-3">
+                            <a href="/admin" role="button" class="bg-dark list-group-item text-white text-center">Tableau de bord</a>
+                            <a href="/admin/ajouter_une_news" role="button" class="bg-dark list-group-item text-white text-center">Ajouter une news</a>
+                            <a href="/admin/gestion_des_utilisateurs" role="button" class="bg-dark list-group-item text-white text-center">Gestion des utilisateurs</a>
+                            <a href="/admin/commentaires_a_valider" role="button" class="bg-dark list-group-item text-white text-center">Commentaires à valider</a>
+                        </div>
+                    </nav>
+                    <div class="col-lg-8 my-5" id="admin_block">
+                        <h1 class="pt-3 pl-1 text-white"><img src="/pictures/ico_blue.png" alt="icon" id="ico_blue"/>{{ news.getTitle }}</h1>
+                        <p id="date_publish" ><span class="font-italic">{{ news.getAddAt != news.getUpdateAt ? 'Modifié' : 'Publié' }} le {{ news.getAddAt != news.getUpdateAt ? news.getUpdateAt|date("d/m/Y à H\\hi") : news.getAddAt|date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.getUser }}</span></p>
+                        <hr/>
 
-    <div id="wrap">
-        <div id="main" class="container">
-            <section class="row">
-            {% include 'admin_menu.twig' %}
-                <div class="col-lg-8 my-5" id="admin_block">
-                    <h1 class="pt-3 pl-1 text-white"><img src="/pictures/ico_blue.png" alt="icon" id="ico_blue"/>{{ news.getTitle }}</h1>
-                    <p id="date_publish" ><span class="font-italic">{{ news.getAddAt != news.getUpdateAt ? 'Modifié' : 'Publié' }} le {{ news.getAddAt != news.getUpdateAt ? news.getUpdateAt|date("d/m/Y à H\\hi") : news.getAddAt|date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.getUser }}</span></p>
-                    <hr/>
-
-                    {% if news.hasPicture %}
+                        {% if news.hasPicture %}
 
                         <img class="img-fluid rounded" src="{{ news.getPicture }}" alt="news picture"/>
                         
-                    {% endif %}
+                        {% endif %}
                         
-                    <hr/>
-                    <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
-                        <fieldset>
-                            <input type="hidden" name="token" value="{{ user.getToken.getValue }}"/>
-                            {{ form|raw }}
-                            <div class="col-md-4 mb-4">
-                                <button type="submit" name="publish" class="btn btn-primary">Modifier</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </section>
-        </div>
-    </div>
+                        <hr/>
+                        <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+                            <fieldset>
+                                <input type="hidden" name="token" value="{{ user.getToken.getValue }}"/>
+                                {{ form|raw }}
 
+                                <div class="col-md-4 mb-4">
+                                    <button type="submit" name="publish" class="btn btn-primary">Modifier</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
 {% endblock %}
