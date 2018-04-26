@@ -15,8 +15,9 @@ class Mailer
         $password = $this->config->get('password_smtp');
         $domainSmtp = $this->config->get('domain_smtp');
         $portSmtp = $this->config->get('port_smtp');
+        $contactEmail = $this->config->get('contact_email');
 
-        $transport = (new \Swift_SmtpTransport($domainSmtp, 465, 'ssl'))
+        $transport = (new \Swift_SmtpTransport($domainSmtp, $portSmtp, 'ssl'))
             ->setUsername($userName)
             ->setPassword($password)
         ;
@@ -26,13 +27,16 @@ class Mailer
 
     public function createMessage($fullName, $userEmail, $message)
     {
-        $receveirEmail = $this->config->get('contact_email');
+        $contactEmail = $this->config->get('contact_email');
         
         $this->message = (new \Swift_Message('Tc-blog Contact'))
             ->setFrom([$userEmail => $userEmail])
-            ->setTo(['tcblog@tc-dev.ovh' => 'Tc-blog'])
-            ->setBody(nl2br('<em>Envoyé par :</em><strong> '.$fullName.'</strong><p>'.$message.'</p>'), 'text/html')
-        ;
+
+            ->setTo([$contactEmail => 'Tc-blog'])
+            ->setBody(
+                nl2br('<em>Envoyé par :</em><strong> '.$fullName.'</strong><p>'.$message.'</p>'),
+                'text/html'
+            );
     }
 
     public function send()
