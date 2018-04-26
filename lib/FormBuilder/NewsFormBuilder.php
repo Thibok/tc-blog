@@ -1,13 +1,4 @@
 <?php
-
-/*
- * This file is part of the Tc-blog project.
- *
- * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
- *
- * First blog in PHP
- */
-
 namespace FormBuilder;
 
 use \Components\FormBuilder;
@@ -26,11 +17,7 @@ use \Components\NoSqlValidator;
 
 class NewsFormBuilder extends FormBuilder
 {
-    /**
-	 * {@inheritDoc}
-	 * @return void
-	 */
-    public function build()
+	public function build()
 	{
         $titleMaxCharacter = $this->config->get('news_title_max_character');
         $chapoMaxCharacter = $this->config->get('news_chapo_max_character');
@@ -54,8 +41,8 @@ class NewsFormBuilder extends FormBuilder
                 new NotNullValidator('Un auteur doit être sélectionné !'),
                 new NoSqlValidator('Certains mots saisit ne sont pas autorisés !'),
                 new OptionsExistsValidator('Cet auteur n\'existe pas !', $options),
-            ]
-        ]));
+                ]
+            ]));
 
         $this->form->add(new StringField([
             'name' => 'title',
@@ -66,14 +53,11 @@ class NewsFormBuilder extends FormBuilder
             'maxLength' => $titleMaxCharacter, 
             'required' => true,
             'validators' => [
-                new MaxLengthValidator(
-                    'Longueur maximum : '.$titleMaxCharacter.' caractères',
-                    $titleMaxCharacter
-                ),
+                new MaxLengthValidator('Longueur maximum : '.$titleMaxCharacter.' caractères', $titleMaxCharacter),
                 new NotNullValidator('Le titre ne peut pas être vide !'),
                 new NoSqlValidator('Certains mots saisit ne sont pas autorisés !')
-            ]
-        ]));
+                ]
+            ]));
 
         $this->form->add(new TextField([
             'name' => 'chapo',
@@ -82,14 +66,11 @@ class NewsFormBuilder extends FormBuilder
             'maxLength' => $chapoMaxCharacter, 
             'required' => true,
             'validators' => [
-                new MaxLengthValidator(
-                    'Longueur maximum : '.$chapoMaxCharacter.' caractères',
-                    $chapoMaxCharacter
-                ),
+                new MaxLengthValidator('Longueur maximum : '.$chapoMaxCharacter.' caractères', $chapoMaxCharacter),
                 new NotNullValidator('Le chapo ne peut pas être vide !'),
                 new NoSqlValidator('Certains mots saisit ne sont pas autorisés !')
-            ]
-        ]));
+                ]
+            ]));
                     
         $this->form->add(new TextField([
             'name' => 'content',
@@ -98,16 +79,11 @@ class NewsFormBuilder extends FormBuilder
             'maxLength' => $contentMaxCharacter, 
             'required' => true,
             'validators' => [
-                new MaxLengthValidator(
-                    'Longueur maximum : '.$contentMaxCharacter.' caractères',
-                    $contentMaxCharacter
-                ),
+                new MaxLengthValidator('Longueur maximum : '.$contentMaxCharacter.' caractères', $contentMaxCharacter),
                 new NotNullValidator('Le contenu ne peut pas être vide !'),
-                new NoSqlValidator(
-                    'Certains mots saisit ne sont pas autorisés !'
-                )
-            ]
-        ]));
+                new NoSqlValidator('Certains mots saisit ne sont pas autorisés !')
+                ]
+            ]));
         
         $this->form->add(new UploadField([
             'name' => 'picture',
@@ -116,14 +92,9 @@ class NewsFormBuilder extends FormBuilder
             'required' => false,
             'validators' => [
                 new FileSendValidator('Erreur d\'envoi, Réessayez'),
-                new FileExtensionValidator(
-                    'Extensions autorisées : jpg, jpeg, png',
-                    $allowedExtensions
-                ),
-                new FileSizeValidator(
-                    'Taille maximum : '.$maxImgSize / $maxImgSize.'mo', $maxImgSize
-                ),
-            ]
-        ]));
+                new FileExtensionValidator('Extensions autorisées : jpg, jpeg, png', $allowedExtensions),
+                new FileSizeValidator('Taille maximum : '.$maxImgSize / $maxImgSize.'mo', $maxImgSize),
+                ]
+            ]));
 	}
 }

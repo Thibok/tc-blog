@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
-
-    <!-- News -->
     <route url="/" module="News" action="index" />
     <route url="/news" module="News" action="list" />
     <route url="/news\?page=([0-9]+)" module="News" action="list" vars="page"/>
     <route url="/news-([0-9]+)\.html" module="News" action="show" vars="id"/>
     <route url="/news-([0-9]+)\.html\?page=([0-9]+)" module="News" action="show" vars="id,page"/>
-    <!---->
-    <!-- Connexion -->
     <route url="/inscription.html" module="Connexion" action="signup" />
     <route url="/connexion.html" module="Connexion" action="signin" />
     <route url="/deconnexion" module="Connexion" action="disconect" />
-    <!---->
-    <!-- Admin -->
     <route url="/admin" module="Admin" action="admin" />
     <route url="/admin\?page=([0-9]+)" module="Admin" action="admin" vars="page" />
     <route url="/admin/commentaires_a_valider" module="Admin" action="listNoValidComments" />
@@ -27,6 +21,4 @@
     <route url="/admin/supprimer_news-([0-9]+)\?token=([0-9a-z]+)" module="Admin" action="deleteNews" vars="id,token" />
     <route url="/admin/news-([0-9]+)\.html" module="Admin" action="show" vars="id" />
     <route url="/admin/modifier_news-([0-9]+)\.html" module="Admin" action="updateNews" vars="id" />
-    <!---->
-    
 </routes>

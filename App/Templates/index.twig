@@ -6,25 +6,21 @@
         <div id="main" class="container mb-5">
             <section class="row">
                 <div class="col-lg-8 my-5">
-
                     {% if user.hasFlash %}
-
-                        <div class="alert alert-info alert-dismissible text-center mt-4">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
-                        </div>
-
+                    <div class="alert alert-info alert-dismissible text-center mt-4">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
+                    </div>
                     {% endif %}
-
                     <h1 id="border-bottom" class="mb-4 text-white"><img id="ico_blue" alt="icon" src="/pictures/ico_blue.png"/>News</h1>
-
+                    <!-- Blog Post -->
                     {% for news in listNews %}
 
                     <article class="card mb-4">
 
                     {% if news.hasPicture %}
 
-                        <a href="/news-{{ news.id }}.html"><img class="card-img-top" src="{{ news.getPicture }}" alt="news picture"/></a>
+                    <a href="/news-{{ news.id }}.html"><img class="card-img-top" src="{{ news.getPicture }}" alt="news picture"/></a>
 
                     {% endif %}
 
@@ -44,9 +40,8 @@
                         <a role="button" href="/news" class="btn btn-primary">Toutes les news</a>
                     </div>
                 </div>
-
+                <!-- Sidebar Column -->
                 {% include 'rightSidebar.twig' %}
-                
             </section>
         </div>
     </div>
