@@ -1,0 +1,25 @@
+{
+    "name": "tc-blog/composer",
+    "description": "First blog in PHP",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Thibok",
+            "email": "thcavailles@laposte.net"
+        }
+    ],
+    "require": {
+        "twig/twig": "~2.0",
+        "google/recaptcha": "~1.1",
+        "swiftmailer/swiftmailer": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "Entity\\": "lib/Entity/",
+          "Components\\": "lib/Components/",
+          "Model\\": "lib/Model/",
+          "Controllers\\": "App/Controllers",
+	  "FormBuilder\\": "lib/FormBuilder"
+        }
+      }
+}

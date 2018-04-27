@@ -1,0 +1,237 @@
+/*!
+ * Start Bootstrap - Blog Home (https://startbootstrap.com/template-overviews/blog-home)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-home/blob/master/LICENSE)
+*/
+
+
+/* Global Settings */
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+  
+body 
+{
+  padding-top: 54px;
+  background-color:#5f6770;
+}
+
+html, body
+{
+  height:100%;
+}
+
+#wrap
+{
+  min-height: 100%; 
+}
+
+#main
+{
+  overflow:auto;
+  padding-bottom:72px; /* this needs to be bigger than footer height*/
+}
+
+#vertical_alignement
+{
+  min-height: 85%;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+}
+
+#footer 
+{
+  position: relative;
+  margin-top: -96px; /* negative value of footer height */
+  height: 96px;
+  clear:both;
+  padding-top:20px;
+  color:#fff;
+} 
+
+.img-center {margin:0 auto;}
+
+h1, h2, legend, #admin_menu, th, #author_comment
+{
+  font-family: "bebas-neue-by-fontfabric";
+}
+
+th
+{
+  color: #5DC4F4;
+}
+
+td a:link, div .no_text_decoration
+{
+  text-decoration: none;
+}
+
+h1
+{
+  font-size: 1.8em;
+  text-shadow: 1px 1px 1px black; 
+  width:100%;
+}
+
+#border-bottom
+{
+  border-bottom: 1px solid black;
+}
+
+p
+{
+	font-family: 'Roboto';
+}
+
+legend
+{
+  line-height: 30px;
+}
+
+#admin_link
+{
+  color: #0067D4;
+}
+
+nav
+{
+  background-color:#22262b;
+  color: grey;
+}
+
+#ico_blue
+{
+  padding-bottom:5px;
+  padding-right: 10px;
+}
+
+a h2:hover
+{
+  color: #0055AE;
+}
+
+.card-body a
+{
+  text-decoration: none;
+}
+
+[class*="card "], footer, #content_block
+{
+  background-color: #22262b;
+}
+
+[class*="card-footer"]
+{
+  background-color:#193b5e; 
+  color:#8297ad;
+}
+
+#aside, #contact, #content_block, #sign_block, #admin_block, #admin_menu
+{
+  border-radius:10px;
+  box-shadow: 1px 1px 1px black;
+  background-color:#22262b;
+}
+
+/* Aside */
+#profil_picture
+{
+  border: 1px solid grey;
+  margin-top:30px;
+  width: 200px;
+  height: 200px;
+}
+
+[class*="fa fa"]
+{
+  font-size:35px;
+  text-shadow: 2px 1px 1px black;
+}
+
+#github
+{
+  color:#5A2B76;
+}
+
+#twitter
+{
+  color: #049EEE;
+}
+
+#cv
+{
+  color: #F3523B;
+}
+
+/* Form*/
+
+#contact h2
+{
+  border-bottom: 1px solid grey;
+  font-size: 1.5em;
+}
+
+#comment_form
+{
+  background-color:#b2b2b2;
+}
+
+#comment_form h2
+{
+  font-size: 1.4em;
+  color: #272A2F;
+}
+
+#img_news
+{
+  background-color: grey;
+}
+
+#chapo
+{
+  height: 80px;
+}
+
+#content
+{
+  height:150px;
+}
+
+/* Show News */
+
+#comment_add_at
+{
+  color: grey;   
+}
+
+#date_publish, #author_comment
+{
+  color:#5DC4F4;
+}
+
+#author_comment
+{
+  
+  font-size: 1.5em;
+}
+
+/* Auth page */
+
+#sign_block
+{
+  margin: auto;
+}
+
+/* News List */
+
+.read_more
+{
+  width: 125px;
+}
+
+
+

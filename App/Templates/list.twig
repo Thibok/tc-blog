@@ -1,0 +1,71 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    
+    <div id="wrap">
+        <div id="main" class="container mb-5">
+            <h1 id="border-bottom" class="mb-4 mt-5 text-white"><img id="ico_blue" alt="icon" src="/pictures/ico_blue.png"/>Toutes les news</h1>
+            <section class="row">
+
+            {% for news in listNews %}
+            
+            <div class="col-lg-6 portfolio-item mb-5">
+                <article class="card h-100">
+
+                {% if news.hasPicture %}
+
+                    <a href="/news-{{ news.id }}.html"><img class="card-img-top" alt="news picture" src="{{ news.getPicture }}"/></a>
+
+                {% endif %}
+
+                    <div class="card-body">
+                        <h2 class="card-title text-white"><a href="/news-{{ news.id }}.html">{{ news.getTitle }}</a></h2>
+                        <p class="card-text text-white">{{ news.getChapo }}</p>
+                    </div>
+                    <div class="read_more">
+                        <a href="/news-{{ news.id }}.html" class="btn btn-primary mb-4 ml-3">Lire la suite &rarr;</a>
+                    </div>
+                    <div class="card-footer">
+                        {{ news.addAt != news.updateAt ? 'Modifié' : 'Publié' }} le <span class="font-italic">{{ news.addAt != news.updateAt ? news.updateAt | date("d/m/Y à H\\hi") : news.addAt | date("d/m/Y à H\\hi") }}</span> par <span class="font-weight-bold">{{ news.user }}</span>
+                    </div>
+                </article>
+            </div>
+
+            {% endfor %}
+
+            </section>
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-4">
+
+                {% if pagination.canPrevious %}
+
+                <li class="page-item">
+                    <a class="page-link" href="/news?page={{ pagination.getPreviousPage }}">&larr; Précédent</a>
+                </li>
+
+                {% else %}
+
+                <li class="page-item disabled">
+                    <a class="page-link" href="/news?page={{ pagination.getPreviousPage }}">&larr; Précédent</a>
+                </li>
+                
+                {% endif %}
+
+                {% if pagination.canNext %}
+
+                <li class="page-item">
+                    <a class="page-link" href="/news?page={{ pagination.getNextPage }}">Suivant &rarr;</a>
+                </li>
+
+                {% else %}
+
+                <li class="page-item disabled">
+                    <a class="page-link" href="/news?page={{ pagination.getNextPage }}">Suivant &rarr;</a>
+                </li>
+
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

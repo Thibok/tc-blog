@@ -32,38 +32,71 @@ The bootstrap template <a href="https://startbootstrap.com/template-overviews/bl
 
 <h3>2. Create config</h3>
 
-<p>Create a folder Config in /App with app.xml and routes.xml files.
+<p>Create a file config.xml in /App/Config in this style and complete with informations :
 
-For app.xml write your config in xml.Example :
+<?xml version="1.0" encoding="utf-8" ?>
+<definitions>
 
-  \<definitions><br/>
-    \<define var="total_news" value="5"/><br/>
-   \</definitions>
+    <!-- Database -->
+	<define var="db_host" value="yourHost"/>
+	<define var="db_name" value="yourDbName"/>
+	<define var="db_username" value="yourDbUsername"/>
+	<define var="db_password" value="yourDbPassword"/>
+	<!---->
+	<!-- SMTP Server -->
+	<define var="username_smtp" value="yourSmtpUserName"/>
+	<define var="password_smtp" value="yourSmtpPassword"/>
+	<define var="domain_smtp" value="yourSmtpDomain"/>
+	<define var="port_smtp" value="youSmtpPort"/>
+	<!---->
+	<!-- Others -->
+	<define var="private_captcha_key" value="yourPrivateCaptchaKey"/>
+	<define var="contact_email" value="yourContactEmail"/>
+	<!---->
+	
+</definitions>
+<strong>If you use captcha, change captcha public key in app.xml</strong>
 </p>
 
-<p>For routes.xml write your path with vars or not.Example :
+<h3>3. Create htaccess</h3>
 
-  \<routes><br/>
-    \<route url="/show_news([0-9]+)\.html" module="News" action="show" vars="news_number"/><br/>
-  \</routes>
+<p>Create a file .htaccess in /Web and you can config simple in this style :
+  
+<pre>RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(.*)$ index.php [QSA,L]</pre>
 </p>
 
-<p>Update PDOFactory.php and enter your login database informations or enter this in config file.</p>
+<h3>4. Create database</h3>
 
-<h3>3. Install dependencies</h3>
+<p>For create database, you can use the demo tcBlog.sql file in root folder</p>
 
-<p>Install Twig :
+<h3>5. Create cron and script</h3>
 
-<pre>
-  composer require twig/twig:~2.0
-</pre>
+<p>For protect brute force attack, this project use cron, you can create this with : 
 
-Install SwiftMailer :
-<pre>
-  composer require "swiftmailer/swiftmailer:^6.0"
-</pre>
+<pre>crontab -e</pre>
+
+And you can write your cron in this style for execute a script all 24h : 
+
+<pre>* * */1 * * php /path/to/your/file.php</pre>
+
+For finish create your simply script in this style and complete :
+
+<pre>$bdd = new PDO('mysql:host=yourDbHost;dbname=yourDbName;', 'yourDbUsername', 'yourDbPassword');
+
+$bdd->exec('DELETE FROM connexion');</pre>
 </p>
 
-<h2>Run ! </h2>
+<h3>6. Install dependencies</h3>
+
+<p>Let's install composer dependencies for you with this command :
+  
+  <pre>php composer.phar install</pre>
+</p>
+
+<h2>Run !</h2>
 
 

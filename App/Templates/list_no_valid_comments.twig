@@ -1,0 +1,86 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+
+        <div id="wrap">
+            <div id="main" class="container pt-4">
+                <section class="row">
+                
+                    <nav id="admin_menu"class="col-lg-3 mx-4 my-5">
+                        <div class="list-group my-3">
+                            <a href="/admin" role="button" class="bg-dark list-group-item text-white text-center">Tableau de bord</a>
+                            <a href="/admin/ajouter_une_news" role="button" class="bg-dark list-group-item text-white text-center">Ajouter une news</a>
+                            <a href="/admin/gestion_des_utilisateurs" role="button" class="bg-dark list-group-item text-white text-center">Gestion des utilisateurs</a>
+                            <a href="/admin/commentaires_a_valider" role="button" class="bg-dark list-group-item text-white text-center">Commentaires à valider</a>
+                        </div>
+                    </nav>
+
+                    <div id="admin_block" class="col-lg-8 my-5">
+                    {% if user.hasFlash %}
+
+                    <div class="alert alert-info alert-dismissible text-center mt-4">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
+                    </div>
+
+                    {% endif %}
+
+                        <h1 class="pt-3 pl-1 text-white"><img id="ico_blue" src="/pictures/ico_blue.png" alt="icon"/>Commentaires à valider</h1>
+                        <p class="text-center text-white">Il y a actuellement {{ pagination.getTotal }} commentaires à valider</p>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered table-hover mt-3 bg-dark">
+                                <thead>
+                                    <tr>
+                                        <th>Auteur</th>
+                                        <th class="text-center">Date d'ajout</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-white">
+                                    {% for comment in listComments %}
+                                    <tr>
+                                        <td class="font-weight-bold"><a class="text-white" href="/admin/commentaire_a_valider_{{ comment.getId }}">{{ comment.getUser }}</a></td>
+                                        <td class="text-center font-italic">{{ comment.getAddAt | date("d/m/Y à H\\hi") }}</td>
+                                        <td class="text-center"><a href="/admin/validation_commentaire_{{ comment.getId }}?token={{ user.getToken.getValue }}"><img style="margin-right:1px;" src="/pictures/valid.png" alt="valid icon"/></a><a href="/admin/supprimer_commentaire_{{ comment.getId }}?token={{ user.getToken.getValue }}"><img style="margin-left:1px;" src="/pictures/delete.png" alt="delete icon"/></a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul class="pagination justify-content-center my-4">
+                        
+                        {% if pagination.canPrevious %}
+
+                        <li class="page-item">
+                            <a class="page-link" href="/admin/commentaires_a_valider?page={{ pagination.getPreviousPage }}">&larr; Précédent</a>
+                        </li>
+
+                        {% else %}
+
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/admin/commentaires_a_valider?page={{ pagination.getPreviousPage }}">&larr; Précédent</a>
+                        </li>
+
+                        {% endif %}
+                        
+                        {% if pagination.canNext %}
+
+                        <li class="page-item">
+                            <a class="page-link" href="/admin/commentaires_a_valider?page={{ pagination.getNextPage }}">Suivant &rarr;</a>
+                        </li>
+
+                        {% else %}
+
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/admin/commentaires_a_valider?page={{ pagination.getNextPage }}">Suivant &rarr;</a>
+                        </li>
+
+                        {% endif %}
+
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+{% endblock %}
