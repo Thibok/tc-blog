@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `tcBlog`
 --
-CREATE SCHEMA IF NOT EXISTS `tcBlog` DEFAULT CHARACTER SET utf8 ;
-USE `tcBlog` ;
+CREATE SCHEMA IF NOT EXISTS tcBlog DEFAULT CHARACTER SET utf8 ;
+USE tcBlog ;
 
 -- --------------------------------------------------------
 
@@ -28,20 +28,20 @@ USE `tcBlog` ;
 -- Structure de la table `comment`
 --
 
-CREATE TABLE `comment` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `content` text NOT NULL,
-  `add_at` datetime NOT NULL,
-  `valid` tinyint(1) NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `news_id` int(10) UNSIGNED NOT NULL
+CREATE TABLE comment (
+  id int(10) UNSIGNED NOT NULL,
+  content text NOT NULL,
+  add_at datetime NOT NULL,
+  valid tinyint(1) NOT NULL,
+  user_id int(10) UNSIGNED NOT NULL,
+  news_id int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `comment`
 --
 
-INSERT INTO `comment` (`id`, `content`, `add_at`, `valid`, `user_id`, `news_id`) VALUES
+INSERT INTO comment (id, content, add_at, valid, user_id, news_id) VALUES
 (1, 'Great comment !', '2018-04-26 23:38:02', 1, 1, 12),
 (2, '...', '2018-04-26 23:38:43', 1, 1, 12),
 (3, 'Woaw ! good news !', '2018-04-26 23:39:20', 1, 2, 12);
@@ -52,8 +52,8 @@ INSERT INTO `comment` (`id`, `content`, `add_at`, `valid`, `user_id`, `news_id`)
 -- Structure de la table `connexion`
 --
 
-CREATE TABLE `connexion` (
-  `ip` varchar(40) NOT NULL
+CREATE TABLE connexion (
+  ip varchar(40) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -62,21 +62,21 @@ CREATE TABLE `connexion` (
 -- Structure de la table `news`
 --
 
-CREATE TABLE `news` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(80) NOT NULL,
-  `chapo` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  `add_at` datetime NOT NULL,
-  `update_at` datetime NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL
+CREATE TABLE news (
+  id int(10) UNSIGNED NOT NULL,
+  title varchar(80) NOT NULL,
+  chapo varchar(255) NOT NULL,
+  content text NOT NULL,
+  add_at datetime NOT NULL,
+  update_at datetime NOT NULL,
+  user_id int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `news`
 --
 
-INSERT INTO `news` (`id`, `title`, `chapo`, `content`, `add_at`, `update_at`, `user_id`) VALUES
+INSERT INTO news (id, title, chapo, content, add_at, update_at, user_id) VALUES
 (1, 'Lorem ipsum dolor sit amet', 'Praesent consequat accumsan leo, nec euismod nibh hendrerit sed. Donec a diam dapibus, tincidunt elit nec, bibendum ante. Mauris tincidunt felis vitae felis ultrices vulputate. Nam leo ipsum, cursus at tincidunt at, pretium in ipsum. Mauris molestie.', 'Praesent consequat accumsan leo, nec euismod nibh hendrerit sed. Donec a diam dapibus, tincidunt elit nec, bibendum ante. Mauris tincidunt felis vitae felis ultrices vulputate. Nam leo ipsum, cursus at tincidunt at, pretium in ipsum. Mauris molestie ligula at felis accumsan gravida. Phasellus sit amet ante orci. Suspendisse molestie risus ac ipsum tempor feugiat. Aenean semper pretium sem in commodo. Mauris sodales facilisis semper. Nulla facilisi. Quisque quis orci sit amet lectus vehicula tempor sed ac orci. Sed mauris quam, varius at mollis pellentesque, laoreet sed odio.Praesent consequat accumsan leo, nec euismod nibh hendrerit sed. Donec a diam dapibus, tincidunt elit nec, bibendum ante. Mauris tincidunt felis vitae felis ultrices vulputate. Nam leo ipsum, cursus at tincidunt at, pretium in ipsum. Mauris molestie ligula at felis accumsan gravida. Phasellus sit amet ante orci. Suspendisse molestie risus ac ipsum tempor feugiat. Aenean semper pretium sem in commodo. Mauris sodales facilisis semper. Nulla facilisi. Quisque quis orci sit amet lectus vehicula tempor sed ac orci. Sed mauris quam, varius at mollis pellentesque, laoreet sed odio.', '2018-04-26 23:23:42', '2018-04-26 23:23:42', 1),
 (2, 'Dolor sit amet', 'Nec euismod nibh hendrerit sed. Donec a diam dapibus, tincidunt elit nec, bibendum ante. Mauris tincidunt felis vitae felis ultrices vulputate. Nam leo ipsum, cursus at tincidunt at, pretium in ipsum. Mauris molestie.', 'Praesent consequat accumsan leo, nec euismod nibh hendrerit sed. Donec a diam dapibus, tincidunt elit nec, bibendum ante. Mauris tincidunt felis vitae felis ultrices vulputate. Nam leo ipsum, cursus at tincidunt at, pretium in ipsum. Mauris molestie ligula at felis accumsan gravida. Phasellus sit amet ante orci. Suspendisse molestie risus ac ipsum tempor feugiat. Aenean semper pretium sem in commodo. Mauris sodales facilisis semper. Nulla facilisi. Quisque quis orci sit amet lectus vehicula tempor sed ac orci. Sed mauris quam, varius at mollis pellentesque, laoreet sed odio.Praesent consequat accumsan leo, nec euismod nibh hendrerit sed. Donec a diam dapibus, tincidunt elit nec, bibendum ante. Mauris tincidunt felis vitae felis ultrices vulputate. Nam leo ipsum, cursus at tincidunt at, pretium in ipsum. Mauris molestie ligula at felis accumsan gravida. Phasellus sit amet ante orci. Suspendisse molestie risus ac ipsum tempor feugiat. Aenean semper pretium sem in commodo. Mauris sodales facilisis semper. Nulla facilisi. Quisque quis orci sit amet lectus vehicula tempor sed ac orci. Sed mauris quam, varius at mollis pellentesque, laoreet sed odio.', '2018-04-26 23:24:30', '2018-04-26 23:24:30', 1),
 (3, 'Praesent consequat accumsan leo', 'Nam leo ipsum, cursus at tincidunt at, pretium in ipsum. Mauris molestie ligula at felis accumsan gravida. Phasellus sit amet ante orci. Suspendisse molestie risus ac ipsum tempor feugiat. Aenean semper pretium sem in commodo.', 'Nam leo ipsum, cursus at tincidunt at, pretium in ipsum. Mauris molestie ligula at felis accumsan gravida. Phasellus sit amet ante orci. Suspendisse molestie risus ac ipsum tempor feugiat. Aenean semper pretium sem in commodo. Mauris sodales facilisis semper. Nulla facilisi. Quisque quis orci sit amet lectus vehicula tempor sed ac orci. Sed mauris quam, varius at mollis pellentesque, laoreet sed odio. In mi enim, volutpat ac urna nec, dapibus condimentum turpis. Sed vitae egestas enim.', '2018-04-26 23:25:18', '2018-04-26 23:25:18', 1),
@@ -96,20 +96,20 @@ INSERT INTO `news` (`id`, `title`, `chapo`, `content`, `add_at`, `update_at`, `u
 -- Structure de la table `user`
 --
 
-CREATE TABLE `user` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `pseudo` varchar(30) NOT NULL,
-  `password` varchar(80) NOT NULL,
-  `email` varchar(60) NOT NULL,
-  `register_date` date NOT NULL,
-  `role` enum('Membre','Administrateur') NOT NULL
+CREATE TABLE user (
+  id int(10) UNSIGNED NOT NULL,
+  pseudo varchar(30) NOT NULL,
+  password varchar(80) NOT NULL,
+  email varchar(60) NOT NULL,
+  register_date date NOT NULL,
+  role enum('Membre','Administrateur') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`id`, `pseudo`, `password`, `email`, `register_date`, `role`) VALUES
+INSERT INTO user (id, pseudo, password, email, register_date, role) VALUES
 (1, 'SuperUser', '$2y$10$RJxhX7WoCrOYa.y2HP2LN.qqd6uwqnR0YXuxjO9ifMyj0K8Hm/yMS', 'superuser@email.com', '2018-04-26', 'Administrateur'),
 (2, 'Member', '$2y$10$/k3o.W09iqVxk/7F/qGKauuluhSxdOW7LsEa.4aI2y4WWaI/uoV5K', 'member@email.com', '2018-04-26', 'Membre');
 
@@ -120,25 +120,25 @@ INSERT INTO `user` (`id`, `pseudo`, `password`, `email`, `register_date`, `role`
 --
 -- Index pour la table `comment`
 --
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_comment_user_idx` (`user_id`),
-  ADD KEY `fk_comment_news1_idx` (`news_id`);
+ALTER TABLE comment
+  ADD PRIMARY KEY (id),
+  ADD KEY fk_comment_user_idx (user_id),
+  ADD KEY fk_comment_news1_idx (news_id);
 
 --
 -- Index pour la table `news`
 --
-ALTER TABLE `news`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_news_user1_idx` (`user_id`);
+ALTER TABLE news
+  ADD PRIMARY KEY (id),
+  ADD KEY fk_news_user1_idx (user_id);
 
 --
 -- Index pour la table `user`
 --
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `ind_pseudo` (`pseudo`),
-  ADD UNIQUE KEY `ind_email` (`email`);
+ALTER TABLE user
+  ADD PRIMARY KEY (id),
+  ADD UNIQUE KEY ind_pseudo (pseudo),
+  ADD UNIQUE KEY ind_email (email);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
@@ -147,18 +147,18 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT pour la table `comment`
 --
-ALTER TABLE `comment`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE comment
+  MODIFY id int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `news`
 --
-ALTER TABLE `news`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+ALTER TABLE news
+  MODIFY id int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `user`
 --
-ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE user
+  MODIFY id int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Contraintes pour les tables exportées
 --
@@ -166,15 +166,15 @@ ALTER TABLE `user`
 --
 -- Contraintes pour la table `comment`
 --
-ALTER TABLE `comment`
-  ADD CONSTRAINT `fk_comment_news1` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_comment_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE comment
+  ADD CONSTRAINT fk_comment_news1 FOREIGN KEY (news_id) REFERENCES news (id) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT fk_comment_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `news`
 --
-ALTER TABLE `news`
-  ADD CONSTRAINT `fk_news_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE news
+  ADD CONSTRAINT fk_news_user1 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
