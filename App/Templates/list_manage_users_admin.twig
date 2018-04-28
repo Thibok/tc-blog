@@ -1,59 +1,56 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-        <div id="wrap">
-            <div id="main" class="container pt-4">
-                <section class="row">
-                    <nav class="col-lg-3 mx-4 my-5" id="admin_menu">
-                        <div class="list-group my-3">
-                            <a href="/admin" role="button" class="bg-dark list-group-item text-center text-white">Tableau de bord</a>
-                            <a href="/admin/ajouter_une_news" role="button" class="bg-dark list-group-item text-center text-white">Ajouter une news</a>
-                            <a href="/admin/gestion_des_utilisateurs" role="button" class="bg-dark list-group-item text-center text-white">Gestion des utilisateurs</a>
-                            <a href="/admin/commentaires_a_valider" role="button" class="bg-dark list-group-item text-white text-center">Commentaires à valider</a>
-                        </div>
-                    </nav>
-                    <div class="col-lg-8 col-sm-12 my-5" id="admin_block">
 
-                    {% if user.hasFlash %}
+    <div id="wrap">
+        <div id="main" class="container pt-4">
+            <section class="row">
+                {% include 'admin_menu.twig' %}
+                <div class="col-lg-8 col-sm-12 my-5" id="admin_block">
 
-                    <div class="alert alert-info alert-dismissible text-center mt-4">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
+                {% if user.hasFlash %}
+
+                <div class="alert alert-info alert-dismissible text-center mt-4">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <span><img class="mb-1 mr-1"src="/pictures/infos.png"/>{{ user.getFlash }}</span>
+                </div>
+
+                {% endif %}
+
+                    <h1 class="pt-3 pl-1 text-white"><img id="ico_blue" src="/pictures/ico_blue.png" alt="icon"/>Gestion des utilisateurs</h1>
+                    <p class="text-center text-white">Il y a actuellement {{ pagination.getTotal }} membres</p>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered table-hover mt-3 bg-dark">
+                            <thead>
+                                <tr>
+                                    <th>Pseudo</th>
+                                    <th class="text-center">Rôle</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-white">
+
+                            {% for userInfos in listUsers %}
+
+                                <tr>
+                                    <td class="font-weight-bold">{{ userInfos.getPseudo }}</td>
+                                    <td class="text-center font-weight-bold">{{ userInfos.getRole == 'Administrateur' ? 'Admin' : userInfos.getRole }}</td>
+                                    <td class="text-center">
+                                    <form action="" method="post">
+                                        <input type="hidden" name="id" value="{{ userInfos.getId }}"/>
+                                        <input type="hidden" name="token" value="{{ user.getToken.getValue }}"/>
+                                        {{ form | raw }}
+                                        <button type="submit" class="d-inline-block btn btn-primary">Ok</button>                                       
+                                    </form>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
                     </div>
-
-                    {% endif %}
-
-                        <h1 class="pt-3 pl-1 text-white"><img id="ico_blue" src="/pictures/ico_blue.png" alt="icon"/>Gestion des utilisateurs</h1>
-                        <p class="text-center text-white">Il y a actuellement {{ pagination.getTotal }} membres</p>
-                        <div class="table-responsive">
-                            <table class="table table-sm table-bordered table-hover mt-3 bg-dark">
-                                <thead>
-                                    <tr>
-                                        <th>Pseudo</th>
-                                        <th class="text-center">Rôle</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-white">
-
-                                {% for userInfos in listUsers %}
-                                    <tr>
-                                        <td class="font-weight-bold">{{ userInfos.getPseudo }}</td>
-                                        <td class="text-center font-weight-bold">{{ userInfos.getRole == 'Administrateur' ? 'Admin' : userInfos.getRole }}</td>
-                                        <td class="text-center">
-                                        <form action="" method="post">
-                                            <input type="hidden" name="id" value="{{ userInfos.getId }}"/>
-                                            <input type="hidden" name="token" value="{{ user.getToken.getValue }}"/>
-                                            {{ form | raw }}
-                                            <button type="submit" class="d-inline-block btn btn-primary">Ok</button>                                       
-                                        </form>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <ul class="pagination justify-content-center my-4">
+                    <ul class="pagination justify-content-center my-4">
                         
                         {% if pagination.canPrevious %}
 
@@ -83,8 +80,9 @@
                         {% endif %}
 
                     </ul>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
 {% endblock %}     

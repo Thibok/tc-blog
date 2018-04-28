@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace FormBuilder;
 
 use \Components\FormBuilder;
@@ -10,7 +19,11 @@ use \Components\NoSqlValidator;
 
 class ManageUsersFormBuilder extends FormBuilder
 {
-	public function build()
+    /**
+	 * {@inheritDoc}
+	 * @return void
+	 */
+    public function build()
 	{
        $options = $this->form->getEntity()->getRoleEnum();
         
@@ -23,7 +36,7 @@ class ManageUsersFormBuilder extends FormBuilder
                 new NotNullValidator('Une option doit être sélectionné !'),
                 new NoSqlValidator('Certains mots saisit ne sont pas autorisés !'),
                 new OptionsExistsValidator('Cette option n\'existe pas !', $options),
-                ]
-            ]));
+            ]
+        ]));
 	}
 }

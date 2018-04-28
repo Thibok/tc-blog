@@ -74,8 +74,8 @@ class AdminController extends Controller
                     if (empty($listNews)) {
                         
                         $this->response->render(
-                            '404.twig', ['title' => '404 Not Found',
-                            'user' => $user]
+                            '404.twig',
+                            ['title' => '404 Not Found', 'user' => $user]
                         );
                     }
 
@@ -161,7 +161,10 @@ class AdminController extends Controller
 
                     if (empty($listComments)) {
 
-                        $this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+                        $this->response->render(
+                            '404.twig',
+                            ['title' => '404 Not Found', 'user' => $user]
+                        );
                     }
 
                 } else {
@@ -186,7 +189,8 @@ class AdminController extends Controller
 
             } else {
 
-                $this->response->render('404.twig',
+                $this->response->render(
+                    '404.twig',
                     ['title' => '404 Not Found', 'user' => $user]
                 );
 

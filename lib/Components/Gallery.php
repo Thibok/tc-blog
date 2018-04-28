@@ -127,7 +127,7 @@ class Gallery
                     imagejpeg($destination, $this->dirName.'/'.$pictureName.'.'.$extension);
 
                 } else {
-
+                    
                     unlink($file);
                     $imageSave = 'image'.$extension;
                     $imageSave($destination, $this->dirName.'/'.$pictureName.'.'.$extension);
