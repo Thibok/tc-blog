@@ -1,34 +1,62 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Components;
 
 class OptionsExistsValidator extends Validator
 {
-  private $options;
+	/**
+	 * 
+	 * @var array
+	 * @access private
+	 */
+	private $options;
 
-  public function __construct($errorMessage, array $options)
-  {
-    parent::__construct($errorMessage);
-    $this->setOptions($options);
-  }
+	/**
+	 * {@inheritDoc}
+	 * @param array $options
+	 */
+	public function __construct($errorMessage, array $options)
+	{
+		parent::__construct($errorMessage);
+		$this->setOptions($options);
+	}
 
-  public function isValid($value)
-  {
-    if (in_array($value, $this->options))
-    {
-        return true;
-    }
+	/**
+	 * Verify if $value is in options list
+	 * 
+	 * {@inheritDoc}
+	 * @return bool
+	 */
+	public function isValid($value)
+	{
+		if (in_array($value, $this->options)) {
 
-    else
-    {
-        return false;
-    }
-  }
+			return true;
 
-  public function setOptions(array $options)
-  {
-    if (!empty($options))
-    {
-        $this->options = $options;
-    }
-  }
+		} else {
+
+			return false;
+		}
+	}
+
+	/**
+	 * @access public
+	 * @param array $options
+	 * @return void
+	 */
+	public function setOptions(array $options)
+	{
+		if (!empty($options)) {
+			
+			$this->options = $options;
+		}
+	}
 }

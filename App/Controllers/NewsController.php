@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of the Tc-blog project.
+ *
+ * (c) Thibault Cavailles <tcblog@tc-dev.ovh>
+ *
+ * First blog in PHP
+ */
+
 namespace Controllers;
 
 use \Components\Controller;
@@ -17,35 +26,46 @@ use \Components\Mailer;
 
 class NewsController extends Controller
 {
+	/**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
 	public function executeIndex(Request $request)
 	{
-		if ($request->sessionExists('user'))
-		{
+		
+		if ($request->sessionExists('user')) {
+			
 			$user = $_SESSION['user'];
 			
-			if ($user->getTicket()->isValid())
-			{
-				$user->getTicket()->generate();
-			}
+			// Verify ticket of user
+			if ($user->getTicket()->isValid()) {
 
-			else
-			{
+				// If valid ticket generate new
+				$user->getTicket()->generate();
+
+			} else {
+				
 				$this->response->redirect('/deconnexion');
 			}
-		}
 
-		else
-		{
+		} else {
+			
 			$user = new User;
 		}
 
-		if ($request->method() == 'POST')
-		{
-			$contact = new Contact(['name' => $request->postData('name'), 'firstName' => $request->postData('firstName'), 'email' => $request->postData('email'), 'message' => $request->postData('message'), 'captcha' => $request->postData('g-recaptcha-response')]);
-		}
+		if ($request->method() == 'POST') {
 
-		else
-		{
+			$contact = new Contact([
+				'name' => $request->postData('name'),
+				'firstName' => $request->postData('firstName'),
+				'email' => $request->postData('email'),
+				'message' => $request->postData('message'),
+				'captcha' => $request->postData('g-recaptcha-response')
+			]);
+
+		} else {
+			
 			$contact = new Contact;
 		}
 
@@ -63,50 +83,68 @@ class NewsController extends Controller
 
 		$gallery = new Gallery('pictures/upload', $allowedExtensions);
 
-		foreach ($listNews as $news) 
-		{
+		foreach ($listNews as $news) {
+
 			$news->setPicture($gallery->getPicture('news-'.$news->getId()));
 		}
 
-		if ($request->method() == 'POST' && $contactForm->isValid())
-		{
+		if ($request->method() == 'POST' && $contactForm->isValid()) {
+
 			$mailer = new Mailer;
-			$mailer->createMessage($contact->getFirstName().' '.$contact->getName(), $contact->getEmail(), $contact->getMessage());
+
+			$mailer->createMessage(
+				$contact->getFirstName().' '.$contact->getName(),
+				$contact->getEmail(),
+				$contact->getMessage()
+			);
+
 			$result = $mailer->send();
 
-			if ($result)
-			{
-				$user->setFlash('Votre message a bien été envoyé !');
-			}
+			if ($result) {
 
-			else
-			{
+				$user->setFlash('Votre message a bien été envoyé !');
+
+			} else {
+
 				$user->setFlash('Une erreur c\'est produite, réessayez !');
 			}
 		}
 
-		$this->response->render('index.twig', ['title' => 'Tc-blog', 'listNews' => $listNews, 'user' => $user, 'contactForm' => $contactForm->generate()]);
+		$this->response->render(
+			'index.twig',
+			[
+				'title' => 'Tc-blog',
+				'listNews' => $listNews,
+				'user' => $user,
+				'contactForm' => $contactForm->generate()
+			]
+		);
 	}
 	
+	/**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
 	public function executeList(Request $request)
 	{
-		if ($request->sessionExists('user'))
-		{
+		if ($request->sessionExists('user')) {
+
 			$user = $_SESSION['user'];
 
-			if ($user->getTicket()->isValid())
-			{
-				$user->getTicket()->generate();
-			}
+			// Verify ticket of user
+			if ($user->getTicket()->isValid()) {
 
-			else
-			{
+				// If valid ticket generate new
+				$user->getTicket()->generate();
+
+			} else {
+				
 				$this->response->redirect('/deconnexion');
 			}
-		}
 
-		else
-		{
+		} else {
+			
 			$user = new User;
 		}
 		
@@ -115,25 +153,31 @@ class NewsController extends Controller
 		$totalNews = $manager->count();
 		$pagination = new Pagination($totalNews, $totalNewsPerPage);
 
-		if ($request->getExists('page'))
-		{
+		if ($request->getExists('page')) {
+
 			$pagination->setActualPage($request->getData('page'));
 
-			if ($pagination->getActualPage() == 0)
-			{
-				$this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+			if ($pagination->getActualPage() == 0) {
+				
+				$this->response->render(
+					'404.twig',
+					['title' => '404 Not Found', 'user' => $user]
+				);
 			}
+
 			$startReq = $pagination->makePagination();
 			$listNews = $manager->getList($startReq, $totalNewsPerPage);
 
-			if (empty($listNews))
-			{
-				$this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
-			}
-		}
+			if (empty($listNews)) {
 
-		else
-		{
+				$this->response->render(
+					'404.twig',
+					['title' => '404 Not Found', 'user' => $user]
+				);
+			}
+
+		} else {
+
 			$startReq = $pagination->makePagination();
 			$listNews = $manager->getList($startReq, $totalNewsPerPage);
 		}
@@ -142,33 +186,46 @@ class NewsController extends Controller
 		
 		$gallery = new Gallery('pictures/upload', $allowedExtensions);
 
-		foreach ($listNews as $news) 
-		{
+		foreach ($listNews as $news) {
+
 			$news->setPicture($gallery->getPicture('news-'.$news->getId()));
 		}
 		
-		$this->response->render('list.twig', ['title' => 'Toutes les news', 'listNews' => $listNews, 'pagination' => $pagination, 'user' => $user]);
+		$this->response->render(
+			'list.twig',
+			[
+				'title' => 'Toutes les news',
+				'listNews' => $listNews,
+				'pagination' => $pagination,
+				'user' => $user
+			]
+		);
 	}
 
+	/**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
 	public function executeShow(Request $request)
 	{
-		if ($request->sessionExists('user'))
-		{
+		if ($request->sessionExists('user')) {
+
 			$user = $_SESSION['user'];
 
-			if ($user->getTicket()->isValid())
-			{
-				$user->getTicket()->generate();
-			}
+			// Verify ticket of user
+			if ($user->getTicket()->isValid()) {
 
-			else
-			{
+				// If valid ticket generate new
+				$user->getTicket()->generate();
+
+			} else {
+				
 				$this->response->redirect('/deconnexion');
 			}
-		}
 
-		else
-		{
+		} else {
+			
 			$user = new User;
 		}
 
@@ -177,37 +234,49 @@ class NewsController extends Controller
 
 		$news = $newsManager->getUnique($request->getData('id'));
 
-		if (empty($news->getId()))
-		{
-			$this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+		if (empty($news->getId())) {
+
+			$this->response->render(
+				'404.twig',
+				['title' => '404 Not Found', 'user' => $user]
+			);
 		}
 		
 		$totalCommentPerPage = $this->config->get('total_comments_show_page');
 		$totalComment = $commentManager->count($news->getId(), true);
 		$pagination = new Pagination($totalComment, $totalCommentPerPage);
 
-		if ($request->method() == 'POST' && $request->postExists('content'))
-		{
-			if (!$user->isAuthenticated())
-			{
+		if ($request->method() == 'POST' && $request->postExists('content')) {
+
+			if (!$user->isAuthenticated()) {
+
 				$this->response->redirect('/connexion.html');
 			}
 
-			$comment = new Comment(['content' => $request->postData('content'), 'userId' => $user->getId(), 'newsId' => $news->getId(), 'valid' => false]);
-		}
+			$comment = new Comment([
+				'content' => $request->postData('content'),
+				'userId' => $user->getId(),
+				'newsId' => $news->getId(),
+				'valid' => false
+			]);
 
-		else
-		{
+		} else {
+			
 			$comment = new Comment;
 		}
 
-		if ($request->method() == 'POST' && $request->postExists('message'))
-		{
-			$contact = new Contact(['name' => $request->postData('name'), 'firstName' => $request->postData('firstName'), 'email' => $request->postData('email'), 'message' => $request->postData('message'), 'captcha' => $request->postData('g-recaptcha-response')]);
-		}
+		if ($request->method() == 'POST' && $request->postExists('message')) {
 
-		else
-		{
+			$contact = new Contact([
+				'name' => $request->postData('name'),
+				'firstName' => $request->postData('firstName'),
+				'email' => $request->postData('email'),
+				'message' => $request->postData('message'),
+				'captcha' => $request->postData('g-recaptcha-response')
+			]);
+
+		} else {
+			
 			$contact = new Contact;
 		}
 
@@ -220,54 +289,76 @@ class NewsController extends Controller
 		$commentForm = $commentFormBuilder->getForm();
 		$contactForm = $contactFormBuilder->getForm();
 
-		if ($request->method() == 'POST' && $commentForm->isValid())
-		{
-			if ($user->getToken()->isValid($request->postData('token')))
-			{
+		if ($request->method() == 'POST' && $commentForm->isValid()) {
+
+			if ($user->getToken()->isValid($request->postData('token'))) {
+
 				$commentManager->save($comment);
-				$user->setFlash('Le commentaire à bien était ajouté ! Il doit maintenant être valider !');
+				$user->setFlash('Le commentaire a bien été ajouté ! Il doit maintenant être validé !');
 			}
 		}
 
-		if ($request->method() == 'POST' && $contactForm->isValid())
-		{
+		if ($request->method() == 'POST' && $contactForm->isValid()) {
+
 			$mailer = new Mailer;
-			$mailer->createMessage($contact->getFirstName().' '.$contact->getName(), $contact->getEmail(), $contact->getMessage());
+
+			$mailer->createMessage(
+				$contact->getFirstName().' '.$contact->getName(),
+				$contact->getEmail(),
+				$contact->getMessage()
+			);
+
 			$result = $mailer->send();
 
-			if ($result)
-			{
-				$user->setFlash('Votre message a bien été envoyé !');
-			}
+			if ($result) {
 
-			else
-			{
+				$user->setFlash('Votre message a bien été envoyé !');
+
+			} else {
+				
 				$user->setFlash('Une erreur c\'est produite, réessayez !');
 			}
 		}
 
-		if ($request->getExists('page'))
-		{
+		if ($request->getExists('page')) {
+
 			$pagination->setActualPage($request->getData('page'));
 
-			if ($pagination->getActualPage() == 0)
-			{
-				$this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+			if ($pagination->getActualPage() == 0) {
+
+				$this->response->render(
+					'404.twig',
+					['title' => '404 Not Found', 'user' => $user]
+				);
 			}
 
 			$startReq = $pagination->makePagination();
-			$listComments = $commentManager->getList($startReq, $totalCommentPerPage, true, $news->getId());
 
-			if (empty($listComments))
-			{
-				$this->response->render('404.twig', ['title' => '404 Not Found', 'user' => $user]);
+			$listComments = $commentManager->getList(
+				$startReq,
+				$totalCommentPerPage,
+				true,
+				$news->getId()
+			);
+
+			if (empty($listComments)) {
+
+				$this->response->render(
+					'404.twig',
+					['title' => '404 Not Found', 'user' => $user]
+				);
 			}
-		}
 
-		else
-		{
+		} else {
+
 			$startReq = $pagination->makePagination();
-			$listComments = $commentManager->getList($startReq, $totalCommentPerPage, true, $news->getId());
+
+			$listComments = $commentManager->getList(
+				$startReq,
+				$totalCommentPerPage,
+				true,
+				$news->getId()
+			);
 		}
 
 		$allowedExtensions = explode(',', $this->config->get('allowed_img_extensions'));
@@ -275,6 +366,17 @@ class NewsController extends Controller
 		$gallery = new Gallery('pictures/upload', $allowedExtensions);
 		$news->setPicture($gallery->getPicture('news-'.$news->getId()));
 
-		$this->response->render('show.twig', ['title' => $news->getTitle(), 'news' => $news, 'listComments' => $listComments, 'pagination' => $pagination, 'user' => $user, 'commentForm' => $commentForm->generate(), 'contactForm' => $contactForm->generate()]);
+		$this->response->render(
+			'show.twig',
+			[
+				'title' => $news->getTitle(),
+				'news' => $news,
+				'listComments' => $listComments,
+				'pagination' => $pagination,
+				'user' => $user,
+				'commentForm' => $commentForm->generate(),
+				'contactForm' => $contactForm->generate()
+			]
+		);
 	}
 }
