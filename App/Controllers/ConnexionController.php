@@ -17,6 +17,8 @@ use \Entity\User;
 use \Model\UserManager;
 use \FormBuilder\SignupFormBuilder;
 use \FormBuilder\SigninFormBuilder;
+use \FormBuilder\ForgotPasswordFormBuilder;
+use \Components\Mailer;
 
 class ConnexionController extends Controller
 {   
@@ -167,6 +169,85 @@ class ConnexionController extends Controller
         $this->response->render(
             'signup.twig',
             ['title' => 'Inscription', 'form' => $form->generate()]
+        );
+    }
+
+    /**
+	 * @access public
+	 * @param Request $request
+	 * @return void
+	 */
+    public function executeForgotPassword(Request $request)
+    {
+        if ($request->method() == 'POST') {
+
+            $user = new User([
+                'email' => $request->postData('email'),
+                'captcha' => $request->postData('g-recaptcha-response')
+            ]);
+        
+        } else {
+
+            $user = new User;
+        }
+
+        if ($user->isAuthenticated()) {
+
+            $this->response->redirect('.');
+        }
+
+        $formBuilder = new ForgotPasswordFormBuilder($user);
+        $formBuilder->build();
+
+        $form = $formBuilder->getForm();
+
+        if ($request->method() == 'POST' && $form->isValid()) {
+
+            $manager = new UserManager;
+            $user = $manager->getPseudoByEmail($user);
+
+            $mailer = new Mailer;
+
+            $senderEmail = $mailer->getConfig()->get('contact_email');
+            
+            $resetCode = bin2hex(random_bytes(40));
+            $link = 'http://tc-blog.fr/reinitialiser_mot_de_passe?u_'.$user->getId().'k_'.$resetCode;
+
+			$mailer->createMessage(
+				$user->getPseudo(),
+				$senderEmail,
+                $user->getEmail(),
+				'Tc-blog - Réinitialisation du mot de passe',
+				'<strong>Bonjour '.$user->getPseudo().',</strong><p>Voici le lien pour réinitialiser votre mot de passe : '.$link.'</p>'
+			);
+
+			$result = $mailer->send();
+
+			if ($result) {
+
+                $timeZone = new \DateTimeZone('Europe/Paris');
+                $expirationDate = new \DateTime('now', $timeZone);
+                $expirationDate->add(new \DateInterval('PT10M'));
+
+                $user->setCodeExpirationDate($expirationDate);
+                $user->setResetCode($resetCode);
+                
+                $manager->saveResetCode($user);
+                
+                $user->setFlash('Un code pour réinitialiser votre mot de passe vous a était envoyer par mail, le code est valable 10 minutes !');
+                $this->response->redirect('.');
+                
+                
+
+			} else {
+				
+				$user->setFlash('Une erreur c\'est produite, réessayez !');
+			}
+    }
+
+        $this->response->render(
+            'forgot_pass.twig',
+            ['title' => 'Mot de passe oublié', 'form' => $form->generate(), 'user' => $user]
         );
     }
 }

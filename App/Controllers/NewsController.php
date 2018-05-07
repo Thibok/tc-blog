@@ -92,10 +92,15 @@ class NewsController extends Controller
 
 			$mailer = new Mailer;
 
+			$receveirEmail = $mailer->getConfig()->get('contact_email');
+			$fullName = $contact->getFirstName().' '.$contact->getName();
+
 			$mailer->createMessage(
-				$contact->getFirstName().' '.$contact->getName(),
+				'Tc-blog',
 				$contact->getEmail(),
-				$contact->getMessage()
+				$receveirEmail,
+				'Tc-blog Contact',
+				'<em>Envoyé par :</em><strong> '.$fullName.'</strong><p>'.$contact->getMessage().'</p>'
 			);
 
 			$result = $mailer->send();
@@ -302,10 +307,15 @@ class NewsController extends Controller
 
 			$mailer = new Mailer;
 
+			$receveirEmail = $mailer->getConfig()->get('contact_email');
+			$fullName = $contact->getFirstName().' '.$contact->getName();
+
 			$mailer->createMessage(
-				$contact->getFirstName().' '.$contact->getName(),
+				'Tc-blog',
 				$contact->getEmail(),
-				$contact->getMessage()
+				$receveirEmail,
+				'Tc-blog Contact',
+				'<em>Envoyé par :</em><strong> '.$fullName.'</strong><p>'.$contact->getMessage().'</p>'
 			);
 
 			$result = $mailer->send();

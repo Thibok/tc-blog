@@ -26,9 +26,7 @@ class Response
     public function __construct()
     {
         $loader = new \Twig_Loader_Filesystem(__DIR__.'/../../App/Templates');
-	   	$this->twig = new \Twig_Environment($loader, [
-            'cache' => __DIR__.'/../../tmp'
-        ]);
+	   	$this->twig = new \Twig_Environment($loader);
     }
 
     /**

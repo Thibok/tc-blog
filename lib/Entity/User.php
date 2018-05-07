@@ -38,6 +38,20 @@ class User extends Entity
 	 * @access private
 	 */
 	private $password;
+
+	/**
+	 * 
+	 * @var string
+	 * @access private
+	 */
+	private $resetCode;
+	
+	/**
+	 * 
+	 * @var DateTime
+	 * @access private
+	 */
+    private $codeExpirationDate;
 	
 	/**
 	 * 
@@ -66,6 +80,13 @@ class User extends Entity
 	 * @access private
 	 */
 	private $ticket;
+
+	/**
+	 * 
+	 * @var string
+	 * @access private
+	 */
+    private $captcha;
 
 	/**
 	 * {@inheritDoc}
@@ -161,6 +182,33 @@ class User extends Entity
 	 * @access public
 	 * @return string
 	 */
+	public function getCaptcha()
+	{
+		return $this->captcha;
+	}
+
+	/**
+	 * @access public
+	 * @return string
+	 */
+	public function getResetCode()
+	{
+		return $this->resetCode;
+	}
+
+	/**
+	 * @access public
+	 * @return DateTime
+	 */
+	public function getCodeExpirationDate()
+	{
+		return $this->codeExpirationDate;
+	}
+
+	/**
+	 * @access public
+	 * @return string
+	 */
 	public function getTicket()
 	{
 		return $this->ticket;
@@ -209,7 +257,43 @@ class User extends Entity
 	public function getRole()
 	{
 		return $this->role;
-	}	
+	}
+	
+	/**
+	 * @access public
+	 * @param string $captcha
+	 * @return void
+	 */
+    public function setCaptcha($captcha)
+    {
+        if (!empty($captcha)) {
+
+            $this->captcha = $captcha;
+        }
+    }
+
+	/**
+	 * @access public
+	 * @param string $resetCode
+	 * @return void
+	 */
+	public function setResetCode($resetCode)
+	{
+		if (is_string($resetCode) && !empty($resetCode))
+		{
+			$this->resetCode = htmlspecialchars($resetCode);
+		}
+	}
+
+	/**
+	 * @access public
+	 * @param DateTime $codeExpirationDate
+	 * @return void
+	 */
+	public function setCodeExpirationDate(\DateTime $codeExpirationDate)
+	{
+		$this->codeExpirationDate = $codeExpirationDate;
+	}
 
 	/**
 	 * @access public

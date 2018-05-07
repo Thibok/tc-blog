@@ -37,6 +37,26 @@ class UserManager extends Manager
 
     /**
 	 * @access public
+	 * @param User $user
+	 * @return User
+	 */
+    public function getPseudoByEmail(User $user)
+    {
+        $request = $this->db->prepare('SELECT id, pseudo FROM user WHERE email = :email');
+        $request->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
+        $request->execute();
+
+        $data = $request->fetch(\PDO::FETCH_ASSOC);
+
+        $user->hydrate($data);
+
+        $request->closeCursor();
+
+        return $user;
+    }
+
+    /**
+	 * @access public
 	 * @param string $email
 	 * @return string
 	 */
@@ -222,5 +242,23 @@ class UserManager extends Manager
 		$request->closeCursor();
 
 		return $listUsers;
-	}
+    }
+    
+    /**
+	 * @access public
+	 * @param User $user
+	 * @return void
+	 */
+    public function saveResetCode(User $user)
+    {
+        $request = $this->db->prepare(
+            'UPDATE user SET reset_code = :resetCode, code_expiration_date = :codeExpirationDate WHERE id = :id'
+        );
+        $request->bindValue(':resetCode', $user->getResetCode(), \PDO::PARAM_STR);
+        $request->bindValue(':codeExpirationDate', $user->getCodeExpirationDate()->format('Y-m-d H:i:s'));
+        $request->bindValue(':id', (int) $user->getId(), \PDO::PARAM_INT);
+        $request->execute();
+
+        $request->closeCursor();
+    }
 }
