@@ -17,12 +17,58 @@ class UserManager extends Manager
 {
     /**
 	 * @access public
+	 * @param int $userId
+	 * @return User
+	 */
+    public function getInfosForResetPassword($userId)
+    {
+        $request = $this->db->prepare(
+            'SELECT id, reset_code, code_expiration_date FROM user WHERE id = :id'
+        );
+        $request->bindValue(':id', (int) $userId, \PDO::PARAM_INT);
+        $request->execute();
+
+        $data = $request->fetch(\PDO::FETCH_ASSOC);
+
+        $user = new User([
+            'id' => $data['id'],
+            'resetCode' => $data['reset_code'],
+            'codeExpirationDate' => new \DateTime($data['code_expiration_date']),
+        ]);
+
+        $request->closeCursor();
+
+        return $user;
+    }   
+    
+    /**
+	 * @access public
 	 * @param User $user
 	 * @return User
 	 */
     public function getInfosByEmail(User $user)
     {
         $request = $this->db->prepare('SELECT id, role FROM user WHERE email = :email');
+        $request->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
+        $request->execute();
+
+        $data = $request->fetch(\PDO::FETCH_ASSOC);
+
+        $user->hydrate($data);
+
+        $request->closeCursor();
+
+        return $user;
+    }
+
+    /**
+	 * @access public
+	 * @param User $user
+	 * @return User
+	 */
+    public function getPseudoByEmail(User $user)
+    {
+        $request = $this->db->prepare('SELECT id, pseudo FROM user WHERE email = :email');
         $request->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
         $request->execute();
 
@@ -222,5 +268,40 @@ class UserManager extends Manager
 		$request->closeCursor();
 
 		return $listUsers;
-	}
+    }
+    
+    /**
+	 * @access public
+	 * @param User $user
+	 * @return void
+	 */
+    public function saveResetCode(User $user)
+    {
+        $request = $this->db->prepare(
+            'UPDATE user SET reset_code = :resetCode, code_expiration_date = :codeExpirationDate WHERE id = :id'
+        );
+        $request->bindValue(':resetCode', $user->getResetCode(), \PDO::PARAM_STR);
+        $request->bindValue(':codeExpirationDate', $user->getCodeExpirationDate()->format('Y-m-d H:i:s'));
+        $request->bindValue(':id', (int) $user->getId(), \PDO::PARAM_INT);
+        $request->execute();
+
+        $request->closeCursor();
+    }
+
+    /**
+	 * @access public
+	 * @param User $user
+	 * @return void
+	 */
+    public function updatePassword(User $user)
+    {
+        $request = $this->db->prepare(
+            'UPDATE user SET password = :password, reset_code = null, code_expiration_date = null WHERE id = :id'
+        );
+        $request->bindValue(':password', $user->getPassword(), \PDO::PARAM_STR);
+        $request->bindValue(':id', (int) $user->getId(), \PDO::PARAM_INT);
+        $request->execute();
+
+        $request->closeCursor();
+    }
 }

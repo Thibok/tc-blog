@@ -2,31 +2,33 @@
 <routes>
 
     <!-- News -->
-    <route url="/" module="News" action="index" />
-    <route url="/news" module="News" action="list" />
-    <route url="/news\?page=([0-9]+)" module="News" action="list" vars="page"/>
-    <route url="/news-([0-9]+)\.html" module="News" action="show" vars="id"/>
-    <route url="/news-([0-9]+)\.html\?page=([0-9]+)" module="News" action="show" vars="id,page"/>
+    <route url="/" module="\Controllers\NewsController" action="executeIndex" />
+    <route url="/news" module="\Controllers\NewsController" action="executeList" />
+    <route url="/news\?page=([0-9]+)" module="\Controllers\NewsController" action="executeList" vars="page"/>
+    <route url="/news-([0-9]+)\.html" module="\Controllers\NewsController" action="executeShow" vars="id"/>
+    <route url="/news-([0-9]+)\.html\?page=([0-9]+)" module="\Controllers\NewsController" action="executeShow" vars="id,page"/>
     <!---->
     <!-- Connexion -->
-    <route url="/inscription.html" module="Connexion" action="signup" />
-    <route url="/connexion.html" module="Connexion" action="signin" />
-    <route url="/deconnexion" module="Connexion" action="disconect" />
+    <route url="/inscription.html" module="\Controllers\ConnexionController" action="executeSignup" />
+    <route url="/connexion.html" module="\Controllers\ConnexionController" action="executeSignin" />
+    <route url="/deconnexion" module="\Controllers\ConnexionController" action="executeDisconect" />
+    <route url="/mot_de_passe_oublie.html" module="\Controllers\ConnexionController" action="executeForgotPassword" />
+    <route url="/reinitialiser_mot_de_passe\?u_([0-9a-z]+)k_([0-9a-z]+)" module="\Controllers\ConnexionController" action="executeResetPassword" vars="id,resetCode" />
     <!---->
     <!-- Admin -->
-    <route url="/admin" module="Admin" action="admin" />
-    <route url="/admin\?page=([0-9]+)" module="Admin" action="admin" vars="page" />
-    <route url="/admin/commentaires_a_valider" module="Admin" action="listNoValidComments" />
-    <route url="/admin/commentaires_a_valider\?page=([0-9]+)" module="Admin" action="listNoValidComments" vars="page" />
-    <route url="/admin/commentaire_a_valider_([0-9]+)" module="Admin" action="showNoValidComment" vars="id" />
-    <route url="/admin/supprimer_commentaire_([0-9]+)\?token=([0-9a-z]+)" module="Admin" action="deleteNoValidComment" vars="id,token" />
-    <route url="/admin/validation_commentaire_([0-9]+)\?token=([0-9a-z]+)" module="Admin" action="validComment" vars="id,token" />
-    <route url="/admin/gestion_des_utilisateurs" module="Admin" action="listUsers" />
-    <route url="/admin/gestion_des_utilisateurs\?page=([0-9]+)" module="Admin" action="listUsers" vars="page" />
-    <route url="/admin/ajouter_une_news" module="Admin" action="addNews" />
-    <route url="/admin/supprimer_news-([0-9]+)\?token=([0-9a-z]+)" module="Admin" action="deleteNews" vars="id,token" />
-    <route url="/admin/news-([0-9]+)\.html" module="Admin" action="show" vars="id" />
-    <route url="/admin/modifier_news-([0-9]+)\.html" module="Admin" action="updateNews" vars="id" />
+    <route url="/admin" module="\Controllers\AdminController" action="executeAdmin" />
+    <route url="/admin\?page=([0-9]+)" module="\Controllers\AdminController" action="executeAdmin" vars="page" />
+    <route url="/admin/commentaires_a_valider" module="\Controllers\AdminController" action="executeListNoValidComments" />
+    <route url="/admin/commentaires_a_valider\?page=([0-9]+)" module="\Controllers\AdminController" action="executeListNoValidComments" vars="page" />
+    <route url="/admin/commentaire_a_valider_([0-9]+)" module="\Controllers\AdminController" action="executeShowNoValidComment" vars="id" />
+    <route url="/admin/supprimer_commentaire_([0-9]+)\?token=([0-9a-z]+)" module="\Controllers\AdminController" action="executeDeleteNoValidComment" vars="id,token" />
+    <route url="/admin/validation_commentaire_([0-9]+)\?token=([0-9a-z]+)" module="\Controllers\AdminController" action="executeValidComment" vars="id,token" />
+    <route url="/admin/gestion_des_utilisateurs" module="\Controllers\AdminController" action="executelistUsers" />
+    <route url="/admin/gestion_des_utilisateurs\?page=([0-9]+)" module="\Controllers\AdminController" action="executeListUsers" vars="page" />
+    <route url="/admin/ajouter_une_news" module="\Controllers\AdminController" action="executeAddNews" />
+    <route url="/admin/supprimer_news-([0-9]+)\?token=([0-9a-z]+)" module="\Controllers\AdminController" action="executeDeleteNews" vars="id,token" />
+    <route url="/admin/news-([0-9]+)\.html" module="\Controllers\AdminController" action="executeShow" vars="id" />
+    <route url="/admin/modifier_news-([0-9]+)\.html" module="\Controllers\AdminController" action="executeUpdateNews" vars="id" />
     <!---->
     
 </routes>
