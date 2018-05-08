@@ -29,9 +29,8 @@ try {
 
 	// Get route match with request url and set values of varsNames
 	$matchedRoute = $router->getRoute($request->getUrl());
-}
 	
-catch (\RuntimeException $e) {
+} catch (\RuntimeException $e) {
 
 	// If no route has matched
 	if ($e->getCode() == Router::NO_ROUTE) {

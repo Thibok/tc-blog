@@ -1,0 +1,25 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+
+    <div id="wrap">   
+        <div id="vertical_alignement">
+            <section id="main" class="container">
+                <div class="row">
+                    <div id="sign_block" class="col-lg-5 p-4">
+                        <form class="form-horizontal" method="post" action="">
+                            <fieldset>
+                                <h2 class="text-white"><img id="ico_blue" src="/pictures/ico_blue.png" alt="icon"/>Réinitialisation du mot de passe</h2>
+                                {{ form | raw }}
+                                <div class="form-group d-inline-flex align-items-end pl-3">
+                                    <button name="reset" type="submit" class="btn btn-primary">Envoyer</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+        
+{% endblock %}

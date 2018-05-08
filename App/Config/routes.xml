@@ -13,6 +13,7 @@
     <route url="/connexion.html" module="\Controllers\ConnexionController" action="executeSignin" />
     <route url="/deconnexion" module="\Controllers\ConnexionController" action="executeDisconect" />
     <route url="/mot_de_passe_oublie.html" module="\Controllers\ConnexionController" action="executeForgotPassword" />
+    <route url="/reinitialiser_mot_de_passe\?u_([0-9a-z]+)k_([0-9a-z]+)" module="\Controllers\ConnexionController" action="executeResetPassword" vars="id,resetCode" />
     <!---->
     <!-- Admin -->
     <route url="/admin" module="\Controllers\AdminController" action="executeAdmin" />
