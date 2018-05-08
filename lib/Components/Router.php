@@ -85,4 +85,40 @@ class Router
 			'Aucune route ne correspond à l\'URL', self::NO_ROUTE
 		);
 	}
+
+	/**
+	 * Add routes list in Router
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function loadRoutes()
+	{
+		// Load xml routes file with DOMDocument
+		$xml = new \DOMDocument;
+		$xml->load(__DIR__.'/../../App/Config/routes.xml');
+	
+		// Get routes in routes.xml
+		$routes = $xml->getElementsByTagName('route');
+			
+		foreach ($routes as $route) {
+
+			$vars = [];
+			
+			// If route has vars, example : id
+			if ($route->hasAttribute('vars')) {
+
+				// Get vars names in array
+				$vars = explode(',', $route->getAttribute('vars'));
+			}
+			
+			// Add route in routes array of Router
+			$this->addRoute(new Route(
+				$route->getAttribute('url'),
+				$route->getAttribute('module'),
+				$route->getAttribute('action'),
+				$vars
+			));
+		}
+	}
 }

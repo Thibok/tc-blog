@@ -11,10 +11,10 @@
 namespace Components;
 
 
-    /**
-     * 
-     * @internal
-     */
+/**
+* 
+* @internal
+*/
 trait UserRoleEnum
 {
     /**

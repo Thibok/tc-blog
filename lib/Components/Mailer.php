@@ -59,27 +59,23 @@ class Mailer
      * Create the mail
      * 
 	 * @access public
-     * @param string $fullName
+     * @param string $receiver
      * @param string $userEmail
      * @param string $message
 	 * @return void
 	 */
-    public function createMessage($fullName, $userEmail, $message)
-    {
-        $contactEmail = $this->config->get('contact_email');
-        
-        $this->message = (new \Swift_Message('Tc-blog Contact'))
-            ->setFrom([$userEmail => $userEmail])
-            ->setTo([$contactEmail => 'Tc-blog'])
-            ->setBody(
-                nl2br('<em>Envoyé par :</em><strong> '.$fullName.'</strong><p>'.$message.'</p>'),
-                'text/html'
-            )
+    public function createMessage($receiver, $senderEmail, $receiverEmail, $subject, $message)
+    {    
+        $this->message = (new \Swift_Message($subject))
+            ->setFrom([$senderEmail => $senderEmail])
+            ->setTo([$receiverEmail => $receiver])
+            ->setBody(nl2br($message), 'text/html')
         ;
     }
 
     /**
      * Send message and return success/fail
+     * 
 	 * @access public
 	 * @return int
 	 */
@@ -88,5 +84,15 @@ class Mailer
         $result = $this->swiftMailer->send($this->message);
         
         return $result;
+    }
+
+    /**
+     * 
+	 * @access public
+	 * @return Config
+	 */
+    public function getConfig()
+    {
+        return $this->config;
     }
 }

@@ -23,40 +23,14 @@ if ($request->sessionExists('user')) {
 	$user = new User;
 }
 	
-// Load xml routes file with DOMDocument
-$xml = new \DOMDocument;
-$xml->load(__DIR__.'/../App/Config/routes.xml');
-	
-// Get routes in routes.xml
-$routes = $xml->getElementsByTagName('route');
-	
-foreach ($routes as $route) {
-
-	$vars = [];
-	
-	// If route has vars, example : id
-	if ($route->hasAttribute('vars')) {
-
-		// Get vars names in array
-		$vars = explode(',', $route->getAttribute('vars'));
-	}
-	
-	// Add route in routes array of Router
-	$router->addRoute(new Route(
-		$route->getAttribute('url'),
-		$route->getAttribute('module'),
-		$route->getAttribute('action'),
-		$vars
-	));
-}
+$router->loadRoutes();
 
 try {
 
 	// Get route match with request url and set values of varsNames
 	$matchedRoute = $router->getRoute($request->getUrl());
-}
 	
-catch (\RuntimeException $e) {
+} catch (\RuntimeException $e) {
 
 	// If no route has matched
 	if ($e->getCode() == Router::NO_ROUTE) {
@@ -66,16 +40,15 @@ catch (\RuntimeException $e) {
 	}
 }
 
-
 // Add vars in $_GET array
 $_GET = array_merge($_GET, $matchedRoute->vars());
 		
 // Instantiate the good controller
-$controller = '\Controllers\\'.$matchedRoute->module().'Controller';
+$controller = $matchedRoute->module();
 $controller = new $controller;  
 		
 // Get method has execute in controller
-$method = 'execute'.ucfirst($matchedRoute->action());
+$method = $matchedRoute->action();
 		
 if (!is_callable([$controller, $method])) {
 
