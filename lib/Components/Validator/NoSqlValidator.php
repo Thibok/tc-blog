@@ -8,7 +8,9 @@
  * First blog in PHP
  */
 
-namespace Components;
+namespace Validator;
+
+use \Components\Validator;
 
 class NoSqlValidator extends Validator
 {

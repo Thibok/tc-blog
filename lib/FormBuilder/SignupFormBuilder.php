@@ -11,13 +11,13 @@
 namespace FormBuilder;
 
 use \Components\FormBuilder;
-use \Components\MaxLengthValidator;
-use \Components\MinLengthValidator;
-use \Components\PseudoValidator;
-use \Components\UserNoExistsValidator;
+use \Validator\MaxLengthValidator;
+use \Validator\MinLengthValidator;
+use \Validator\PseudoValidator;
+use \Validator\UserNoExistsValidator;
 use \Components\StringField;
-use \Components\StructureValidator;
-use \Components\NoSqlValidator;
+use \Validator\StructureValidator;
+use \Validator\NoSqlValidator;
 
 class SignupFormBuilder extends FormBuilder
 {

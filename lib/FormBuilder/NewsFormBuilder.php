@@ -11,18 +11,18 @@
 namespace FormBuilder;
 
 use \Components\FormBuilder;
-use \Components\MaxLengthValidator;
-use \Components\NotNullValidator;
+use \Validator\MaxLengthValidator;
+use \Validator\NotNullValidator;
 use \Components\TextField;
 use \Components\StringField;
 use \Components\SelectField;
 use \Model\UserManager;
-use \Components\FileSendValidator;
-use \Components\FileSizeValidator;
-use \Components\FileExtensionValidator;
-use \Components\OptionsExistsValidator;
+use \Validator\FileSendValidator;
+use \Validator\FileSizeValidator;
+use \Validator\FileExtensionValidator;
+use \Validator\OptionsExistsValidator;
 use \Components\UploadField;
-use \Components\NoSqlValidator;
+use \Validator\NoSqlValidator;
 
 class NewsFormBuilder extends FormBuilder
 {

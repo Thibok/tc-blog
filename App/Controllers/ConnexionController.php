@@ -210,6 +210,8 @@ class ConnexionController extends Controller
             $mailer = new Mailer;
 
             $senderEmail = $mailer->getConfig()->get('contact_email');
+
+            $user->setEmail(str_replace(array("\n", "\r", PHP_EOL), '', $user->getEmail()));
             
             $resetCode = bin2hex(random_bytes(40));
             $link = 'http://tc-blog.fr/reinitialiser_mot_de_passe?u_'.$user->getId().'k_'.$resetCode;

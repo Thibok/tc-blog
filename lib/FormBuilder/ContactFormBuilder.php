@@ -14,10 +14,10 @@ use \Components\FormBuilder;
 use \Components\TextField;
 use \Components\StringField;
 use \Components\CaptchaField;
-use \Components\StructureValidator;
-use \Components\MaxLengthValidator;
-use \Components\NotNullValidator;
-use \Components\CaptchaValidator;
+use \Validator\StructureValidator;
+use \Validator\MaxLengthValidator;
+use \Validator\NotNullValidator;
+use \Validator\CaptchaValidator;
 
 class ContactFormBuilder extends FormBuilder
 {

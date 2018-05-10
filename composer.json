@@ -17,9 +17,10 @@
         "psr-4": {
           "Entity\\": "lib/Entity/",
           "Components\\": "lib/Components/",
+          "Validator\\": "lib/Components/Validator",
           "Model\\": "lib/Model/",
           "Controllers\\": "App/Controllers",
-	  "FormBuilder\\": "lib/FormBuilder"
+	      "FormBuilder\\": "lib/FormBuilder"
         }
       }
 }

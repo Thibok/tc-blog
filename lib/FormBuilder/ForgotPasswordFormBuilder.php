@@ -13,12 +13,12 @@ namespace FormBuilder;
 use \Components\FormBuilder;
 use \Components\StringField;
 use \Components\CaptchaField;
-use \Components\StructureValidator;
-use \Components\NoSqlValidator;
-use \Components\MaxLengthValidator;
-use \Components\MinLengthValidator;
-use \Components\UserExistsValidator;
-use \Components\CaptchaValidator;
+use \Validator\StructureValidator;
+use \Validator\NoSqlValidator;
+use \Validator\MaxLengthValidator;
+use \Validator\MinLengthValidator;
+use \Validator\UserExistsValidator;
+use \Validator\CaptchaValidator;
 
 class ForgotPasswordFormBuilder extends FormBuilder
 {
@@ -50,11 +50,11 @@ class ForgotPasswordFormBuilder extends FormBuilder
                     $emailMaxCharacter
                 ),
                 new NoSqlValidator('Certains mots saisit ne sont pas autorisés !'),
-                new UserExistsValidator('L\'email saisis n\'existe pas', 'email'),
                 new StructureValidator(
                     'Votre adresse email doit être valide',
                     '#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#'
-                )
+                ),
+                new UserExistsValidator('L\'email saisis n\'existe pas', 'email')
             ]
         ]));
 

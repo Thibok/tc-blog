@@ -11,10 +11,10 @@
 namespace FormBuilder;
 
 use \Components\FormBuilder;
-use \Components\MaxLengthValidator;
-use \Components\NotNullValidator;
+use \Validator\MaxLengthValidator;
+use \Validator\NotNullValidator;
 use \Components\TextField;
-use \Components\NoSqlValidator;
+use \Validator\NoSqlValidator;
 
 class CommentFormBuilder extends FormBuilder
 {

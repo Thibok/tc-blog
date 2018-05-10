@@ -11,11 +11,11 @@
 namespace FormBuilder;
 
 use \Components\FormBuilder;
-use \Components\OptionsExistsValidator;
-use \Components\NotNullValidator;
+use \Validator\OptionsExistsValidator;
+use \Validator\NotNullValidator;
 use \Components\SelectField;
 use \Model\UserManager;
-use \Components\NoSqlValidator;
+use \Validator\NoSqlValidator;
 
 class ManageUsersFormBuilder extends FormBuilder
 {

@@ -8,7 +8,10 @@
  * First blog in PHP
  */
 
-namespace Components;
+namespace Validator;
+
+use \Components\Config;
+use \Components\Validator;
 
 class CaptchaValidator extends Validator
 {
@@ -25,7 +28,7 @@ class CaptchaValidator extends Validator
     public function __construct($errorMessage)
     {
         parent::__construct($errorMessage);
-        $config = new Config(__DIR__.'/../../App/Config/config.xml');
+        $config = new Config(__DIR__.'/../../../App/Config/config.xml');
         $this->privateKey = $config->get('private_captcha_key');
     }
 

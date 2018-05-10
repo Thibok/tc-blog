@@ -11,13 +11,13 @@
 namespace FormBuilder;
 
 use \Components\FormBuilder;
-use \Components\MaxLengthValidator;
-use \Components\MinLengthValidator;
-use \Components\UserExistsValidator;
+use \Validator\MaxLengthValidator;
+use \Validator\MinLengthValidator;
+use \Validator\UserExistsValidator;
 use \Components\StringField;
-use \Components\StructureValidator;
-use \Components\CanConnectValidator;
-use \Components\NoSqlValidator;
+use \Validator\StructureValidator;
+use \Validator\CanConnectValidator;
+use \Validator\NoSqlValidator;
 
 class SigninFormBuilder extends FormBuilder
 {

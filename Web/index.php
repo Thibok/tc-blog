@@ -22,7 +22,8 @@ if ($request->sessionExists('user')) {
 
 	$user = new User;
 }
-	
+
+// Load routes list of Router	
 $router->loadRoutes();
 
 try {

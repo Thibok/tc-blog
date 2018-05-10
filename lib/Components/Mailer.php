@@ -34,7 +34,7 @@ class Mailer
     private $config;
     
     /**
-     * Create Smpt Transport
+     * Create Smtp Transport
      * 
 	 * @access public
 	 */

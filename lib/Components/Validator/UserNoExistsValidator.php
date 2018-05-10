@@ -8,8 +8,9 @@
  * First blog in PHP
  */
 
-namespace Components;
+namespace Validator;
 
+use \Components\Validator;
 use \Model\UserManager;
 
 class UserNoExistsValidator extends Validator

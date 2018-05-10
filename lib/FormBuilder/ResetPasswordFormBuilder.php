@@ -12,10 +12,10 @@ namespace FormBuilder;
 
 use \Components\FormBuilder;
 use \Components\StringField;
-use \Components\StructureValidator;
-use \Components\NoSqlValidator;
-use \Components\MaxLengthValidator;
-use \Components\MinLengthValidator;
+use \Validator\StructureValidator;
+use \Validator\NoSqlValidator;
+use \Validator\MaxLengthValidator;
+use \Validator\MinLengthValidator;
 
 class ResetPasswordFormBuilder extends FormBuilder
 {
